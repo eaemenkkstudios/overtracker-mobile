@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="etEmail" type="id" />
+    <item name="tvAppName" type="id" />
+    <item name="guideline" type="id" />
+    <item name="etPassword" type="id" />
+    <item name="btSignIn" type="id" />
+    <item name="btSignUp" type="id" />
+</resources>
