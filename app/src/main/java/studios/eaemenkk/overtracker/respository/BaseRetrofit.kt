@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 open class BaseRetrofit(context: Context, baseUrl: String) {
-    private val retrofit: Retrofit
+    val retrofit: Retrofit
     private val gson: Gson
 
     init {
