@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.domain.Player
 import studios.eaemenkk.overtracker.interactor.PlayerInteractor
 
-class PlayerViewModel(val app: Application) : AndroidViewModel(app) {
+class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = PlayerInteractor(app.applicationContext)
 
     val playerDetails = MutableLiveData<Player>()

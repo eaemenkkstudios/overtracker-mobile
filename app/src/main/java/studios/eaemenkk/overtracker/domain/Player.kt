@@ -8,3 +8,27 @@ class Player {
     val scores: Array<Score>? = null
     val now: Array<Score>? = null
 }
+
+class Score {
+    val date: String? = null
+    val endorsement: String? = null
+    val games: Game? = null
+    val main: String? = null
+    val rank: Rank? = null
+}
+
+class Game {
+    val played: Int? = null
+    val won: Int? = null
+}
+
+class Rank {
+    val damage: Ranking? = null
+    val support: Ranking? = null
+    val tank: Ranking? = null
+}
+
+class Ranking {
+    val sr: Int? = null
+    val img: String? = null
+}

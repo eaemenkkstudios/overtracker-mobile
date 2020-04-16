@@ -6,7 +6,7 @@ import studios.eaemenkk.overtracker.domain.Player
 import studios.eaemenkk.overtracker.respository.PlayerRepository
 import java.lang.Exception
 
-class PlayerInteractor(private val context: Context) {
+class PlayerInteractor(context: Context) {
     private val playerRepository = PlayerRepository(context, context.getString(R.string.api_base_url))
 
     fun playerInfo(authToken: String, tagId: String, callback: (player: Player) -> Unit) {
