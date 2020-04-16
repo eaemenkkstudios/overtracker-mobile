@@ -56,12 +56,12 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
                 if(players != null) {
                     callback(players)
                 } else {
-                    callback(arrayOf(Player()))
+                    callback(arrayOf())
                 }
             }
 
             override fun onFailure(call: Call<Array<Player>>, t: Throwable) {
-                callback(arrayOf(Player()))
+                callback(arrayOf())
             }
         })
     }

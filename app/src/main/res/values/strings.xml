@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">overtracker</string>
+    <string name="app_name">Overtracker</string>
+    <string name="api_base_url">https://overtracker-api.herokuapp.com</string>
 </resources>
