@@ -5,6 +5,7 @@ class Player {
     val lastUpdate: String? = null
     val platform: String? = null
     val tag: String? = null
+    val current: Score? = null
     val scores: Array<Score>? = null
     val now: Array<Score>? = null
 }

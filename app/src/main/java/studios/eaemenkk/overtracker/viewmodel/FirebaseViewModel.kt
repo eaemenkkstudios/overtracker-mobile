@@ -3,21 +3,21 @@ package studios.eaemenkk.overtracker.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import studios.eaemenkk.overtracker.domain.FirebaseResult
 import studios.eaemenkk.overtracker.interactor.FirebaseInteractor
 
 class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = FirebaseInteractor()
 
-    val loginMsg = MutableLiveData<String>()
-    val signUpMsg = MutableLiveData<String>()
+    val loginMsg = MutableLiveData<FirebaseResult>()
+    val signUpMsg = MutableLiveData<FirebaseResult>()
 
     fun login(email: String, password: String) {
         interactor.login(email, password) { task ->
             if(task.isSuccessful) {
-                loginMsg.value = "Login realizado com sucesso!"
-                println("Done")
+                loginMsg.value = FirebaseResult(true, "Login realizado com sucesso!")
             } else {
-                loginMsg.value = task.exception?.localizedMessage
+                loginMsg.value = FirebaseResult(false, task.exception?.localizedMessage.toString())
             }
         }
     }
@@ -25,9 +25,9 @@ class FirebaseViewModel(app: Application) : AndroidViewModel(app) {
     fun register(email: String, password: String, confirmPassword: String) {
         interactor.register(email, password, confirmPassword) { task ->
             if(task.isSuccessful) {
-                signUpMsg.value = "Cadastro realizado com sucesso!"
+                signUpMsg.value = FirebaseResult(true, "Cadastro realizado com sucesso!")
             } else {
-                signUpMsg.value = task.exception?.localizedMessage
+                signUpMsg.value = FirebaseResult(false, task.exception?.localizedMessage.toString())
             }
         }
     }

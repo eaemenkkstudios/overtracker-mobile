@@ -29,8 +29,9 @@ class SignUpActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this.applicationContext, e.message, Toast.LENGTH_LONG).show()
         }
-        viewModel!!.signUpMsg.observe(this, Observer { msg ->
-            Toast.makeText(this.applicationContext, msg, Toast.LENGTH_LONG).show()
+        viewModel!!.signUpMsg.observe(this, Observer { result ->
+            Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_LONG).show()
+            if(result.status) finish()
         })
     }
 }

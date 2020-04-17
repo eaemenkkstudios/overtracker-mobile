@@ -35,10 +35,10 @@ class LoginActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
-        viewModel!!.loginMsg.observe(this, Observer { msg ->
-            Toast.makeText(this.applicationContext, msg, Toast.LENGTH_LONG).show()
-            if(msg == "Login realizado com sucesso!") {
-                startActivity(Intent(this, MainActivity::class.java))
+        viewModel!!.loginMsg.observe(this, Observer { result ->
+            Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_LONG).show()
+            if(result.status) {
+                startActivity(Intent(this, FeedActivity::class.java))
                 finish()
             }
         })
