@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -12,28 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tvPlatform"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:text="Platform"
-            android:textAlignment="viewEnd"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTag"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_width="97dp"
+            android:layout_height="105dp"
             android:text="Tag"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPlatform" />
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/tvPlatform"
+            android:layout_width="0dp"
+            android:layout_height="87dp"
+            android:text="Platform"
+            tools:layout_editor_absoluteX="173dp"
+            tools:layout_editor_absoluteY="9dp" />
+
+        <TextView
+            android:id="@+id/tvRole"
+            android:layout_width="62dp"
+            android:layout_height="96dp"
+            android:text="Role"
+            tools:layout_editor_absoluteX="339dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -6,12 +6,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Query
 import studios.eaemenkk.overtracker.domain.Card
 
 interface CardService {
     @GET("/feed")
     fun getFeed(
-        @Body page: Int = 1
+        @Query("page") page: Int = 1
     ): Call<Array<Card>>
 }
 
