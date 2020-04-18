@@ -9,6 +9,8 @@ open class Card {
  val endorsement: Update? = null
  val main: Update? = null
  val winrate: Update? = null
+ val previous: Update? = null
+ val current: Update? = null
 }
 
 class Update {
@@ -16,4 +18,6 @@ class Update {
  val current: String? = null
  val slope: String? = null
  val time: String? = null
+ val hero: String? = null
+ val role: String? = null
 }
