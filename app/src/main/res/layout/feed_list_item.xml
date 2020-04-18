@@ -5,37 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
+    android:maxHeight="300dp"
+    app:cardBackgroundColor="#1C1C1C"
     app:cardCornerRadius="6dp"
-    app:cardElevation="4dp"
-    android:maxHeight="300dp">
+    app:cardElevation="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingRight="5dp">
 
-        <TextView
-            android:id="@+id/tvTag"
-            android:layout_width="97dp"
-            android:layout_height="105dp"
-            android:text="Tag"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="0dp" />
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bignoodletoo"
+                android:gravity="center_vertical"
+                android:text="aaaaaaaaaaaa"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/tvPlatform"
-            android:layout_width="0dp"
-            android:layout_height="87dp"
-            android:text="Platform"
-            tools:layout_editor_absoluteX="173dp"
-            tools:layout_editor_absoluteY="9dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvTagNum"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bignoodletoo"
+                    android:text="#12345"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorDetail"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tvPlatform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="5dp"
+                    android:text="XBL"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvRole"
             android:layout_width="62dp"
             android:layout_height="96dp"
-            android:text="Role"
-            tools:layout_editor_absoluteX="339dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Role" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

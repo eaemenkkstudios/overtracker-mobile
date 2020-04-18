@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import studios.eaemenkk.overtracker.domain.Player
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.player_list_item.view.*
@@ -29,7 +28,7 @@ class PlayerAdapter(private val dataSet: Array<Player>) : RecyclerView.Adapter<P
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tag: TextView = itemView.tvTag
+        val tag: TextView = itemView.tvTagNum
         val platform: TextView = itemView.tvPlatform
     }
 }

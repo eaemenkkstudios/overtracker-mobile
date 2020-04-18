@@ -8,7 +8,6 @@ import retrofit2.http.*
 import studios.eaemenkk.overtracker.domain.Player
 
 interface PlayerService {
-
     @GET("/info")
     fun playerInfo(
         @Header("Authorization") authToken: String,
@@ -55,12 +54,12 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
                 if(players != null) {
                     callback(players)
                 } else {
-                    callback(arrayOf())
+                    callback(arrayOf(Player()))
                 }
             }
 
             override fun onFailure(call: Call<Array<Player>>, t: Throwable) {
-                callback(arrayOf())
+                callback(arrayOf(Player()))
             }
         })
     }

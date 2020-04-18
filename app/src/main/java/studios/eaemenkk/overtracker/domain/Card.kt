@@ -12,8 +12,8 @@ open class Card {
 }
 
 class Update {
- val previous: Int? = null
- val current: Int? = null
+ val previous: String? = null
+ val current: String? = null
  val slope: String? = null
  val time: String? = null
 }

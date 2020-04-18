@@ -27,7 +27,7 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
     }
 
     class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val tag: TextView = itemView.tvTag
+        val tag: TextView = itemView.tvTagNum
         val platform: TextView = itemView.tvPlatform
         val type: TextView = itemView.tvRole
     }

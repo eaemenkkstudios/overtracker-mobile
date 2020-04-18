@@ -10,7 +10,7 @@ import retrofit2.http.Query
 import studios.eaemenkk.overtracker.domain.Card
 
 interface CardService {
-    @GET("/feed")
+    @GET("/feed/global")
     fun getFeed(
         @Query("page") page: Int = 1
     ): Call<Array<Card>>
@@ -22,9 +22,9 @@ class CardRepository (context: Context, baseUrl: String) : BaseRetrofit(context,
     fun getFeed(page: Int = 1, callback: (cards: Array<Card>) -> Unit) {
         service.getFeed(page).enqueue(object: Callback<Array<Card>> {
             override fun onResponse(call: Call<Array<Card>>, response: Response<Array<Card>>) {
-                val card = response.body()
-                if(card != null) {
-                    callback(card)
+                val cards = response.body()
+                if(cards != null) {
+                    callback(cards)
                 } else {
                     callback(arrayOf(Card()))
                 }
