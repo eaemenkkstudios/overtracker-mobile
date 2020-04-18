@@ -5,18 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.sr_feed_list_item.view.*
 import kotlinx.android.synthetic.main.wr_feed_list_item.view.*
-import kotlinx.android.synthetic.main.wr_feed_list_item.view.tvPlatform
-import kotlinx.android.synthetic.main.wr_feed_list_item.view.tvSrCurrent
-import kotlinx.android.synthetic.main.wr_feed_list_item.view.tvSrPrevious
-import kotlinx.android.synthetic.main.wr_feed_list_item.view.tvTag
-import kotlinx.android.synthetic.main.wr_feed_list_item.view.tvTagNum
+import kotlinx.android.synthetic.main.endorsement_feed_list_item.view.*
+import kotlinx.android.synthetic.main.highlight_feed_list_item.view.*
+import kotlinx.android.synthetic.main.main_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
-import kotlin.system.measureNanoTime
 
 class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -37,13 +33,11 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.main_feed_list_item, parent, false)
                 return MainCardViewHolder(view)
             }
-            4 -> {
+            else -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.highlight_feed_list_item, parent, false)
                 return HighlightCardViewHolder(view)
             }
         }
-
-        return CardViewHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -52,67 +46,95 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = dataSet[position]
-        val battleTag = card.player?.tag?.split("#")
-        holder.tag.text = battleTag?.get(0)
-        holder.tagNum.text = "#${battleTag?.get(1)}"
-        holder.platform.text = card.player?.platform?.toUpperCase()
-        holder.previous.text = card.sr?.previous;
-        holder.current.text = card.sr?.current;
-        when (card.role) {
-            "support" -> holder.role.setImageResource(R.drawable.support)
-            "damage" -> holder.role.setImageResource(R.drawable.damage)
-            "tank" -> holder.role.setImageResource(R.drawable.tank)
+        when (holder) {
+            is SrCardViewHolder -> {
+                val battleTag = card.player?.tag?.split("#")
+                holder.tag.text = battleTag?.get(0)
+                holder.tagNum.text = "#${battleTag?.get(1)}"
+                holder.platform.text = card.player?.platform?.toUpperCase()
+                holder.previous.text = card.sr?.previous;
+                holder.current.text = card.sr?.current;
+                holder.role.setImageResource(when (card.role) {
+                    "support" -> R.drawable.support
+                    "damage" -> R.drawable.damage
+                    else -> R.drawable.tank
+                })
+            }
+            is WrCardViewHolder -> {
+                val battleTag = card.player?.tag?.split("#")
+                holder.tag.text = battleTag?.get(0)
+                holder.tagNum.text = "#${battleTag?.get(1)}"
+                holder.platform.text = card.player?.platform?.toUpperCase()
+                holder.previous.text = card.winrate?.previous;
+                holder.current.text = card.winrate?.current;
+            }
+            is MainCardViewHolder -> {
+                holder.platform.text = card.player?.platform?.toUpperCase()
+            }
+            is EndorsementCardViewHolder -> {
+                holder.platform.text = card.player?.platform?.toUpperCase()
+            }
+            is HighlightCardViewHolder -> {
+                holder.platform.text = card.player?.platform?.toUpperCase()
+            }
         }
+
     }
 
     override fun getItemViewType(position: Int): Int {
-        when(dataSet[position].type) {
-            "sr_update" -> return 0
-            "wr_update" -> return 1
-            "endorsement_update" -> return 2
-            "main_update" -> return 3
-            "highlight" -> return 4
+        return when(dataSet[position].type) {
+            "sr_update" -> 0
+            "winrate_update" -> 1
+            "endorsement_update" -> 2
+            "main_update" -> 3
+            "highlight" -> 4
+            else -> 5
         }
     }
 
-    open class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val tag: TextView = itemView.tvTag
-        val platform: TextView = itemView.tvPlatform
-    }
-
+    abstract class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     class SrCardViewHolder(itemView: View): CardViewHolder(itemView) {
-        val tagNum: TextView = itemView.tvTagNum
-        val role: ImageView = itemView.ivRole
+        val tag: TextView = itemView.tvSrTag
+        val tagNum: TextView = itemView.tvSrTagNum
+        val platform: TextView = itemView.tvSrPlatform
+        val role: ImageView = itemView.ivSrRole
         val previous: TextView = itemView.tvSrPrevious
         val current: TextView = itemView.tvSrCurrent
     }
 
     class WrCardViewHolder(itemView: View): CardViewHolder(itemView) {
-        val tagNum: TextView = itemView.tvTagNum
-        val role: ImageView = itemView.ivRole
-        val previous: TextView = itemView.tvSrPrevious
-        val current: TextView = itemView.tvSrCurrent
+        val tag: TextView = itemView.tvWrTag
+        val tagNum: TextView = itemView.tvWrTagNum
+        val platform: TextView = itemView.tvWrPlatform
+        val previous: TextView = itemView.tvWrPrevious
+        val current: TextView = itemView.tvWrCurrent
     }
 
     class MainCardViewHolder(itemView: View): CardViewHolder(itemView) {
-        val tagNum: TextView = itemView.tvTagNum
-        val role: ImageView = itemView.ivRole
-        val previous: TextView = itemView.tvSrPrevious
-        val current: TextView = itemView.tvSrCurrent
+        val tag: TextView = itemView.tvMainTag
+        val tagNum: TextView = itemView.tvMainTagNum
+        val platform: TextView = itemView.tvMainPlatform
+        val role: ImageView = itemView.ivMainRole
+        val previous: TextView = itemView.tvMainPrevious
+        val current: TextView = itemView.tvMainCurrent
     }
 
     class EndorsementCardViewHolder(itemView: View): CardViewHolder(itemView) {
-        val tagNum: TextView = itemView.tvTagNum
-        val role: ImageView = itemView.ivRole
-        val previous: TextView = itemView.tvSrPrevious
-        val current: TextView = itemView.tvSrCurrent
+        val tag: TextView = itemView.tvEndorsementTag
+        val tagNum: TextView = itemView.tvEndorsementTagNum
+        val platform: TextView = itemView.tvEndorsementPlatform
+        val role: ImageView = itemView.ivEndorsementRole
+        val previous: TextView = itemView.tvEndorsementPrevious
+        val current: TextView = itemView.tvEndorsementCurrent
     }
 
     class HighlightCardViewHolder(itemView: View): CardViewHolder(itemView) {
-        val tagNum: TextView = itemView.tvTagNum
-        val role: ImageView = itemView.ivRole
-        val previous: TextView = itemView.tvSrPrevious
-        val current: TextView = itemView.tvSrCurrent
+        val tag: TextView = itemView.tvHighlightTag
+        val tagNum: TextView = itemView.tvHighlightTagNum
+        val platform: TextView = itemView.tvHighlightPlatform
+        val role: ImageView = itemView.ivHighlightRole
+        val previous: TextView = itemView.tvHighlightPrevious
+        val current: TextView = itemView.tvHighlightCurrent
     }
 }

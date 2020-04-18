@@ -28,7 +28,7 @@ class PlayerAdapter(private val dataSet: Array<Player>) : RecyclerView.Adapter<P
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tag: TextView = itemView.tvTagNum
+        val tag: TextView = itemView.tvTag
         val platform: TextView = itemView.tvPlatform
     }
 }

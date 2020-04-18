@@ -26,12 +26,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvSrTag"
+                android:id="@+id/tvEndorsementTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bignoodletoo"
                 android:gravity="center_vertical"
-                android:text="zoid"
+                android:text="aaaaaaaaaaaa"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30sp" />
@@ -43,7 +43,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvSrTagNum"
+                    android:id="@+id/tvEndorsementTagNum"
                     android:layout_width="55dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bignoodletoo"
@@ -53,7 +53,7 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/tvSrPlatform"
+                    android:id="@+id/tvEndorsementPlatform"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
@@ -74,7 +74,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/ivSrRole"
+                android:id="@+id/ivEndorsementRole"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_weight="0"
@@ -90,7 +90,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tvSrPrevious"
+                    android:id="@+id/tvEndorsementPrevious"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
@@ -108,7 +108,7 @@
                     app:srcCompat="@drawable/arrow" />
 
                 <TextView
-                    android:id="@+id/tvSrCurrent"
+                    android:id="@+id/tvEndorsementCurrent"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"

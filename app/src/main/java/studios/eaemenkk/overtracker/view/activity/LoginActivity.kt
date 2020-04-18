@@ -2,11 +2,11 @@ package studios.eaemenkk.overtracker.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.FirebaseViewModel
@@ -30,13 +30,16 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn() {
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
+        loginLoadingContainer.visibility = View.VISIBLE
         try {
             viewModel!!.login(email, password)
         } catch (e: Exception) {
+            loginLoadingContainer.visibility = View.GONE
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
         viewModel!!.loginMsg.observe(this, Observer { result ->
             Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_LONG).show()
+            loginLoadingContainer.visibility = View.GONE
             if(result.status) {
                 startActivity(Intent(this, FeedActivity::class.java))
                 finish()

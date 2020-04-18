@@ -1,6 +1,7 @@
 package studios.eaemenkk.overtracker.view.activity
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -24,12 +25,15 @@ class SignUpActivity : AppCompatActivity() {
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
         val confirmPassword = etConfirmPassword.text.toString()
+        signupLoadingContainer.visibility = View.VISIBLE
         try {
             viewModel!!.register(email, password, confirmPassword)
         } catch (e: Exception) {
+            signupLoadingContainer.visibility = View.GONE
             Toast.makeText(this.applicationContext, e.message, Toast.LENGTH_LONG).show()
         }
         viewModel!!.signUpMsg.observe(this, Observer { result ->
+            signupLoadingContainer.visibility = View.GONE
             Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_LONG).show()
             if(result.status) finish()
         })

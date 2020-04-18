@@ -2,6 +2,7 @@ package studios.eaemenkk.overtracker.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,9 +29,11 @@ class FeedActivity: AppCompatActivity() {
 
     fun getFeed() {
         viewModel.cardList.observe(this, Observer { cards ->
+            feedLoadingContainer.visibility = View.GONE
             val adapter = CardAdapter(cards)
             rvFeed.adapter = adapter
         })
+        feedLoadingContainer.visibility = View.VISIBLE
         viewModel.getFeed()
     }
 
