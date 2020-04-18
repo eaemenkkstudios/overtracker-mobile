@@ -22,7 +22,7 @@
             android:layout_weight="0"
             android:background="@color/colorDetail"
             android:backgroundTint="#393838"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
@@ -75,16 +75,16 @@
 
             <ImageView
                 android:id="@+id/ivRole"
-                android:layout_width="25dp"
+                android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:layout_margin="5dp"
                 android:layout_weight="0"
+                android:background="@color/colorPrimary"
+                android:tint="@color/colorPrimaryDark"
                 app:srcCompat="@drawable/damage" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-10dp"
+                android:layout_height="match_parent"
                 android:layout_weight="0"
                 android:gravity="center|center_vertical"
                 android:orientation="horizontal">
