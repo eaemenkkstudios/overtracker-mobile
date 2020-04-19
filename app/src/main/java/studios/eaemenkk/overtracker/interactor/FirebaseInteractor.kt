@@ -13,6 +13,7 @@ class FirebaseInteractor() {
 
         if(password.isEmpty()) throw Exception("Por favor informe a senha!")
         else if(password.length < 6) throw Exception("O tamanho mínimo de senha é 6 caracteres.")
+
         firebaseRepository.login(email, password, callback)
     }
 
@@ -25,5 +26,11 @@ class FirebaseInteractor() {
         if(password != confirmPassword) throw Exception("As senhas digitadas não conferem.")
 
         firebaseRepository.register(email, password, callback)
+    }
+
+    fun forgotPassword(email: String, callback: (authResult: Task<Void>) -> Unit) {
+        if(email.isEmpty()) throw Exception("Por favor informe seu email!")
+
+        firebaseRepository.forgotPassword(email, callback)
     }
 }

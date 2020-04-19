@@ -1,42 +1,40 @@
 package studios.eaemenkk.overtracker.view.activity
 
-import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_forgot_password.*
 import studios.eaemenkk.overtracker.R
+import studios.eaemenkk.overtracker.domain.FirebaseResult
 import studios.eaemenkk.overtracker.viewmodel.FirebaseViewModel
+import java.lang.Exception
 
-class SignUpActivity : AppCompatActivity() {
+class ForgotPasswordActivity : AppCompatActivity() {
 
     private var viewModel: FirebaseViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_forgot_password)
         viewModel = ViewModelProvider(this).get(FirebaseViewModel::class.java)
-        btSignup.setOnClickListener { signUp() }
+
+        btSendEmail.setOnClickListener { sendEmail() }
     }
 
-    private fun signUp() {
+    fun sendEmail() {
         val email = etEmail.text.toString()
-        val password = etPassword.text.toString()
-        val confirmPassword = etConfirmPassword.text.toString()
-        signupLoadingContainer.visibility = View.VISIBLE
         try {
-            viewModel!!.register(email, password, confirmPassword)
+            viewModel!!.forgotPassword(email)
         } catch (e: Exception) {
-            signupLoadingContainer.visibility = View.GONE
-            Toast.makeText(this.applicationContext, e.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
-        viewModel!!.signUpMsg.observe(this, Observer { result ->
+
+        viewModel!!.forgotPasswordMsg.observe(this, Observer { result ->
             if(result.msg != "") {
                 Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
                 if(result.status) finish()
-                else signupLoadingContainer.visibility = View.GONE
             }
         })
     }

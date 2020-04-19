@@ -24,33 +24,38 @@ class LoginActivity : AppCompatActivity() {
 
         btSignIn.setOnClickListener { signIn() }
         btSignUp.setOnClickListener { signUp() }
+        tvForgotPassword.setOnClickListener { forgotPassword() }
     }
 
 
 
     private fun signIn() {
+        loginLoadingContainer.visibility = View.VISIBLE
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
-        loginLoadingContainer.visibility = View.VISIBLE
         try {
             viewModel!!.login(email, password)
         } catch (e: Exception) {
             loginLoadingContainer.visibility = View.GONE
-            Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
         viewModel!!.loginMsg.observe(this, Observer { result ->
-            Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_LONG).show()
-            loginLoadingContainer.visibility = View.GONE
-            if(result.status) {
-                startActivity(Intent(this, FeedActivity::class.java))
-                finish()
+            if(result.msg != "") {
+                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
+                if(result.status) {
+                    startActivity(Intent(this, FeedActivity::class.java))
+                    finish()
+                } else loginLoadingContainer.visibility = View.GONE
             }
-            //viewModel!!.loginMsg.value = FirebaseResult(false, "");
         })
     }
 
     private fun signUp() {
         startActivity(Intent(this, SignUpActivity::class.java))
+    }
+
+    private fun forgotPassword() {
+        startActivity(Intent(this, ForgotPasswordActivity::class.java))
     }
 
 }

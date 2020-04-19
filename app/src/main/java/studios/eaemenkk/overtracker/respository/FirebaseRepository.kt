@@ -22,4 +22,10 @@ class FirebaseRepository () {
         }
     }
 
+    fun forgotPassword(email: String, callback: (authResult: Task<Void>) -> Unit) {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener{ task ->
+            callback(task)
+        }
+    }
+
 }
