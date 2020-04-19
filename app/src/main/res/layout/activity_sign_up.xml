@@ -7,6 +7,19 @@
     android:background="?attr/colorPrimaryDark">
 
 
+    <TextView
+        android:id="@+id/tvAppName2"
+        android:layout_width="347dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bignoodletoo"
+        android:text="Overtracker"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo3" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/view"
         android:layout_width="0dp"
@@ -15,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivLogo3"
-        app:layout_constraintVertical_bias="0.3">
+        app:layout_constraintVertical_bias="0.4">
 
         <EditText
             android:id="@+id/etEmail"
@@ -87,8 +100,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:backgroundTint="@color/colorPrimary"
+        android:fontFamily="@font/bignoodletoo"
         android:text="Criar Conta"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

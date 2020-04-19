@@ -76,7 +76,7 @@
             <ImageView
                 android:id="@+id/ivSrRole"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="40dp"
                 android:layout_weight="0"
                 android:background="@color/colorPrimary"
                 android:tint="@color/colorPrimaryDark"

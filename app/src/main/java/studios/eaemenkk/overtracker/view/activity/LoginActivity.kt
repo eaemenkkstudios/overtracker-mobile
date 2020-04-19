@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_login.*
 import studios.eaemenkk.overtracker.R
+import studios.eaemenkk.overtracker.domain.FirebaseResult
 import studios.eaemenkk.overtracker.viewmodel.FirebaseViewModel
 import java.lang.Exception
 
@@ -44,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(Intent(this, FeedActivity::class.java))
                 finish()
             }
+            //viewModel!!.loginMsg.value = FirebaseResult(false, "");
         })
     }
 
