@@ -5,7 +5,7 @@ import com.google.firebase.auth.AuthResult
 import studios.eaemenkk.overtracker.respository.AuthRepository
 import java.lang.Exception
 
-class AuthInteractor() {
+class AuthInteractor {
     private val firebaseRepository = AuthRepository()
 
     fun login(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {

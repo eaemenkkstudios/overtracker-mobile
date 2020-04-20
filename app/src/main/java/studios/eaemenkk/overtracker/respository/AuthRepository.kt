@@ -10,7 +10,7 @@ class AuthRepository {
 
     fun login(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                callback(task)
+            callback(task)
         }
     }
 

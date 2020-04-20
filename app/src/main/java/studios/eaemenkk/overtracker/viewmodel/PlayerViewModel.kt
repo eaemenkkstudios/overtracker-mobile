@@ -60,20 +60,14 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private fun timestampToTimeInterval(timestamp: String): String {
         val currentTimestamp = System.currentTimeMillis() / 1000
         val timestampDiff = currentTimestamp - (timestamp.toLong() / 1000)
-        if(timestampDiff < 60) {
-            return "$timestampDiff second(s) ago"
-        } else if(timestampDiff < 3600) {
-            return "${floor(timestampDiff / 60.0).toInt()} minute(s) ago"
-        } else if (timestampDiff < 86400) {
-            return "${floor(timestampDiff / 3600.0).toInt()} hour(s) ago"
-        } else if (timestampDiff < 604800) {
-            return "${floor(timestampDiff / 86400.0).toInt()} day(s) ago"
-        } else if (timestampDiff < 18144000) {
-            return "${floor(timestampDiff / 604800.0).toInt()} week(s) ago"
-        } else if (timestampDiff < 31536000) {
-            return "${floor(timestampDiff / 18144000.0).toInt()} month(s) ago"
-        } else {
-            return "${floor(timestampDiff / 31536000.0).toInt()} year(s) ago"
-        }
+
+        return if(timestampDiff < 60) "$timestampDiff second(s) ago"
+        else if(timestampDiff < 3600) "${floor(timestampDiff / 60.0).toInt()} minute(s) ago"
+        else if (timestampDiff < 86400) "${floor(timestampDiff / 3600.0).toInt()} hour(s) ago"
+        else if (timestampDiff < 604800) "${floor(timestampDiff / 86400.0).toInt()} day(s) ago"
+        else if (timestampDiff < 18144000) "${floor(timestampDiff / 604800.0).toInt()} week(s) ago"
+        else if (timestampDiff < 31536000) "${floor(timestampDiff / 18144000.0).toInt()} month(s) ago"
+        else "${floor(timestampDiff / 31536000.0).toInt()} year(s) ago"
+
     }
 }

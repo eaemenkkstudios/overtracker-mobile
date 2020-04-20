@@ -1,10 +1,8 @@
 package studios.eaemenkk.overtracker.view.activity
 
-import android.app.Dialog
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity

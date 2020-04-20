@@ -359,6 +359,12 @@
             android:layout_marginBottom="10dp"
             android:background="@color/colorDetail" />
 
+        <Button
+            android:id="@+id/btFollow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Follow" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvInfoScores"
             android:layout_width="match_parent"

@@ -16,12 +16,18 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_info.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.coroutines.delay
 import studios.eaemenkk.overtracker.R
+import studios.eaemenkk.overtracker.respository.DatabaseRepository
 import studios.eaemenkk.overtracker.view.adapter.PlayerInfoAdapter
+import studios.eaemenkk.overtracker.viewmodel.DatabaseViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class InfoActivity: AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
+    private val dbViewModel: DatabaseViewModel by lazy {
+        ViewModelProvider(this).get(DatabaseViewModel::class.java)
+    }
     private val viewModel: PlayerViewModel by lazy {
         ViewModelProvider(this).get(PlayerViewModel::class.java)
     }
@@ -72,6 +78,21 @@ class InfoActivity: AppCompatActivity() {
             })
 
             val playerId = intent.getStringExtra("playerId")
+
+            dbViewModel.followStatus.observe(this, Observer { result ->
+                if(result.status) {
+                    btFollow.text = "Unfollow"
+                    btFollow.setOnClickListener { dbViewModel.unfollowPlayer(playerId) }
+                }
+            })
+
+            dbViewModel.unfollowStatus.observe(this, Observer { result ->
+                if(result.status) {
+                    btFollow.text = "Follow"
+                    btFollow.setOnClickListener { dbViewModel.followPlayer(playerId) }
+                }
+            })
+            dbViewModel.isFollowing(playerId)
             if(playerId != null) {
                 val operation = mAuth.currentUser?.getIdToken(true)
                 operation?.addOnCompleteListener {task ->
@@ -81,7 +102,5 @@ class InfoActivity: AppCompatActivity() {
                 }
             }
         }
-
     }
-
 }

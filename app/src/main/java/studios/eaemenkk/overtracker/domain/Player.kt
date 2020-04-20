@@ -21,6 +21,7 @@ class Score {
     val role: String? = null
     var hero: String? = null
     var portrait: String? = null
+    var time: String? = null
 }
 
 class Game {
