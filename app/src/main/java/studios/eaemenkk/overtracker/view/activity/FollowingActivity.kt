@@ -58,7 +58,7 @@ class FollowingActivity : AppCompatActivity() {
         followingLoadingContainer.visibility = View.VISIBLE
         viewModel.playerList.observe(this, Observer { players ->
             followingLoadingContainer.visibility = View.GONE
-            val adapter = PlayerAdapter(players)
+            val adapter = PlayerAdapter(players, this)
             rvFollowing.adapter = adapter
         })
         val operation = mAuth.currentUser?.getIdToken(true)

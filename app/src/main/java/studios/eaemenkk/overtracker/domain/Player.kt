@@ -13,7 +13,7 @@ class Player {
 }
 
 class Score {
-    val date: String? = null
+    var date: String? = null
     val endorsement: String? = null
     val games: Game? = null
     val main: Score? = null

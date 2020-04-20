@@ -59,6 +59,15 @@ class InfoActivity: AppCompatActivity() {
                 tvInfoPlatform.text = player.platform
                 Picasso.get().load(player.now?.portrait).into(ivInfoMain)
                 Picasso.get().load(player.portrait).into(ivInfoPortrait)
+                ivInfoEndorsement.setImageResource(
+                    when(player.now?.endorsement){
+                        "1" -> R.drawable.endorsement_1
+                        "2" -> R.drawable.endorsement_2
+                        "3" -> R.drawable.endorsement_3
+                        "4" -> R.drawable.endorsement_4
+                        "5" -> R.drawable.endorsement_5
+                        else -> R.drawable.unknown
+                    });
                 infoLoadingContainer.visibility = View.GONE
             })
 

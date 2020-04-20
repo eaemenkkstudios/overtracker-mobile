@@ -1,5 +1,7 @@
 package studios.eaemenkk.overtracker.view.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.player_list_item.view.*
 import studios.eaemenkk.overtracker.R
+import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
-class PlayerAdapter(private val dataSet: Array<Player>) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(private val dataSet: Array<Player>, private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
 
     override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.player_list_item, parent, false)
@@ -24,10 +27,14 @@ class PlayerAdapter(private val dataSet: Array<Player>) : RecyclerView.Adapter<P
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player = dataSet[position]
-        val battleTag = player.tag?.split("#")
-        holder.tag.text = "${battleTag?.get(0)} "
-        holder.tagNum.text = "#${battleTag?.get(1)} "
-        holder.platform.text = player.platform?.toUpperCase()
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, InfoActivity::class.java)
+            intent.putExtra("playerId", player.id)
+            context.startActivity(intent)
+        }
+        holder.tag.text = player.tag
+        holder.tagNum.text = player.tagNum
+        holder.platform.text = player.platform
         Picasso.get().load(player.portrait).into(holder.portrait)
         holder.role.setImageResource(when (player.current?.role) {
             "support" -> R.drawable.support
@@ -47,7 +54,6 @@ class PlayerAdapter(private val dataSet: Array<Player>) : RecyclerView.Adapter<P
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val tag: TextView = itemView.tvPlayerTag
         val tagNum: TextView = itemView.tvPlayerTagNum
         val platform: TextView = itemView.tvPlayerPlatform
