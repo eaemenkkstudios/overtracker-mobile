@@ -9,18 +9,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_login.*
 import studios.eaemenkk.overtracker.R
-import studios.eaemenkk.overtracker.domain.FirebaseResult
-import studios.eaemenkk.overtracker.viewmodel.FirebaseViewModel
+import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
 
-    private var viewModel: FirebaseViewModel? = null
+    private var viewModel: AuthViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        viewModel = ViewModelProvider(this).get(FirebaseViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
 
         btSignIn.setOnClickListener { signIn() }
         btSignUp.setOnClickListener { signUp() }

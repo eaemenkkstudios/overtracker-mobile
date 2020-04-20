@@ -3,11 +3,12 @@ package studios.eaemenkk.overtracker.domain
 class Player {
     val id: String? = null
     val lastUpdate: String? = null
-    val platform: String? = null
-    val tag: String? = null
+    var platform: String? = null
+    var tag: String? = null
+    var tagNum: String? = null
     val current: Score? = null
     val scores: Array<Score>? = null
-    val now: Array<Score>? = null
+    val now: Score? = null
     val portrait: String? = null
 }
 
@@ -15,14 +16,16 @@ class Score {
     val date: String? = null
     val endorsement: String? = null
     val games: Game? = null
-    val main: String? = null
+    val main: Score? = null
     val rank: Rank? = null
     val role: String? = null
+    var hero: String? = null
+    var portrait: String? = null
 }
 
 class Game {
-    val played: Int? = null
-    val won: Int? = null
+    val played: String? = null
+    val won: String? = null
 }
 
 class Rank {
@@ -32,6 +35,6 @@ class Rank {
 }
 
 class Ranking {
-    val sr: Int? = null
+    var sr: String? = null
     val img: String? = null
 }

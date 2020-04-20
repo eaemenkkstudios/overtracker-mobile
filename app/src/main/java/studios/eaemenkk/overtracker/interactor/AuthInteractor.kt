@@ -2,11 +2,11 @@ package studios.eaemenkk.overtracker.interactor
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
-import studios.eaemenkk.overtracker.respository.FirebaseRepository
+import studios.eaemenkk.overtracker.respository.AuthRepository
 import java.lang.Exception
 
-class FirebaseInteractor() {
-    private val firebaseRepository = FirebaseRepository()
+class AuthInteractor() {
+    private val firebaseRepository = AuthRepository()
 
     fun login(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {
         if(email.isEmpty()) throw Exception("Por favor informe seu email!")

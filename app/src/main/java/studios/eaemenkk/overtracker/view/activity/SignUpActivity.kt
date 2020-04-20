@@ -8,16 +8,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import studios.eaemenkk.overtracker.R
-import studios.eaemenkk.overtracker.viewmodel.FirebaseViewModel
+import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 
 class SignUpActivity : AppCompatActivity() {
 
-    private var viewModel: FirebaseViewModel? = null
+    private var viewModel: AuthViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-        viewModel = ViewModelProvider(this).get(FirebaseViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
         btSignup.setOnClickListener { signUp() }
     }
 

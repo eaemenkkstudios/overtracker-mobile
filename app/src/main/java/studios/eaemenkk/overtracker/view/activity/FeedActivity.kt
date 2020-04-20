@@ -27,8 +27,6 @@ class FeedActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
-        asd.setOnClickListener{asdAsd()}
-
         val navigation = findViewById<BottomNavigationView>(R.id.bnvFeed)
         navigation.selectedItemId = R.id.btGlobal
         navigation.setOnNavigationItemSelectedListener { menuItem ->
@@ -53,14 +51,10 @@ class FeedActivity: AppCompatActivity() {
         getFeed()
     }
 
-    private fun asdAsd(){
-        startActivity(Intent(this, InfoActivity::class.java))
-    }
-
     private fun getFeed() {
         viewModel.cardList.observe(this, Observer { cards ->
             feedLoadingContainer.visibility = View.GONE
-            val adapter = CardAdapter(cards)
+            val adapter = CardAdapter(cards, this)
             rvFeed.adapter = adapter
         })
         feedLoadingContainer.visibility = View.VISIBLE
@@ -69,5 +63,10 @@ class FeedActivity: AppCompatActivity() {
 
     private fun configureRecyclerView() {
         rvFeed.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onBackPressed() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 }

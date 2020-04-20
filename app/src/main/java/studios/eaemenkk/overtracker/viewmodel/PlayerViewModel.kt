@@ -15,6 +15,24 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     fun playerInfo(authToken: String, tagId: String) {
         interactor.playerInfo(authToken, tagId) { player ->
+            val battleTag = player.tag?.split("#")
+            player.tag = "${battleTag?.get(0)} "
+            player.tagNum = "#${battleTag?.get(1)} "
+            player.now?.rank?.damage?.sr = "${player.now?.rank?.damage?.sr} "
+            player.now?.rank?.support?.sr = "${player.now?.rank?.support?.sr} "
+            player.now?.rank?.tank?.sr = "${player.now?.rank?.tank?.sr} "
+             "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
+            player.now?.portrait = when (player.now?.main?.hero) {
+                    "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
+                    else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
+            }
+            player.now?.main?.hero = "${player.now?.main?.hero} "
+            player.platform = player.platform?.toUpperCase()
+            player.scores?.forEach { score ->
+                score.rank?.damage?.sr = "${player.now?.rank?.damage?.sr} "
+                score.rank?.support?.sr = "${player.now?.rank?.support?.sr} "
+                score.rank?.tank?.sr = "${player.now?.rank?.tank?.sr} "
+            }
             playerDetails.value = player
         }
     }

@@ -8,7 +8,7 @@ import retrofit2.http.*
 import studios.eaemenkk.overtracker.domain.Player
 
 interface PlayerService {
-    @GET("/info")
+    @GET("/info/{tagId}")
     fun playerInfo(
         @Header("Authorization") authToken: String,
         @Path("tagId") tagId: String

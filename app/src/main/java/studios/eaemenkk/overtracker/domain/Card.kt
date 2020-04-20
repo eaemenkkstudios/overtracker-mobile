@@ -15,9 +15,10 @@ open class Card {
 
 class Update {
  val previous: String? = null
- val current: String? = null
+ var current: String? = null
  val slope: String? = null
- val time: String? = null
- val hero: String? = null
+ var time: String? = null
+ var hero: String? = null
  val role: String? = null
+ var portrait: String? = null
 }

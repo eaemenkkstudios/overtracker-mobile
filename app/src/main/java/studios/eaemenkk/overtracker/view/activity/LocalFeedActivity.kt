@@ -54,7 +54,7 @@ class LocalFeedActivity: AppCompatActivity() {
     private fun getLocalFeed() {
         viewModel.localCardList.observe(this, Observer { cards ->
             feedLocalLoadingContainer.visibility = View.GONE
-            val adapter = CardAdapter(cards)
+            val adapter = CardAdapter(cards, this)
             rvFeedLocal.adapter = adapter
         })
         feedLocalLoadingContainer.visibility = View.VISIBLE
@@ -68,5 +68,10 @@ class LocalFeedActivity: AppCompatActivity() {
 
     private fun configureRecyclerView() {
         rvFeedLocal.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onBackPressed() {
+        finish()
+        overridePendingTransition(0, 0)
     }
 }

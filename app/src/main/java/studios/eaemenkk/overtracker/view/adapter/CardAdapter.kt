@@ -1,5 +1,7 @@
 package studios.eaemenkk.overtracker.view.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +17,10 @@ import kotlinx.android.synthetic.main.main_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.view.activity.FeedActivity
+import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
-class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
+class CardAdapter(private val dataSet: Array<Card>, private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         when(viewType){
             0 -> {
@@ -48,12 +52,16 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = dataSet[position]
-        val battleTag = card.player?.tag?.split("#")
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, InfoActivity::class.java)
+            intent.putExtra("playerId", card.player?.id)
+            context.startActivity(intent)
+        }
         when (holder) {
             is SrCardViewHolder -> {
-                holder.tag.text = battleTag?.get(0)
-                holder.tagNum.text = "#${battleTag?.get(1)}"
-                holder.platform.text = card.player?.platform?.toUpperCase()
+                holder.tag.text = card.player?.tag
+                holder.tagNum.text = card.player?.tagNum
+                holder.platform.text = card.player?.platform
                 holder.previous.text = card.sr?.previous;
                 holder.current.text = card.sr?.current;
                 holder.role.setImageResource(when (card.role) {
@@ -64,44 +72,25 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
                 })
             }
             is WrCardViewHolder -> {
-                holder.tag.text = battleTag?.get(0)
-                holder.tagNum.text = "#${battleTag?.get(1)}"
-                holder.platform.text = card.player?.platform?.toUpperCase()
+                holder.tag.text = card.player?.tag
+                holder.tagNum.text = card.player?.tagNum
+                holder.platform.text = card.player?.platform
                 holder.previous.text = card.winrate?.previous;
                 holder.current.text = card.winrate?.current;
             }
             is MainCardViewHolder -> {
-                holder.tag.text = battleTag?.get(0)
-                holder.tagNum.text = "#${battleTag?.get(1)}"
-                holder.platform.text = card.player?.platform?.toUpperCase()
+                holder.tag.text = card.player?.tag
+                holder.tagNum.text = card.player?.tagNum
+                holder.platform.text = card.player?.platform
                 holder.previous.text = card.previous?.hero
-                var previous = card.previous?.hero
-                previous = when(previous) {
-                    "dva" -> "d.va"
-                    "lucio" -> "lúcio"
-                    "torbjorn" -> "torbjörn"
-                    "wreckingball" -> "wrecking ball"
-                    "soldier76" -> "soldier: 76"
-                    else -> previous
-                }
-                var current = card.current?.hero
-                current = when(current) {
-                    "dva" -> "d.va"
-                    "lucio" -> "lúcio"
-                    "torbjorn" -> "torbjörn"
-                    "wreckingball" -> "wrecking ball"
-                    "soldier76" -> "soldier: 76"
-                    else -> current
-                }
-                holder.previous.text = previous
-                holder.current.text = current
-                Picasso.get().load("https://d1u1mce87gyfbn.cloudfront.net/hero/${card.previous?.hero}/hero-select-portrait.png").into(holder.previousImg)
-                Picasso.get().load("https://d1u1mce87gyfbn.cloudfront.net/hero/${card.current?.hero}/hero-select-portrait.png").into(holder.currentImg)
+                holder.current.text = card.current?.hero
+                Picasso.get().load(card.previous?.portrait).into(holder.previousImg)
+                Picasso.get().load(card.current?.portrait).into(holder.currentImg)
             }
             is EndorsementCardViewHolder -> {
-                holder.platform.text = card.player?.platform?.toUpperCase()
-                holder.tag.text = battleTag?.get(0)
-                holder.tagNum.text = "#${battleTag?.get(1)}"
+                holder.tag.text = card.player?.tag
+                holder.tagNum.text = card.player?.tagNum
+                holder.platform.text = card.player?.platform
                 holder.previous.setImageResource(
                     when(card.endorsement?.previous){
                     "1" -> R.drawable.endorsement_1
@@ -122,15 +111,15 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
                     });
             }
             is HighlightCardViewHolder -> {
-                holder.tag.text = battleTag?.get(0)
-                holder.tagNum.text = "#${battleTag?.get(1)}"
+                holder.tag.text = card.player?.tag
+                holder.tagNum.text = card.player?.tagNum
                 holder.role.setImageResource(when (card.main?.role) {
                     "support" -> R.drawable.support
                     "damage" -> R.drawable.damage
                     "tank" -> R.drawable.tank
                     else -> R.drawable.unknown
                 })
-                holder.sr.text = "${card.sr?.current} sr"
+                holder.sr.text = card.sr?.current
                 holder.srSlope.setImageResource(when (card.sr?.slope) {
                     "increasing" -> R.drawable.arrow_up
                     "tied" -> R.drawable.arrow_middle
@@ -144,18 +133,9 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
                     "decreasing" -> R.drawable.arrow_down
                     else -> R.drawable.unknown
                 })
-                holder.time.text = "${card.main?.time?.split(":")?.get(0)}h"
-                var heroName = card.main?.current
-                heroName = when(heroName) {
-                    "dva" -> "d.va"
-                    "lucio" -> "lúcio"
-                    "torbjorn" -> "torbjörn"
-                    "wreckingball" -> "wrecking ball"
-                    "soldier76" -> "soldier: 76"
-                    else -> heroName
-                }
-                Picasso.get().load("https://overtracker-api.herokuapp.com/images/${card.main?.current}.png").into(holder.mainImg)
-                holder.main.text = "main ${heroName} "
+                holder.time.text = card.main?.time
+                Picasso.get().load(card.main?.portrait).into(holder.mainImg)
+                holder.main.text = card.main?.current
             }
         }
 
@@ -220,9 +200,5 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
         val srSlope: ImageView = itemView.ivHighlightSrSlope
         val wr: TextView = itemView.tvHighlightWr
         val wrSlope: ImageView = itemView.ivHighlightWrSlope
-    }
-
-    interface OnCardListener {
-        fun onCardClick(position: Int)
     }
 }

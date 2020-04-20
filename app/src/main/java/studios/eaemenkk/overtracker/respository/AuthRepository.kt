@@ -4,11 +4,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
-class FirebaseRepository () {
+class AuthRepository {
 
-    private val mAuth: FirebaseAuth by lazy {
-        FirebaseAuth.getInstance()
-    }
+    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun login(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->

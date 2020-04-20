@@ -55,14 +55,4 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/asd"
-        android:layout_width="174dp"
-        android:layout_height="100dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/rvFeed"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/rvFeed" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
