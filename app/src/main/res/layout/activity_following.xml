@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".view.activity.ProfileActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFeed"
+        android:id="@+id/rvFollowing"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:translationZ="0dp"
@@ -29,7 +30,7 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/feedLoadingContainer"
+        android:id="@+id/followingLoadingContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#A3000000"

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id = "@+id/btGlobal"
+        android:icon = "@drawable/trending"
+        android:title = "Trending"
+        />
+    <item
+        android:id = "@+id/btLocal"
+        android:icon = "@drawable/following"
+        android:title = "Following"
+        />
+    <item
+        android:id = "@+id/btFollowing"
+        android:icon = "@drawable/players"
+        android:title = "Players"
+        />
+
+</menu>

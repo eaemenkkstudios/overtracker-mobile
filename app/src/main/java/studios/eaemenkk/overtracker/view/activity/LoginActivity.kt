@@ -27,8 +27,6 @@ class LoginActivity : AppCompatActivity() {
         tvForgotPassword.setOnClickListener { forgotPassword() }
     }
 
-
-
     private fun signIn() {
         loginLoadingContainer.visibility = View.VISIBLE
         val email = etEmail.text.toString()

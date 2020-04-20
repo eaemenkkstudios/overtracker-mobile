@@ -7,7 +7,7 @@
     android:background="@color/colorPrimaryDark">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFeed"
+        android:id="@+id/rvFeedLocal"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:translationZ="0dp"
@@ -29,7 +29,7 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/feedLoadingContainer"
+        android:id="@+id/feedLocalLoadingContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#A3000000"
