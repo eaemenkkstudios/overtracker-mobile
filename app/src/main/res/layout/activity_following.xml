@@ -21,7 +21,7 @@
         android:id="@+id/bnvFeed"
         android:layout_width="409dp"
         android:layout_height="70dp"
-        android:translationZ="2dp"
+        android:translationZ="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,13 +31,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/followingLoadingContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#A3000000"
         android:clickable="true"
         android:translationZ="1dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/rvFollowing"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

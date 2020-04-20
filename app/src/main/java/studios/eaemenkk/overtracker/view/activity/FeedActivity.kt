@@ -4,16 +4,13 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_feed.*
-import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel

@@ -11,4 +11,8 @@ class CardInteractor(context: Context) {
     fun getFeed(page: Int = 1, callback: (cards: Array<Card>) -> Unit) {
         cardRepository.getFeed(page, callback)
     }
+
+    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: Array<Card>) -> Unit) {
+        cardRepository.getLocalFeed(authToken, page, callback)
+    }
 }

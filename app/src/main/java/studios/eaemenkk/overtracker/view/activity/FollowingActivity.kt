@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
@@ -58,12 +57,12 @@ class FollowingActivity : AppCompatActivity() {
     private fun showPlayers() {
         followingLoadingContainer.visibility = View.VISIBLE
         viewModel.playerList.observe(this, Observer { players ->
+            followingLoadingContainer.visibility = View.GONE
             val adapter = PlayerAdapter(players)
             rvFollowing.adapter = adapter
         })
         val operation = mAuth.currentUser?.getIdToken(true)
         operation?.addOnCompleteListener {task ->
-            followingLoadingContainer.visibility = View.GONE
             if(task.isSuccessful) {
                 viewModel.followedPlayers(task.result?.token.toString())
             }

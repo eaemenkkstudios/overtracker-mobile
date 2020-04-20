@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.highlight_feed_list_item.view.*
 import kotlinx.android.synthetic.main.main_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
+import studios.eaemenkk.overtracker.view.activity.FeedActivity
 
 class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -200,5 +201,9 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
         val srSlope: ImageView = itemView.ivHighlightSrSlope
         val wr: TextView = itemView.tvHighlightWr
         val wrSlope: ImageView = itemView.ivHighlightWrSlope
+    }
+
+    interface OnCardListener {
+        fun onCardClick(position: Int)
     }
 }

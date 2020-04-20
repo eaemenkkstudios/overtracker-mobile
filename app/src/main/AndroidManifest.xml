@@ -16,16 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.ForgotPasswordActivity"></activity>
-        <activity android:name=".view.activity.LoginActivity" />
-        <activity android:name=".view.activity.FeedActivity"
-            android:launchMode="singleInstance"/>
-        <activity android:name=".view.activity.LocalFeedActivity"
-            android:launchMode="singleInstance"/>
-        <activity android:name=".view.activity.FollowingActivity"
-            android:launchMode="singleInstance"/>
-        <activity android:name=".view.activity.ProfileActivity" />
+        <activity android:name=".view.activity.ForgotPasswordActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
+        <activity android:name=".view.activity.LoginActivity" />
+        <activity
+            android:name=".view.activity.FeedActivity"
+            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".view.activity.LocalFeedActivity"
+            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".view.activity.FollowingActivity"
+            android:launchMode="singleInstance"/>
+
     </application>
 
 </manifest>
