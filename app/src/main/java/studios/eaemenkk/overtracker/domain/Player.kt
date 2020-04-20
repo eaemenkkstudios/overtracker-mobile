@@ -8,6 +8,7 @@ class Player {
     val current: Score? = null
     val scores: Array<Score>? = null
     val now: Array<Score>? = null
+    val portrait: String? = null
 }
 
 class Score {
@@ -16,6 +17,7 @@ class Score {
     val games: Game? = null
     val main: String? = null
     val rank: Rank? = null
+    val role: String? = null
 }
 
 class Game {

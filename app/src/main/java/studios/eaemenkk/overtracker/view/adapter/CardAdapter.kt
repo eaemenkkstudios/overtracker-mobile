@@ -75,7 +75,26 @@ class CardAdapter(private val dataSet: Array<Card>): RecyclerView.Adapter<CardAd
                 holder.tagNum.text = "#${battleTag?.get(1)}"
                 holder.platform.text = card.player?.platform?.toUpperCase()
                 holder.previous.text = card.previous?.hero
-                holder.current.text = card.current?.hero
+                var previous = card.previous?.hero
+                previous = when(previous) {
+                    "dva" -> "d.va"
+                    "lucio" -> "lúcio"
+                    "torbjorn" -> "torbjörn"
+                    "wreckingball" -> "wrecking ball"
+                    "soldier76" -> "soldier: 76"
+                    else -> previous
+                }
+                var current = card.current?.hero
+                current = when(current) {
+                    "dva" -> "d.va"
+                    "lucio" -> "lúcio"
+                    "torbjorn" -> "torbjörn"
+                    "wreckingball" -> "wrecking ball"
+                    "soldier76" -> "soldier: 76"
+                    else -> current
+                }
+                holder.previous.text = previous
+                holder.current.text = current
                 Picasso.get().load("https://d1u1mce87gyfbn.cloudfront.net/hero/${card.previous?.hero}/hero-select-portrait.png").into(holder.previousImg)
                 Picasso.get().load("https://d1u1mce87gyfbn.cloudfront.net/hero/${card.current?.hero}/hero-select-portrait.png").into(holder.currentImg)
             }

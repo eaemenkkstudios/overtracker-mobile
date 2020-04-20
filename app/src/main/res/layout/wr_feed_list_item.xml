@@ -95,7 +95,7 @@
 
                 <TextView
                     android:id="@+id/tvWrPrevious"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:fontFamily="@font/bignoodletoo"
@@ -105,15 +105,16 @@
                     android:textSize="30sp" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="0"
                     android:tint="@color/colorDetail"
                     app:srcCompat="@drawable/arrow" />
 
                 <TextView
                     android:id="@+id/tvWrCurrent"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:fontFamily="@font/bignoodletoo"

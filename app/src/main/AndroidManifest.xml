@@ -19,6 +19,8 @@
         <activity android:name=".view.activity.ForgotPasswordActivity" />
         <activity android:name=".view.activity.SignUpActivity" />
         <activity android:name=".view.activity.LoginActivity" />
+        <activity android:name=".view.activity.InfoActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
         <activity
             android:name=".view.activity.FeedActivity"
             android:launchMode="singleInstance"/>

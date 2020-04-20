@@ -3,9 +3,11 @@ package studios.eaemenkk.overtracker.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import studios.eaemenkk.overtracker.domain.Player
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.player_list_item.view.*
 import studios.eaemenkk.overtracker.R
 
@@ -22,13 +24,35 @@ class PlayerAdapter(private val dataSet: Array<Player>) : RecyclerView.Adapter<P
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player = dataSet[position]
-        holder.tag.text = player.tag
-        holder.platform.text = player.platform
-
+        val battleTag = player.tag?.split("#")
+        holder.tag.text = "${battleTag?.get(0)} "
+        holder.tagNum.text = "#${battleTag?.get(1)} "
+        holder.platform.text = player.platform?.toUpperCase()
+        Picasso.get().load(player.portrait).into(holder.portrait)
+        holder.role.setImageResource(when (player.current?.role) {
+            "support" -> R.drawable.support
+            "damage" -> R.drawable.damage
+            "tank" -> R.drawable.tank
+            else -> R.drawable.unknown
+        })
+        holder.endorsement.setImageResource(
+            when(player.current?.endorsement) {
+                "1" -> R.drawable.endorsement_1
+                "2" -> R.drawable.endorsement_2
+                "3" -> R.drawable.endorsement_3
+                "4" -> R.drawable.endorsement_4
+                "5" -> R.drawable.endorsement_5
+                else -> R.drawable.unknown
+            })
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tag: TextView = itemView.tvTag
-        val platform: TextView = itemView.tvPlatform
+
+        val tag: TextView = itemView.tvPlayerTag
+        val tagNum: TextView = itemView.tvPlayerTagNum
+        val platform: TextView = itemView.tvPlayerPlatform
+        val endorsement: ImageView = itemView.ivPlayerEndorsement
+        val portrait: ImageView = itemView.ivPlayerPortrait
+        val role: ImageView = itemView.ivPlayerRole
     }
 }

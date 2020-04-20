@@ -13,8 +13,10 @@
         android:translationZ="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bnvFeed"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvFeed"
@@ -32,7 +34,7 @@
         android:id="@+id/feedLoadingContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#A3000000"
+        android:background="#00000000"
         android:clickable="true"
         android:translationZ="1dp"
         android:visibility="gone"
@@ -52,5 +54,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/asd"
+        android:layout_width="174dp"
+        android:layout_height="100dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/rvFeed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvFeed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

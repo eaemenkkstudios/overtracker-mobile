@@ -33,7 +33,7 @@
         android:id="@+id/followingLoadingContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#A3000000"
+        android:background="#00000000"
         android:clickable="true"
         android:translationZ="1dp"
         android:visibility="gone"

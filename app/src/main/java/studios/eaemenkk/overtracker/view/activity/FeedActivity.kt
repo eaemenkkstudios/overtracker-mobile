@@ -1,8 +1,10 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +26,8 @@ class FeedActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
+
+        asd.setOnClickListener{asdAsd()}
 
         val navigation = findViewById<BottomNavigationView>(R.id.bnvFeed)
         navigation.selectedItemId = R.id.btGlobal
@@ -47,6 +51,10 @@ class FeedActivity: AppCompatActivity() {
         loadingAnimation.start()
         configureRecyclerView()
         getFeed()
+    }
+
+    private fun asdAsd(){
+        startActivity(Intent(this, InfoActivity::class.java))
     }
 
     private fun getFeed() {
