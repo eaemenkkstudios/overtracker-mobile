@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.score_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Score
 
-class PlayerInfoAdapter(private val dataSet: Array<Score>): RecyclerView.Adapter<PlayerInfoAdapter.PlayerInfoViewHolder>() {
+class PlayerScoreAdapter(private val dataSet: Array<Score>): RecyclerView.Adapter<PlayerScoreAdapter.PlayerInfoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerInfoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.score_list_item, parent, false)

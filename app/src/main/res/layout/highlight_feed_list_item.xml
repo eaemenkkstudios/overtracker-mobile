@@ -25,13 +25,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="245dp"
                 android:adjustViewBounds="false"
-                android:scaleType="fitStart"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/tracer" />
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/gradient" />
 
             <LinearLayout
@@ -105,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardBackgroundColor="@color/colorPrimaryDark"
                     app:cardCornerRadius="10dp"
                     app:cardPreventCornerOverlap="false">
 
@@ -126,7 +127,7 @@
                             android:gravity="center"
                             android:text="3600 sr"
                             android:textAlignment="center"
-                            android:textColor="#1C1C1C"
+                            android:textColor="@color/colorDetail"
                             android:textSize="40dp" />
 
                         <ImageView
@@ -143,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardBackgroundColor="@color/colorPrimaryDark"
                     app:cardCornerRadius="10dp"
                     app:cardPreventCornerOverlap="false">
 
@@ -164,12 +165,12 @@
                             android:gravity="center"
                             android:text="58.69%"
                             android:textAlignment="center"
-                            android:textColor="#1C1C1C"
+                            android:textColor="@color/colorDetail"
                             android:textSize="40dp" />
 
                         <ImageView
                             android:id="@+id/ivHighlightWrSlope"
-                            android:layout_width="50dp"
+                            android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_weight="1"
                             app:srcCompat="@drawable/arrow_down" />
@@ -189,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardBackgroundColor="@color/colorPrimaryDark"
                     app:cardCornerRadius="10dp"
                     app:cardPreventCornerOverlap="false">
 
@@ -210,7 +211,7 @@
                             android:gravity="center"
                             android:text="29.4h"
                             android:textAlignment="center"
-                            android:textColor="#1C1C1C"
+                            android:textColor="@color/colorDetail"
                             android:textSize="40dp" />
 
                     </LinearLayout>
@@ -221,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardBackgroundColor="@color/colorPrimaryDark"
                     app:cardCornerRadius="10dp"
                     app:cardPreventCornerOverlap="false">
 
@@ -241,7 +242,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:backgroundTint="#FFFFFF"
-                            android:tint="#1C1C1C"
+                            android:tint="@color/colorDetail"
                             app:srcCompat="@drawable/damage" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

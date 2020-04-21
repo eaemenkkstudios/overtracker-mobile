@@ -27,6 +27,14 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                     "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
                     else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
             }
+            player.now?.main?.hero = when(player.now?.main?.hero) {
+                "dva" -> "d.va"
+                "lucio" -> "lúcio"
+                "torbjorn" -> "torbjörn"
+                "wreckingball" -> "wrecking ball"
+                "soldier76" -> "soldier: 76"
+                else -> player.now?.main?.hero
+            }
             player.now?.main?.hero = "${player.now?.main?.hero} "
             player.platform = player.platform?.toUpperCase()
             player.scores?.forEach { score ->
@@ -61,13 +69,43 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         val currentTimestamp = System.currentTimeMillis() / 1000
         val timestampDiff = currentTimestamp - (timestamp.toLong() / 1000)
 
-        return if(timestampDiff < 60) "$timestampDiff second(s) ago"
-        else if(timestampDiff < 3600) "${floor(timestampDiff / 60.0).toInt()} minute(s) ago"
-        else if (timestampDiff < 86400) "${floor(timestampDiff / 3600.0).toInt()} hour(s) ago"
-        else if (timestampDiff < 604800) "${floor(timestampDiff / 86400.0).toInt()} day(s) ago"
-        else if (timestampDiff < 18144000) "${floor(timestampDiff / 604800.0).toInt()} week(s) ago"
-        else if (timestampDiff < 31536000) "${floor(timestampDiff / 18144000.0).toInt()} month(s) ago"
-        else "${floor(timestampDiff / 31536000.0).toInt()} year(s) ago"
+        var word = "time unit"
+        var divider = 1
+
+        if(timestampDiff < 60){
+            word = "second"
+        } else if(timestampDiff < 3600) {
+            word = "minute"
+            divider = 60
+        }
+        else if (timestampDiff < 86400) {
+            word = "hour"
+            divider = 3600
+        }
+        else if (timestampDiff < 604800) {
+            word = "day"
+            divider = 86400
+        }
+        else if (timestampDiff < 18144000) {
+            word = "week"
+            divider = 604800
+        }
+        else if (timestampDiff < 31536000) {
+            word = "month"
+            divider = 18144000
+        }
+        else if (timestampDiff < 217728000){
+            word = "year"
+            divider = 31536000
+        }
+
+        val unit = floor(timestampDiff.toDouble()/divider).toInt()
+
+        return if(unit == 1){
+            return "$unit $word ago"
+        } else {
+            return "$unit ${word}s ago"
+        }
 
     }
 }

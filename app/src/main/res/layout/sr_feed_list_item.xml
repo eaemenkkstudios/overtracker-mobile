@@ -60,6 +60,7 @@
                     android:text="XBL"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -91,31 +92,31 @@
 
                 <TextView
                     android:id="@+id/tvSrPrevious"
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:fontFamily="@font/bignoodletoo"
                     android:text="3895"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="center"
                     android:textColor="@color/colorDetail"
                     android:textSize="40sp" />
 
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="0"
                     android:tint="@color/colorDetail"
                     app:srcCompat="@drawable/arrow" />
 
                 <TextView
                     android:id="@+id/tvSrCurrent"
-                    android:layout_width="70dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:fontFamily="@font/bignoodletoo"
                     android:text="3333"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="textStart"
                     android:textColor="@color/colorPrimary"
                     android:textSize="40sp" />
             </LinearLayout>

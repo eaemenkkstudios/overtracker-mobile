@@ -1,25 +1,21 @@
 package studios.eaemenkk.overtracker.view.activity
 
-import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_info.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.coroutines.delay
 import studios.eaemenkk.overtracker.R
-import studios.eaemenkk.overtracker.respository.DatabaseRepository
-import studios.eaemenkk.overtracker.view.adapter.PlayerInfoAdapter
+import studios.eaemenkk.overtracker.R.*
+import studios.eaemenkk.overtracker.view.adapter.PlayerScoreAdapter
 import studios.eaemenkk.overtracker.viewmodel.DatabaseViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
@@ -35,9 +31,9 @@ class InfoActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_info)
-        val loadingImage = findViewById<ImageView>(R.id.ivLoading)
-        loadingImage.setBackgroundResource(R.drawable.animation)
+        setContentView(layout.activity_info)
+        val loadingImage = findViewById<ImageView>(id.ivLoading)
+        loadingImage.setBackgroundResource(drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
         loadingAnimation.start()
         configureRecyclerView()
@@ -53,11 +49,18 @@ class InfoActivity: AppCompatActivity() {
         if(intent.hasExtra("playerId")) {
             viewModel.playerDetails.observe(this, Observer { player ->
                 if(player.scores != null) {
-                    val adapter = PlayerInfoAdapter(player.scores)
+                    val adapter = PlayerScoreAdapter(player.scores)
                     rvInfoScores.adapter = adapter
                 }
+                tvInfoMainTime.text = "${player.now?.main?.time?.split(":")?.get(0)}h"
                 tvInfoTag.text = player.tag
                 tvInfoTagNum.text = player.tagNum
+                ivInfoMainRole.setImageResource(when (player.now?.main?.role) {
+                    "support" -> R.drawable.support
+                    "damage" -> R.drawable.damage
+                    "tank" -> R.drawable.tank
+                    else -> R.drawable.unknown
+                })
                 tvInfoCurrentDamage.text = player.now?.rank?.damage?.sr
                 tvInfoCurrentSupport.text = player.now?.rank?.support?.sr
                 tvInfoCurrentTank.text = player.now?.rank?.tank?.sr
@@ -67,12 +70,12 @@ class InfoActivity: AppCompatActivity() {
                 Picasso.get().load(player.portrait).into(ivInfoPortrait)
                 ivInfoEndorsement.setImageResource(
                     when(player.now?.endorsement){
-                        "1" -> R.drawable.endorsement_1
-                        "2" -> R.drawable.endorsement_2
-                        "3" -> R.drawable.endorsement_3
-                        "4" -> R.drawable.endorsement_4
-                        "5" -> R.drawable.endorsement_5
-                        else -> R.drawable.unknown
+                        "1" -> drawable.endorsement_1
+                        "2" -> drawable.endorsement_2
+                        "3" -> drawable.endorsement_3
+                        "4" -> drawable.endorsement_4
+                        "5" -> drawable.endorsement_5
+                        else -> drawable.unknown
                     });
                 infoLoadingContainer.visibility = View.GONE
             })
@@ -82,6 +85,7 @@ class InfoActivity: AppCompatActivity() {
             dbViewModel.followStatus.observe(this, Observer { result ->
                 if(result.status) {
                     btFollow.text = "Unfollow"
+                    btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorDetail))
                     btFollow.setOnClickListener { dbViewModel.unfollowPlayer(playerId) }
                 }
             })
@@ -89,6 +93,7 @@ class InfoActivity: AppCompatActivity() {
             dbViewModel.unfollowStatus.observe(this, Observer { result ->
                 if(result.status) {
                     btFollow.text = "Follow"
+                    btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary))
                     btFollow.setOnClickListener { dbViewModel.followPlayer(playerId) }
                 }
             })

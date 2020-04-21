@@ -60,7 +60,7 @@
                     android:text="XBL"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="10sp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </LinearLayout>

@@ -10,6 +10,7 @@ import android.widget.TextView
 import studios.eaemenkk.overtracker.domain.Player
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_info.view.*
 import kotlinx.android.synthetic.main.player_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
