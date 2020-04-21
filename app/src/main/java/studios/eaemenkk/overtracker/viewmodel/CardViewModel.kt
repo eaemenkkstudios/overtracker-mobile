@@ -41,10 +41,12 @@ class CardViewModel(app: Application) : AndroidViewModel(app){
                 "main_update" -> {
                     card.current?.portrait = when(card.current?.hero) {
                         "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
+                        "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
                         else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${card.current?.hero}/hero-select-portrait.png"
                     }
                     card.previous?.portrait = when(card.previous?.hero) {
                         "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
+                        "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
                         else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${card.previous?.hero}/hero-select-portrait.png"
                     }
                 }

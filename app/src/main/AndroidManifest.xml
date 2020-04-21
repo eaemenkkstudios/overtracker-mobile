@@ -30,8 +30,6 @@
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity android:name=".view.activity.InfoActivity"
-            android:screenOrientation="sensorPortrait"
-            tools:ignore="LockedOrientationActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity
             android:name=".view.activity.FeedActivity"

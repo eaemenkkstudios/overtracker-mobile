@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.overtracker.R
@@ -17,7 +18,7 @@ import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
 import java.lang.Exception
 
-class FeedActivity: AppCompatActivity() {
+class FeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private var loadingAnimation = AnimationDrawable()
     private val viewModel: CardViewModel by lazy {
         ViewModelProvider(this).get(CardViewModel::class.java)
@@ -43,6 +44,7 @@ class FeedActivity: AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
         }
 
+        srlFeed.setOnRefreshListener(this)
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
@@ -53,19 +55,20 @@ class FeedActivity: AppCompatActivity() {
 
     private fun getFeed() {
         viewModel.cardList.observe(this, Observer { cards ->
+            srlFeed.isRefreshing = false
             feedLoadingContainer.visibility = View.GONE
             val adapter = CardAdapter(cards, this)
             rvFeed.adapter = adapter
         })
         viewModel.error.observe(this, Observer { response ->
             if(!response.status) {
+                srlFeed.isRefreshing = false
                 feedLoadingContainer.visibility = View.GONE
                 Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
             }
         })
         feedLoadingContainer.visibility = View.VISIBLE
         viewModel.getFeed()
-
     }
 
     private fun configureRecyclerView() {
@@ -75,5 +78,9 @@ class FeedActivity: AppCompatActivity() {
     override fun onBackPressed() {
         finish()
         overridePendingTransition(0, 0)
+    }
+
+    override fun onRefresh() {
+        getFeed()
     }
 }

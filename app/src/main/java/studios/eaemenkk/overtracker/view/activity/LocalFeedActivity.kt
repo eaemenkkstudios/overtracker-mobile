@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_feed_local.*
@@ -18,7 +19,7 @@ import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
 import java.lang.Exception
 
-class LocalFeedActivity: AppCompatActivity() {
+class LocalFeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private val mAuth = FirebaseAuth.getInstance()
     private var loadingAnimation = AnimationDrawable()
     private val viewModel: CardViewModel by lazy {
@@ -44,7 +45,7 @@ class LocalFeedActivity: AppCompatActivity() {
             }
             return@setOnNavigationItemSelectedListener false
         }
-
+        srlFeedLocal.setOnRefreshListener(this)
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
@@ -56,6 +57,7 @@ class LocalFeedActivity: AppCompatActivity() {
     private fun getLocalFeed() {
         viewModel.localCardList.observe(this, Observer { cards ->
             feedLocalLoadingContainer.visibility = View.GONE
+            srlFeedLocal.isRefreshing = false
             val adapter = CardAdapter(cards, this)
             rvFeedLocal.adapter = adapter
         })
@@ -84,5 +86,9 @@ class LocalFeedActivity: AppCompatActivity() {
     override fun onBackPressed() {
         finish()
         overridePendingTransition(0, 0)
+    }
+
+    override fun onRefresh() {
+        getLocalFeed()
     }
 }

@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_following.*
@@ -18,7 +19,7 @@ import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 import java.lang.Exception
 
-class FollowingActivity : AppCompatActivity() {
+class FollowingActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private val mAuth = FirebaseAuth.getInstance()
     private var loadingAnimation = AnimationDrawable()
@@ -44,6 +45,7 @@ class FollowingActivity : AppCompatActivity() {
             }
             return@setOnNavigationItemSelectedListener false
         }
+        srlFeedFollowing.setOnRefreshListener(this)
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
@@ -60,6 +62,7 @@ class FollowingActivity : AppCompatActivity() {
         followingLoadingContainer.visibility = View.VISIBLE
         viewModel.playerList.observe(this, Observer { players ->
             followingLoadingContainer.visibility = View.GONE
+            srlFeedFollowing.isRefreshing = false
             val adapter = PlayerAdapter(players, this)
             rvFollowing.adapter = adapter
         })
@@ -82,5 +85,9 @@ class FollowingActivity : AppCompatActivity() {
     override fun onBackPressed() {
         finish()
         overridePendingTransition(0, 0)
+    }
+
+    override fun onRefresh() {
+        showPlayers()
     }
 }

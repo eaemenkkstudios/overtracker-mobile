@@ -6,18 +6,23 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFeed"
-        android:layout_width="0dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlFeed"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:translationZ="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bnvFeed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFeed"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:translationZ="0dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvFeed"
         android:layout_width="409dp"
@@ -38,7 +43,7 @@
         android:clickable="true"
         android:translationZ="1dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/rvFeed"
+        app:layout_constraintBottom_toBottomOf="@+id/srlFeed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
