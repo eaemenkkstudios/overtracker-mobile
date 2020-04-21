@@ -25,36 +25,28 @@ interface CardService {
 class CardRepository (context: Context, baseUrl: String) : BaseRetrofit(context, baseUrl) {
     private val service = retrofit.create(CardService::class.java)
 
-    fun getFeed(page: Int = 1, callback: (cards: Array<Card>) -> Unit) {
+    fun getFeed(page: Int = 1, callback: (cards: Array<Card>?) -> Unit) {
         service.getFeed(page).enqueue(object: Callback<Array<Card>> {
             override fun onResponse(call: Call<Array<Card>>, response: Response<Array<Card>>) {
                 val cards = response.body()
-                if(cards != null) {
-                    callback(cards)
-                } else {
-                    callback(arrayOf(Card()))
-                }
+                callback(cards)
             }
 
             override fun onFailure(call: Call<Array<Card>>, t: Throwable) {
-                callback(arrayOf(Card()))
+                callback(null)
             }
         })
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: Array<Card>) -> Unit) {
+    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: Array<Card>?) -> Unit) {
         service.getLocalFeed(authToken, page).enqueue(object: Callback<Array<Card>> {
             override fun onResponse(call: Call<Array<Card>>, response: Response<Array<Card>>) {
                 val cards = response.body()
-                if(cards != null) {
-                    callback(cards)
-                } else {
-                    callback(arrayOf(Card()))
-                }
+                callback(cards)
             }
 
             override fun onFailure(call: Call<Array<Card>>, t: Throwable) {
-                callback(arrayOf(Card()))
+                callback(null)
             }
         })
     }

@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_feed_local.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
+import java.lang.Exception
 
 class LocalFeedActivity: AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
@@ -57,11 +59,20 @@ class LocalFeedActivity: AppCompatActivity() {
             val adapter = CardAdapter(cards, this)
             rvFeedLocal.adapter = adapter
         })
+        viewModel.error.observe(this, Observer { response ->
+            if(!response.status) {
+                feedLocalLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
+            }
+        })
         feedLocalLoadingContainer.visibility = View.VISIBLE
         val operation = mAuth.currentUser?.getIdToken(true)
         operation?.addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 viewModel.getLocalFeed(task.result?.token.toString())
+            } else {
+                feedLocalLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, "Could not load feed, please try again...", Toast.LENGTH_SHORT).show()
             }
         }
     }

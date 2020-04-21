@@ -4,23 +4,30 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.domain.Card
+import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.CardInteractor
+import java.lang.Exception
 
 class CardViewModel(app: Application) : AndroidViewModel(app){
     private val interactor = CardInteractor(app.applicationContext)
 
     val cardList = MutableLiveData<Array<Card>>()
     val localCardList = MutableLiveData<Array<Card>>()
+    val error = MutableLiveData<RequestResult>()
 
     fun getFeed(page: Int = 1) {
         interactor.getFeed(page) { cards ->
-            cardList.value = formatCards(cards)
+            if(cards.isNullOrEmpty()) {
+                error.value = RequestResult(false, "Could not load feed, please try again...")
+            } else cardList.value = formatCards(cards)
         }
     }
 
     fun getLocalFeed(authToken: String, page: Int = 1) {
         interactor.getLocalFeed(authToken, page) {cards ->
-            localCardList.value = formatCards(cards)
+            if(cards.isNullOrEmpty()) {
+                error.value = RequestResult(false, "Could not load feed, please try again...")
+            } else localCardList.value = formatCards(cards)
         }
     }
 

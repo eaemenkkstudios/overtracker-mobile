@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
+import java.lang.Exception
 
 class FeedActivity: AppCompatActivity() {
     private var loadingAnimation = AnimationDrawable()
@@ -55,8 +57,15 @@ class FeedActivity: AppCompatActivity() {
             val adapter = CardAdapter(cards, this)
             rvFeed.adapter = adapter
         })
+        viewModel.error.observe(this, Observer { response ->
+            if(!response.status) {
+                feedLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
+            }
+        })
         feedLoadingContainer.visibility = View.VISIBLE
         viewModel.getFeed()
+
     }
 
     private fun configureRecyclerView() {

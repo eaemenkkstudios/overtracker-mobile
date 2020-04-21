@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -18,6 +19,7 @@ import studios.eaemenkk.overtracker.R.*
 import studios.eaemenkk.overtracker.view.adapter.PlayerScoreAdapter
 import studios.eaemenkk.overtracker.viewmodel.DatabaseViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
+import java.lang.Exception
 
 class InfoActivity: AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
@@ -102,7 +104,12 @@ class InfoActivity: AppCompatActivity() {
                 val operation = mAuth.currentUser?.getIdToken(true)
                 operation?.addOnCompleteListener {task ->
                     if(task.isSuccessful) {
-                        viewModel.playerInfo(task.result?.token.toString(), playerId)
+                        try {
+                            viewModel.playerInfo(task.result?.token.toString(), playerId)
+                        } catch (e: Exception) {
+                            infoLoadingContainer.visibility = View.GONE
+                            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }

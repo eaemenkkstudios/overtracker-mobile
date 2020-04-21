@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
+import java.lang.Exception
 
 class FollowingActivity : AppCompatActivity() {
 
@@ -64,7 +66,15 @@ class FollowingActivity : AppCompatActivity() {
         val operation = mAuth.currentUser?.getIdToken(true)
         operation?.addOnCompleteListener {task ->
             if(task.isSuccessful) {
-                viewModel.followedPlayers(task.result?.token.toString())
+                try {
+                    viewModel.followedPlayers(task.result?.token.toString())
+                } catch (e: Exception) {
+                    followingLoadingContainer.visibility = View.GONE
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                followingLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, "Could not load players, please try again...", Toast.LENGTH_SHORT).show()
             }
         }
     }

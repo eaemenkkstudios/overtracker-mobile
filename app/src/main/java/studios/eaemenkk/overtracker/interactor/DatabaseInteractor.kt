@@ -1,7 +1,6 @@
 package studios.eaemenkk.overtracker.interactor
 
 import com.google.android.gms.tasks.Task
-import studios.eaemenkk.overtracker.domain.FirebaseResult
 import studios.eaemenkk.overtracker.respository.DatabaseRepository
 
 class DatabaseInteractor {

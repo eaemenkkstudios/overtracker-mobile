@@ -6,6 +6,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
 import studios.eaemenkk.overtracker.domain.Player
+import java.lang.Exception
 
 interface PlayerService {
     @GET("/info/{tagId}")
@@ -42,7 +43,7 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
             }
 
             override fun onFailure(call: Call<Player>, t: Throwable) {
-                callback(Player())
+                throw Exception("Failed to load player info, please try again...")
             }
         })
     }
@@ -59,7 +60,7 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
             }
 
             override fun onFailure(call: Call<Array<Player>>, t: Throwable) {
-                callback(arrayOf(Player()))
+                throw Exception("Failed to load players, please try again...")
             }
         })
     }
