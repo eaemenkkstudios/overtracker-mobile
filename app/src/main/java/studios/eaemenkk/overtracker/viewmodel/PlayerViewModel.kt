@@ -35,6 +35,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 "soldier76" -> "soldier: 76"
                 else -> player.now?.main?.hero
             }
+            player.now?.main?.time = "${player.now?.main?.time?.split(":")?.get(0)}h"
             player.now?.main?.hero = "${player.now?.main?.hero} "
             player.platform = player.platform?.toUpperCase()
             player.scores?.forEach { score ->

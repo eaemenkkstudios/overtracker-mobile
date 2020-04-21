@@ -52,14 +52,14 @@ class InfoActivity: AppCompatActivity() {
                     val adapter = PlayerScoreAdapter(player.scores)
                     rvInfoScores.adapter = adapter
                 }
-                tvInfoMainTime.text = "${player.now?.main?.time?.split(":")?.get(0)}h"
+                tvInfoMainTime.text = player.now?.main?.time
                 tvInfoTag.text = player.tag
                 tvInfoTagNum.text = player.tagNum
                 ivInfoMainRole.setImageResource(when (player.now?.main?.role) {
-                    "support" -> R.drawable.support
-                    "damage" -> R.drawable.damage
-                    "tank" -> R.drawable.tank
-                    else -> R.drawable.unknown
+                    "support" -> drawable.support
+                    "damage" -> drawable.damage
+                    "tank" -> drawable.tank
+                    else -> drawable.unknown
                 })
                 tvInfoCurrentDamage.text = player.now?.rank?.damage?.sr
                 tvInfoCurrentSupport.text = player.now?.rank?.support?.sr
