@@ -31,15 +31,9 @@
             tools:ignore="LockedOrientationActivity" />
         <activity android:name=".view.activity.InfoActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
-        <activity
-            android:name=".view.activity.FeedActivity"
-            android:launchMode="singleInstance"/>
-        <activity
-            android:name=".view.activity.LocalFeedActivity"
-            android:launchMode="singleInstance"/>
-        <activity
-            android:name=".view.activity.FollowingActivity"
-            android:launchMode="singleInstance"/>
+        <activity  android:name=".view.activity.FeedActivity"/>
+        <activity android:name=".view.activity.LocalFeedActivity"/>
+        <activity android:name=".view.activity.FollowingActivity"/>
 
     </application>
 

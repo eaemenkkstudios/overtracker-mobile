@@ -4,15 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.domain.Player
+import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.PlayerInteractor
+import java.lang.Exception
 import kotlin.math.floor
 
 class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = PlayerInteractor(app.applicationContext)
 
     val playerDetails = MutableLiveData<Player>()
-    val playerList = MutableLiveData<Array<Player>>()
-    val created = MutableLiveData<Boolean>()
+    val playerList = MutableLiveData<ArrayList<Player>>()
+    val created = MutableLiveData<RequestResult>()
 
     fun playerInfo(authToken: String, tagId: String) {
         interactor.playerInfo(authToken, tagId) { player ->
@@ -51,7 +53,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     fun followedPlayers(authToken: String) {
         interactor.followedPlayers(authToken) { players ->
-            players.forEach { player ->
+            players?.forEach { player ->
                 val battleTag = player.tag?.split("#")
                 player.tag = "${battleTag?.get(0)} "
                 player.tagNum = "#${battleTag?.get(1)} "
@@ -61,9 +63,14 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun createPlayer(authToken: String, tag: String, platform: String) {
+    fun createPlayer(authToken: String, tag: String, platform: String = "pc") {
         interactor.createPlayer(authToken, tag, platform) { status ->
-            created.value = status
+            if(status) {
+                created.value = RequestResult(status, "Player added")
+            } else {
+                created.value = RequestResult(status, "Failed to add player")
+            }
+
         }
     }
 

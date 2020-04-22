@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.highlight_feed_list_item.view.*
 import kotlinx.android.synthetic.main.main_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
-import studios.eaemenkk.overtracker.view.activity.FeedActivity
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
 class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
@@ -153,17 +152,20 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         }
     }
 
+    fun addCard(card: Card) {
+        dataSet.add(card)
+        notifyDataSetChanged()
+    }
+
     fun addCards(cards: ArrayList<Card>) {
         dataSet.addAll(dataSet.size, cards)
         notifyDataSetChanged()
-        println("TOTAL CARDS ADD ${dataSet.size}")
 
     }
 
     fun setCards(cards: ArrayList<Card>) {
         dataSet = cards
         notifyDataSetChanged()
-        println("TOTAL CARDS ${dataSet.size}")
     }
 
     abstract class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)

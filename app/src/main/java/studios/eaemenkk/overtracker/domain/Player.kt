@@ -39,3 +39,5 @@ class Ranking {
     var sr: String? = null
     val img: String? = null
 }
+
+class NewPlayer (val tag: String, val platform: String)

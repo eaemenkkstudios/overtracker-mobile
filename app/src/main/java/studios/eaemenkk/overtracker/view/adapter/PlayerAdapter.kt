@@ -10,12 +10,12 @@ import android.widget.TextView
 import studios.eaemenkk.overtracker.domain.Player
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_info.view.*
 import kotlinx.android.synthetic.main.player_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
-class PlayerAdapter(private val dataSet: Array<Player>, private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter( private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+    private var dataSet = ArrayList<Player>()
 
     override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): PlayerViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.player_list_item, parent, false)
@@ -52,6 +52,21 @@ class PlayerAdapter(private val dataSet: Array<Player>, private val context: Con
                 "5" -> R.drawable.endorsement_5
                 else -> R.drawable.unknown
             })
+    }
+
+    fun addPlayer(player: Player) {
+        dataSet.add(player)
+        notifyDataSetChanged()
+    }
+
+    fun addPlayers(players: ArrayList<Player>) {
+        dataSet.addAll(players)
+        notifyDataSetChanged()
+    }
+
+    fun setPlayers(players: ArrayList<Player>) {
+        dataSet = players
+        notifyDataSetChanged()
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

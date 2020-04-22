@@ -7,7 +7,7 @@ import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.CardInteractor
 
-class CardViewModel(app: Application) : AndroidViewModel(app){
+class CardViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = CardInteractor(app.applicationContext)
 
     val cardList = MutableLiveData<ArrayList<Card>>()
@@ -20,28 +20,17 @@ class CardViewModel(app: Application) : AndroidViewModel(app){
             if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")
                 cardList.value = null
-            } else {
-                cardList.value = formatCards(cards)
-            }
+            } else cardList.value = formatCards(cards)
         }
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1, refresh: Boolean = true) {
+    fun getLocalFeed(authToken: String, page: Int = 1) {
         error.value = RequestResult(true, "")
         interactor.getLocalFeed(authToken, page) {cards ->
             if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")
                 localCardList.value = null
-            } else {
-                val formattedCards = formatCards(cards)
-                if(refresh || localCardList.value.isNullOrEmpty()) localCardList.value = formattedCards
-                else {
-                    val newCardList = ArrayList<Card>()
-                    newCardList.addAll(localCardList.value!!)
-                    newCardList.addAll(formattedCards)
-                    localCardList.value = newCardList
-                }
-            }
+            } else  localCardList.value = formatCards(cards)
         }
     }
 

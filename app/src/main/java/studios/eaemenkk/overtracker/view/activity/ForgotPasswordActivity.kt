@@ -12,12 +12,19 @@ import java.lang.Exception
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
-    private var viewModel: AuthViewModel? = null
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+
+        viewModel.forgotPasswordMsg.observe(this, Observer { result ->
+            if(result.msg != "") {
+                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
+                if(result.status) finish()
+            }
+        })
 
         btSendEmail.setOnClickListener { sendEmail() }
     }
@@ -25,16 +32,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
     fun sendEmail() {
         val email = etEmail.text.toString()
         try {
-            viewModel!!.forgotPassword(email)
+            viewModel.forgotPassword(email)
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
 
-        viewModel!!.forgotPasswordMsg.observe(this, Observer { result ->
-            if(result.msg != "") {
-                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
-                if(result.status) finish()
-            }
-        })
+
     }
 }

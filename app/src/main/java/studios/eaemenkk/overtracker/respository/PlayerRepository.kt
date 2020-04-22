@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
+import studios.eaemenkk.overtracker.domain.NewPlayer
 import studios.eaemenkk.overtracker.domain.Player
 import java.lang.Exception
 
@@ -18,13 +19,12 @@ interface PlayerService {
     @GET("/following")
     fun followedPlayers(
         @Header("Authorization") authToken: String
-    ) : Call<Array<Player>>
+    ) : Call<ArrayList<Player>>
 
-    @POST("/create")
+    @POST("/follow")
     fun createPlayer(
         @Header("Authorization") authToken: String,
-        @Body tag: String,
-        @Body platform: String
+        @Body player: NewPlayer
     ) : Call<Void>
 }
 
@@ -48,27 +48,24 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
         })
     }
 
-    fun followedPlayers(authToken: String, callback: (players: Array<Player>) -> Unit) {
-        service.followedPlayers(authToken).enqueue(object : Callback<Array<Player>> {
-            override fun onResponse(call: Call<Array<Player>>, response: Response<Array<Player>>) {
+    fun followedPlayers(authToken: String, callback: (players: ArrayList<Player>?) -> Unit) {
+        service.followedPlayers(authToken).enqueue(object : Callback<ArrayList<Player>> {
+            override fun onResponse(call: Call<ArrayList<Player>>, response: Response<ArrayList<Player>>) {
                 val players = response.body()
-                if(players != null) {
-                    callback(players)
-                } else {
-                    callback(arrayOf(Player()))
-                }
+                callback(players)
             }
 
-            override fun onFailure(call: Call<Array<Player>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Player>>, t: Throwable) {
                 throw Exception("Failed to load players, please try again...")
             }
         })
     }
 
     fun createPlayer(authToken: String, tag: String, platform: String, callback: (status: Boolean) -> Unit) {
-        service.createPlayer(authToken, tag, platform).enqueue(object : Callback<Void> {
+        val player = NewPlayer(tag, platform)
+        service.createPlayer(authToken, player).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if(response.code() == 201) {
+                if(response.code() <= 201) {
                     callback(true)
                 } else {
                     callback(false)
