@@ -55,6 +55,9 @@ class LocalFeedActivity: AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
         }
 
+        srlFeedLocal.setOnRefreshListener { onRefresh() }
+        rvFeedLocal.adapter = adapter
+
         viewModel.localCardList.observe(this, Observer { cards ->
             feedLocalLoadingContainer.visibility = View.GONE
             srlFeedLocal.isRefreshing = false
@@ -70,8 +73,6 @@ class LocalFeedActivity: AppCompatActivity() {
             }
         })
 
-        srlFeedLocal.setOnRefreshListener { onRefresh() }
-        rvFeedLocal.adapter = adapter
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable

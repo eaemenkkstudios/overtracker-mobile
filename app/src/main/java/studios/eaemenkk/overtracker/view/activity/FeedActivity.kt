@@ -53,6 +53,9 @@ class FeedActivity: AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
         }
 
+        srlFeed.setOnRefreshListener { onRefresh() }
+        rvFeed.adapter = adapter
+
         viewModel.cardList.observe(this, Observer { cards ->
             srlFeed.isRefreshing = false
             feedLoadingContainer.visibility = View.GONE
@@ -68,9 +71,6 @@ class FeedActivity: AppCompatActivity() {
                 Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
             }
         })
-
-        srlFeed.setOnRefreshListener { onRefresh() }
-        rvFeed.adapter = adapter
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
