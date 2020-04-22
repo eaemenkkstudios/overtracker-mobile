@@ -18,11 +18,12 @@ class PlayerInteractor(context: Context) {
     }
 
     fun createPlayer(authToken: String, tag: String, platform: String, callback: (status: Boolean) -> Unit) {
+        if(tag.isEmpty()) throw Exception("Please inform the battletag.")
+        if(platform.isEmpty()) throw Exception("Please inform the platform.")
         val tagFormat = Regex("""^\D\w{2,12}#\d{4,5}$""")
         if(!tagFormat.matches(tag)) {
             throw Exception("Invalid BattleTag.")
         }
-
         playerRepository.createPlayer(authToken, tag, platform, callback)
     }
 }

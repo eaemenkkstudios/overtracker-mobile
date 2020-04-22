@@ -64,8 +64,6 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun createPlayer(authToken: String, tag: String, platform: String = "pc") {
-        if(tag.isEmpty()) throw Exception("Please inform the battletag.")
-        if(platform.isEmpty()) throw Exception("Please inform the platform.")
         interactor.createPlayer(authToken, tag, platform) { status ->
             if(status) {
                 created.value = RequestResult(status, "Player added")

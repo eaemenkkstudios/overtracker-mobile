@@ -1,6 +1,5 @@
 package studios.eaemenkk.overtracker.view.activity
 
-import android.app.Application
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

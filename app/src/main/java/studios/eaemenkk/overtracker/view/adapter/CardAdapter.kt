@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.highlight_feed_list_item.view.*
 import kotlinx.android.synthetic.main.main_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
-import studios.eaemenkk.overtracker.view.activity.FeedActivity
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
 class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {

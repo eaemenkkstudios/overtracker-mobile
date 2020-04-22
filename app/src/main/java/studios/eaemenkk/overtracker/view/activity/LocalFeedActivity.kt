@@ -4,14 +4,12 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_feed_local.*
 import studios.eaemenkk.overtracker.R
@@ -25,7 +23,6 @@ class LocalFeedActivity: AppCompatActivity() {
     private val layoutManager = LinearLayoutManager(this)
     private val adapter = CardAdapter(this)
     private val mAuth = FirebaseAuth.getInstance()
-    private var loadingAnimation = AnimationDrawable()
     private val viewModel: CardViewModel by lazy {
         ViewModelProvider(this).get(CardViewModel::class.java)
     }
