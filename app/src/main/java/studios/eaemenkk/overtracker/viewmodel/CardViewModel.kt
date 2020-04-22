@@ -7,7 +7,7 @@ import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.CardInteractor
 
-class CardViewModel(app: Application) : AndroidViewModel(app){
+class CardViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = CardInteractor(app.applicationContext)
 
     val cardList = MutableLiveData<ArrayList<Card>>()

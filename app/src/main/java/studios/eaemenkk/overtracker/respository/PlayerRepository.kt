@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
+import studios.eaemenkk.overtracker.domain.NewPlayer
 import studios.eaemenkk.overtracker.domain.Player
 import java.lang.Exception
 
@@ -20,11 +21,10 @@ interface PlayerService {
         @Header("Authorization") authToken: String
     ) : Call<ArrayList<Player>>
 
-    @POST("/create")
+    @POST("/follow")
     fun createPlayer(
         @Header("Authorization") authToken: String,
-        @Body tag: String,
-        @Body platform: String
+        @Body player: NewPlayer
     ) : Call<Void>
 }
 
@@ -62,9 +62,10 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
     }
 
     fun createPlayer(authToken: String, tag: String, platform: String, callback: (status: Boolean) -> Unit) {
-        service.createPlayer(authToken, tag, platform).enqueue(object : Callback<Void> {
+        val player = NewPlayer(tag, platform)
+        service.createPlayer(authToken, player).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                if(response.code() == 201) {
+                if(response.code() <= 201) {
                     callback(true)
                 } else {
                     callback(false)

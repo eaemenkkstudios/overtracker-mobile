@@ -15,12 +15,22 @@ import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
 
-    private var viewModel: AuthViewModel? = null
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+
+        viewModel.loginMsg.observe(this, Observer { result ->
+            if(result.msg != "") {
+                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
+                if(result.status) {
+                    startActivity(Intent(this, FeedActivity::class.java))
+                    finish()
+                } else loginLoadingContainer.visibility = View.GONE
+            }
+        })
 
         btSignIn.setOnClickListener { signIn() }
         btSignUp.setOnClickListener { signUp() }
@@ -32,20 +42,12 @@ class LoginActivity : AppCompatActivity() {
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
         try {
-            viewModel!!.login(email, password)
+            viewModel.login(email, password)
         } catch (e: Exception) {
             loginLoadingContainer.visibility = View.GONE
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
-        viewModel!!.loginMsg.observe(this, Observer { result ->
-            if(result.msg != "") {
-                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
-                if(result.status) {
-                    startActivity(Intent(this, FeedActivity::class.java))
-                    finish()
-                } else loginLoadingContainer.visibility = View.GONE
-            }
-        })
+
     }
 
     private fun signUp() {

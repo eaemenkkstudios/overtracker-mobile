@@ -14,7 +14,6 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
     val forgotPasswordMsg = MutableLiveData<RequestResult>()
 
     fun login(email: String, password: String) {
-        loginMsg.value = RequestResult(false, "")
         interactor.login(email, password) { task ->
             if(task.isSuccessful) {
                 loginMsg.value = RequestResult(true, "Login successful!")
@@ -25,7 +24,6 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun register(email: String, password: String, confirmPassword: String) {
-        signUpMsg.value = RequestResult(false, "")
         interactor.register(email, password, confirmPassword) { task ->
             if(task.isSuccessful) {
                 signUpMsg.value = RequestResult(true, "Account created!")
@@ -36,7 +34,6 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun forgotPassword(email: String) {
-        forgotPasswordMsg.value = RequestResult(false, "")
         interactor.forgotPassword(email) {task ->
             if(task.isSuccessful) {
                 forgotPasswordMsg.value = RequestResult(true, "Password Recovery email sent!")

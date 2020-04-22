@@ -12,12 +12,20 @@ import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 
 class SignUpActivity : AppCompatActivity() {
 
-    private var viewModel: AuthViewModel? = null
+    private lateinit var viewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+        viewModel.signUpMsg.observe(this, Observer { result ->
+            if(result.msg != "") {
+                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
+                if(result.status) finish()
+                else signupLoadingContainer.visibility = View.GONE
+            }
+        })
+
         btSignup.setOnClickListener { signUp() }
     }
 
@@ -27,17 +35,10 @@ class SignUpActivity : AppCompatActivity() {
         val confirmPassword = etConfirmPassword.text.toString()
         signupLoadingContainer.visibility = View.VISIBLE
         try {
-            viewModel!!.register(email, password, confirmPassword)
+            viewModel.register(email, password, confirmPassword)
         } catch (e: Exception) {
             signupLoadingContainer.visibility = View.GONE
             Toast.makeText(this.applicationContext, e.message, Toast.LENGTH_SHORT).show()
         }
-        viewModel!!.signUpMsg.observe(this, Observer { result ->
-            if(result.msg != "") {
-                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
-                if(result.status) finish()
-                else signupLoadingContainer.visibility = View.GONE
-            }
-        })
     }
 }

@@ -2,21 +2,38 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clFollowing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     tools:context=".view.activity.FollowingActivity">
 
+    <Button
+        android:id="@+id/btnSearchPlayer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/bignoodletoo"
+        android:text="Follow Player"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/srlFeedFollowing"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/srlFeedFollowing"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bnvFeed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/btnSearchPlayer">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFollowing"
@@ -24,6 +41,7 @@
             android:layout_height="match_parent"
             android:translationZ="0dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvFeed"
         android:layout_width="409dp"
