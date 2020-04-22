@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +23,11 @@ import java.lang.Exception
 class FollowingActivity : AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
     private var loadingAnimation = AnimationDrawable()
+    private val adapter = PlayerAdapter(this)
+    private var isLoading = false
+    private var refresh = true
+    private var page = 1
+    private val layoutManager = LinearLayoutManager(this)
     private val viewModel: PlayerViewModel by lazy {
         ViewModelProvider(this).get(PlayerViewModel::class.java)
     }
@@ -29,9 +35,8 @@ class FollowingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_following)
-        val navigation = findViewById<BottomNavigationView>(R.id.bnvFeed)
-        navigation.selectedItemId = R.id.btFollowing
-        navigation.setOnNavigationItemSelectedListener { menuItem ->
+        bnvFeed.selectedItemId = R.id.btFollowing
+        bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {
                     startActivity(Intent(this, FeedActivity::class.java))
@@ -41,32 +46,51 @@ class FollowingActivity : AppCompatActivity() {
                     startActivity(Intent(this, LocalFeedActivity::class.java))
                     overridePendingTransition(0, 0)
                 }
+                else -> {
+                    layoutManager.smoothScrollToPosition(rvFollowing, object: RecyclerView.State() {}, 0)
+                }
             }
             return@setOnNavigationItemSelectedListener false
         }
         srlFeedFollowing.setOnRefreshListener { onRefresh() }
-        val loadingImage = findViewById<ImageView>(R.id.ivLoading)
-        loadingImage.setBackgroundResource(R.drawable.animation)
-        loadingAnimation = loadingImage.background as AnimationDrawable
-        loadingAnimation.start()
+
+        ivLoading.setBackgroundResource(R.drawable.animation)
+        (ivLoading.background as AnimationDrawable).start()
+
         configureRecyclerView()
         showPlayers()
     }
 
     private fun configureRecyclerView() {
-        rvFollowing.layoutManager = LinearLayoutManager(this)
+
+        viewModel.playerList.observe(this, Observer { players ->
+            followingLoadingContainer.visibility = View.GONE
+            srlFeedFollowing.isRefreshing = false
+            rvFollowing.adapter = adapter
+            if(refresh) adapter.setPlayers(players)
+            else adapter.addPlayers(players)
+        })
+
+        rvFollowing.layoutManager = layoutManager
+        rvFollowing.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(dy > 0) {
+                    val visibleItemCount = layoutManager.childCount
+                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                    val total = adapter.itemCount
+                    if(!isLoading && visibleItemCount + pastVisibleItem >= total) {
+                        isLoading = true
+                        rvFollowing.post { getNextPage() }
+                    }
+                }
+            }
+        })
     }
 
     private fun showPlayers() {
         followingLoadingContainer.visibility = View.VISIBLE
-        viewModel.playerList.observe(this, Observer { players ->
-            followingLoadingContainer.visibility = View.GONE
-            srlFeedFollowing.isRefreshing = false
-            val adapter = PlayerAdapter(players, this)
-            rvFollowing.adapter = adapter
-        })
-        val operation = mAuth.currentUser?.getIdToken(true)
-        operation?.addOnCompleteListener {task ->
+        mAuth.currentUser?.getIdToken(true)?.addOnCompleteListener {task ->
             if(task.isSuccessful) {
                 try {
                     viewModel.followedPlayers(task.result?.token.toString())
@@ -87,7 +111,15 @@ class FollowingActivity : AppCompatActivity() {
     }
 
     private fun onRefresh() {
+        page = 1
+        refresh = true
         showPlayers()
+    }
+
+    fun getNextPage() {
+        page++
+        refresh = false
+        // showPlayers()
     }
 
 

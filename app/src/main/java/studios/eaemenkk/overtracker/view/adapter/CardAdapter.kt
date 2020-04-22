@@ -153,17 +153,20 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         }
     }
 
+    fun addCard(card: Card) {
+        dataSet.add(card)
+        notifyDataSetChanged()
+    }
+
     fun addCards(cards: ArrayList<Card>) {
         dataSet.addAll(dataSet.size, cards)
         notifyDataSetChanged()
-        println("TOTAL CARDS ADD ${dataSet.size}")
 
     }
 
     fun setCards(cards: ArrayList<Card>) {
         dataSet = cards
         notifyDataSetChanged()
-        println("TOTAL CARDS ${dataSet.size}")
     }
 
     abstract class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)

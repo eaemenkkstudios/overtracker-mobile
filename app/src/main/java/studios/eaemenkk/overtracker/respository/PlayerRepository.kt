@@ -18,7 +18,7 @@ interface PlayerService {
     @GET("/following")
     fun followedPlayers(
         @Header("Authorization") authToken: String
-    ) : Call<Array<Player>>
+    ) : Call<ArrayList<Player>>
 
     @POST("/create")
     fun createPlayer(
@@ -48,18 +48,14 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
         })
     }
 
-    fun followedPlayers(authToken: String, callback: (players: Array<Player>) -> Unit) {
-        service.followedPlayers(authToken).enqueue(object : Callback<Array<Player>> {
-            override fun onResponse(call: Call<Array<Player>>, response: Response<Array<Player>>) {
+    fun followedPlayers(authToken: String, callback: (players: ArrayList<Player>?) -> Unit) {
+        service.followedPlayers(authToken).enqueue(object : Callback<ArrayList<Player>> {
+            override fun onResponse(call: Call<ArrayList<Player>>, response: Response<ArrayList<Player>>) {
                 val players = response.body()
-                if(players != null) {
-                    callback(players)
-                } else {
-                    callback(arrayOf(Player()))
-                }
+                callback(players)
             }
 
-            override fun onFailure(call: Call<Array<Player>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Player>>, t: Throwable) {
                 throw Exception("Failed to load players, please try again...")
             }
         })

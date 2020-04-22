@@ -11,7 +11,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = PlayerInteractor(app.applicationContext)
 
     val playerDetails = MutableLiveData<Player>()
-    val playerList = MutableLiveData<Array<Player>>()
+    val playerList = MutableLiveData<ArrayList<Player>>()
     val created = MutableLiveData<Boolean>()
 
     fun playerInfo(authToken: String, tagId: String) {
@@ -51,7 +51,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
     fun followedPlayers(authToken: String) {
         interactor.followedPlayers(authToken) { players ->
-            players.forEach { player ->
+            players?.forEach { player ->
                 val battleTag = player.tag?.split("#")
                 player.tag = "${battleTag?.get(0)} "
                 player.tagNum = "#${battleTag?.get(1)} "

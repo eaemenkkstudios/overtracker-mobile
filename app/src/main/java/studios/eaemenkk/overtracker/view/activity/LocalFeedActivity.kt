@@ -11,14 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_feed_local.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
-import java.lang.Exception
 
 class LocalFeedActivity: AppCompatActivity() {
     private var page = 1
@@ -36,9 +34,8 @@ class LocalFeedActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_local)
 
-        val navigation = findViewById<BottomNavigationView>(R.id.bnvFeed)
-        navigation.selectedItemId = R.id.btLocal
-        navigation.setOnNavigationItemSelectedListener { menuItem ->
+        bnvFeed.selectedItemId = R.id.btLocal
+        bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {
                     startActivity(Intent(this, FeedActivity::class.java))
@@ -58,6 +55,26 @@ class LocalFeedActivity: AppCompatActivity() {
         srlFeedLocal.setOnRefreshListener { onRefresh() }
         rvFeedLocal.adapter = adapter
 
+        ivLoading.setBackgroundResource(R.drawable.animation)
+        (ivLoading.background as AnimationDrawable).start()
+
+        configureRecyclerView()
+        getLocalFeed()
+    }
+
+    private fun getLocalFeed() {
+        feedLocalLoadingContainer.visibility = View.VISIBLE
+        mAuth.currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
+            if(task.isSuccessful) {
+                viewModel.getLocalFeed(task.result?.token.toString(), page)
+            } else {
+                feedLocalLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, "Could not load feed, please try again...", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun configureRecyclerView() {
         viewModel.localCardList.observe(this, Observer { cards ->
             feedLocalLoadingContainer.visibility = View.GONE
             srlFeedLocal.isRefreshing = false
@@ -73,36 +90,14 @@ class LocalFeedActivity: AppCompatActivity() {
             }
         })
 
-        val loadingImage = findViewById<ImageView>(R.id.ivLoading)
-        loadingImage.setBackgroundResource(R.drawable.animation)
-        loadingAnimation = loadingImage.background as AnimationDrawable
-        loadingAnimation.start()
-        configureRecyclerView()
-        getLocalFeed()
-    }
-
-    private fun getLocalFeed() {
-        feedLocalLoadingContainer.visibility = View.VISIBLE
-        val operation = mAuth.currentUser?.getIdToken(true)
-        operation?.addOnCompleteListener { task ->
-            if(task.isSuccessful) {
-                viewModel.getLocalFeed(task.result?.token.toString(), page, refresh)
-            } else {
-                feedLocalLoadingContainer.visibility = View.GONE
-                Toast.makeText(this, "Could not load feed, please try again...", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun configureRecyclerView() {
-        rvFeedLocal.layoutManager = LinearLayoutManager(this)
+        rvFeedLocal.layoutManager = layoutManager
         rvFeedLocal.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if(dy > 0) {
                     val visibleItemCount = layoutManager.childCount
                     val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                    val total = rvFeedLocal.adapter!!.itemCount
+                    val total = adapter.itemCount
 
                     if(!isLoading && visibleItemCount + pastVisibleItem >= total) {
                         isLoading = true

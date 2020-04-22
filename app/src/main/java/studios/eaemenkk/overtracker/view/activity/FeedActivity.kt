@@ -34,9 +34,8 @@ class FeedActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
-        val navigation = findViewById<BottomNavigationView>(R.id.bnvFeed)
-        navigation.selectedItemId = R.id.btGlobal
-        navigation.setOnNavigationItemSelectedListener { menuItem ->
+        bnvFeed.selectedItemId = R.id.btGlobal
+        bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btLocal -> {
                     startActivity(Intent(this, LocalFeedActivity::class.java))
@@ -56,6 +55,19 @@ class FeedActivity: AppCompatActivity() {
         srlFeed.setOnRefreshListener { onRefresh() }
         rvFeed.adapter = adapter
 
+        ivLoading.setBackgroundResource(R.drawable.animation)
+        (ivLoading.background as AnimationDrawable).start()
+
+        configureRecyclerView()
+        getFeed()
+    }
+
+    private fun getFeed() {
+        feedLoadingContainer.visibility = View.VISIBLE
+        viewModel.getFeed(page)
+    }
+
+    private fun configureRecyclerView() {
         viewModel.cardList.observe(this, Observer { cards ->
             srlFeed.isRefreshing = false
             feedLoadingContainer.visibility = View.GONE
@@ -71,20 +83,7 @@ class FeedActivity: AppCompatActivity() {
                 Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
             }
         })
-        val loadingImage = findViewById<ImageView>(R.id.ivLoading)
-        loadingImage.setBackgroundResource(R.drawable.animation)
-        loadingAnimation = loadingImage.background as AnimationDrawable
-        loadingAnimation.start()
-        configureRecyclerView()
-        getFeed()
-    }
 
-    private fun getFeed() {
-        feedLoadingContainer.visibility = View.VISIBLE
-        viewModel.getFeed(page)
-    }
-
-    private fun configureRecyclerView() {
         rvFeed.layoutManager = layoutManager
         rvFeed.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -92,11 +91,10 @@ class FeedActivity: AppCompatActivity() {
                 if(dy > 0) {
                     val visibleItemCount = layoutManager.childCount
                     val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
-                    val total = rvFeed.adapter!!.itemCount
+                    val total = adapter.itemCount
 
                     if(!isLoading && visibleItemCount + pastVisibleItem >= total) {
                         isLoading = true
-                        println("TOTAL $total")
                         rvFeed.post { getNextPage() }
                     }
                 }

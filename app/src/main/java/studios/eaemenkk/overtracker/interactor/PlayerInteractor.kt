@@ -13,7 +13,7 @@ class PlayerInteractor(context: Context) {
         playerRepository.playerInfo(authToken, tagId, callback)
     }
 
-    fun followedPlayers(authToken: String, callback: (players: Array<Player>) -> Unit) {
+    fun followedPlayers(authToken: String, callback: (players: ArrayList<Player>?) -> Unit) {
         playerRepository.followedPlayers(authToken, callback)
     }
 
