@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +20,12 @@ import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
 import java.lang.Exception
 
-class LocalFeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
+class LocalFeedActivity: AppCompatActivity() {
+    private var page = 1
+    private var refresh = true
+    private var isLoading = false
+    private val layoutManager = LinearLayoutManager(this)
+    private val adapter = CardAdapter(this)
     private val mAuth = FirebaseAuth.getInstance()
     private var loadingAnimation = AnimationDrawable()
     private val viewModel: CardViewModel by lazy {
@@ -42,10 +48,30 @@ class LocalFeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
                     startActivity(Intent(this, FollowingActivity::class.java))
                     overridePendingTransition(0, 0)
                 }
+                else -> {
+                    layoutManager.smoothScrollToPosition(rvFeedLocal, object: RecyclerView.State() {}, 0)
+                }
             }
             return@setOnNavigationItemSelectedListener false
         }
-        srlFeedLocal.setOnRefreshListener(this)
+
+        viewModel.localCardList.observe(this, Observer { cards ->
+            feedLocalLoadingContainer.visibility = View.GONE
+            srlFeedLocal.isRefreshing = false
+            isLoading = cards.isEmpty()
+            if(refresh) adapter.setCards(cards)
+            else adapter.addCards(cards)
+        })
+
+        viewModel.error.observe(this, Observer { response ->
+            if(!response.status && response.msg != "") {
+                feedLocalLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        srlFeedLocal.setOnRefreshListener { onRefresh() }
+        rvFeedLocal.adapter = adapter
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
@@ -55,23 +81,11 @@ class LocalFeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
     }
 
     private fun getLocalFeed() {
-        viewModel.localCardList.observe(this, Observer { cards ->
-            feedLocalLoadingContainer.visibility = View.GONE
-            srlFeedLocal.isRefreshing = false
-            val adapter = CardAdapter(cards, this)
-            rvFeedLocal.adapter = adapter
-        })
-        viewModel.error.observe(this, Observer { response ->
-            if(!response.status) {
-                feedLocalLoadingContainer.visibility = View.GONE
-                Toast.makeText(this, response.msg, Toast.LENGTH_SHORT).show()
-            }
-        })
         feedLocalLoadingContainer.visibility = View.VISIBLE
         val operation = mAuth.currentUser?.getIdToken(true)
         operation?.addOnCompleteListener { task ->
             if(task.isSuccessful) {
-                viewModel.getLocalFeed(task.result?.token.toString())
+                viewModel.getLocalFeed(task.result?.token.toString(), page, refresh)
             } else {
                 feedLocalLoadingContainer.visibility = View.GONE
                 Toast.makeText(this, "Could not load feed, please try again...", Toast.LENGTH_SHORT).show()
@@ -81,6 +95,21 @@ class LocalFeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
 
     private fun configureRecyclerView() {
         rvFeedLocal.layoutManager = LinearLayoutManager(this)
+        rvFeedLocal.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(dy > 0) {
+                    val visibleItemCount = layoutManager.childCount
+                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                    val total = rvFeedLocal.adapter!!.itemCount
+
+                    if(!isLoading && visibleItemCount + pastVisibleItem >= total) {
+                        isLoading = true
+                        rvFeedLocal.post { getNextPage() }
+                    }
+                }
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -88,7 +117,15 @@ class LocalFeedActivity: AppCompatActivity(), SwipeRefreshLayout.OnRefreshListen
         overridePendingTransition(0, 0)
     }
 
-    override fun onRefresh() {
+    private fun onRefresh() {
+        page = 1
+        refresh = true
+        getLocalFeed()
+    }
+
+    fun getNextPage(){
+        page++
+        refresh = false
         getLocalFeed()
     }
 }

@@ -13,39 +13,39 @@ interface CardService {
     @GET("/feed/global")
     fun getFeed(
         @Query("page") page: Int = 1
-    ): Call<Array<Card>>
+    ): Call<ArrayList<Card>>
 
     @GET("/feed/local")
     fun getLocalFeed(
         @Header("Authorization") authToken: String,
         @Query("page") page: Int = 1
-    ): Call<Array<Card>>
+    ): Call<ArrayList<Card>>
 }
 
 class CardRepository (context: Context, baseUrl: String) : BaseRetrofit(context, baseUrl) {
     private val service = retrofit.create(CardService::class.java)
 
-    fun getFeed(page: Int = 1, callback: (cards: Array<Card>?) -> Unit) {
-        service.getFeed(page).enqueue(object: Callback<Array<Card>> {
-            override fun onResponse(call: Call<Array<Card>>, response: Response<Array<Card>>) {
+    fun getFeed(page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
+        service.getFeed(page).enqueue(object: Callback<ArrayList<Card>> {
+            override fun onResponse(call: Call<ArrayList<Card>>, response: Response<ArrayList<Card>>) {
                 val cards = response.body()
                 callback(cards)
             }
 
-            override fun onFailure(call: Call<Array<Card>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Card>>, t: Throwable) {
                 callback(null)
             }
         })
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: Array<Card>?) -> Unit) {
-        service.getLocalFeed(authToken, page).enqueue(object: Callback<Array<Card>> {
-            override fun onResponse(call: Call<Array<Card>>, response: Response<Array<Card>>) {
+    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
+        service.getLocalFeed(authToken, page).enqueue(object: Callback<ArrayList<Card>> {
+            override fun onResponse(call: Call<ArrayList<Card>>, response: Response<ArrayList<Card>>) {
                 val cards = response.body()
                 callback(cards)
             }
 
-            override fun onFailure(call: Call<Array<Card>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Card>>, t: Throwable) {
                 callback(null)
             }
         })

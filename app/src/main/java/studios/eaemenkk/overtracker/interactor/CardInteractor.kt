@@ -8,11 +8,11 @@ import studios.eaemenkk.overtracker.respository.CardRepository
 class CardInteractor(context: Context) {
     private val cardRepository = CardRepository(context, context.getString(R.string.api_base_url))
 
-    fun getFeed(page: Int = 1, callback: (cards: Array<Card>?) -> Unit) {
+    fun getFeed(page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
         cardRepository.getFeed(page, callback)
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: Array<Card>?) -> Unit) {
+    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
         cardRepository.getLocalFeed(authToken, page, callback)
     }
 }

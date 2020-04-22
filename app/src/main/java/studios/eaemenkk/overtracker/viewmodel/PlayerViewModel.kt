@@ -103,11 +103,11 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
 
         val unit = floor(timestampDiff.toDouble()/divider).toInt()
 
-        return if(unit == 1){
-            return "$unit $word ago"
-        } else {
-            return "$unit ${word}s ago"
-        }
+         return if(unit == 1){
+             "$unit $word ago"
+         } else {
+             "$unit ${word}s ago"
+         }
 
     }
 }

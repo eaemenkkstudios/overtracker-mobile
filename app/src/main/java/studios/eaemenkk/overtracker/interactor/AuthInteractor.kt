@@ -9,10 +9,10 @@ class AuthInteractor {
     private val firebaseRepository = AuthRepository()
 
     fun login(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {
-        if(email.isEmpty()) throw Exception("Por favor informe seu email!")
+            if(email.isEmpty()) throw Exception("Por favor informe seu email!")
 
-        if(password.isEmpty()) throw Exception("Por favor informe a senha!")
-        else if(password.length < 6) throw Exception("O tamanho mínimo de senha é 6 caracteres.")
+            if(password.isEmpty()) throw Exception("Por favor informe a senha!")
+            else if(password.length < 6) throw Exception("O tamanho mínimo de senha é 6 caracteres.")
 
         firebaseRepository.login(email, password, callback)
     }

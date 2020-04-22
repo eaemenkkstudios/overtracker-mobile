@@ -19,7 +19,8 @@ import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.view.activity.FeedActivity
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
-class CardAdapter(private val dataSet: Array<Card>, private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
+class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
+    private var dataSet = ArrayList<Card>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         when(viewType){
@@ -150,6 +151,19 @@ class CardAdapter(private val dataSet: Array<Card>, private val context: Context
             "highlight" -> 4
             else -> 5
         }
+    }
+
+    fun addCards(cards: ArrayList<Card>) {
+        dataSet.addAll(dataSet.size, cards)
+        notifyDataSetChanged()
+        println("TOTAL CARDS ADD ${dataSet.size}")
+
+    }
+
+    fun setCards(cards: ArrayList<Card>) {
+        dataSet = cards
+        notifyDataSetChanged()
+        println("TOTAL CARDS ${dataSet.size}")
     }
 
     abstract class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)

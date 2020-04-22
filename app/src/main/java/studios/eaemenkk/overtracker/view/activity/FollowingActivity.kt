@@ -19,8 +19,7 @@ import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 import java.lang.Exception
 
-class FollowingActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
-
+class FollowingActivity : AppCompatActivity() {
     private val mAuth = FirebaseAuth.getInstance()
     private var loadingAnimation = AnimationDrawable()
     private val viewModel: PlayerViewModel by lazy {
@@ -45,7 +44,7 @@ class FollowingActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
             }
             return@setOnNavigationItemSelectedListener false
         }
-        srlFeedFollowing.setOnRefreshListener(this)
+        srlFeedFollowing.setOnRefreshListener { onRefresh() }
         val loadingImage = findViewById<ImageView>(R.id.ivLoading)
         loadingImage.setBackgroundResource(R.drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
@@ -87,7 +86,9 @@ class FollowingActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
         overridePendingTransition(0, 0)
     }
 
-    override fun onRefresh() {
+    private fun onRefresh() {
         showPlayers()
     }
+
+
 }

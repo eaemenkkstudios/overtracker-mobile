@@ -6,32 +6,46 @@ import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.CardInteractor
-import java.lang.Exception
 
 class CardViewModel(app: Application) : AndroidViewModel(app){
     private val interactor = CardInteractor(app.applicationContext)
 
-    val cardList = MutableLiveData<Array<Card>>()
-    val localCardList = MutableLiveData<Array<Card>>()
+    val cardList = MutableLiveData<ArrayList<Card>>()
+    val localCardList = MutableLiveData<ArrayList<Card>>()
     val error = MutableLiveData<RequestResult>()
 
     fun getFeed(page: Int = 1) {
+        error.value = RequestResult(true, "")
         interactor.getFeed(page) { cards ->
-            if(cards.isNullOrEmpty()) {
+            if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")
-            } else cardList.value = formatCards(cards)
+                cardList.value = null
+            } else {
+                cardList.value = formatCards(cards)
+            }
         }
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1) {
+    fun getLocalFeed(authToken: String, page: Int = 1, refresh: Boolean = true) {
+        error.value = RequestResult(true, "")
         interactor.getLocalFeed(authToken, page) {cards ->
-            if(cards.isNullOrEmpty()) {
+            if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")
-            } else localCardList.value = formatCards(cards)
+                localCardList.value = null
+            } else {
+                val formattedCards = formatCards(cards)
+                if(refresh || localCardList.value.isNullOrEmpty()) localCardList.value = formattedCards
+                else {
+                    val newCardList = ArrayList<Card>()
+                    newCardList.addAll(localCardList.value!!)
+                    newCardList.addAll(formattedCards)
+                    localCardList.value = newCardList
+                }
+            }
         }
     }
 
-    private fun formatCards(cards: Array<Card>) : Array<Card> {
+    private fun formatCards(cards: ArrayList<Card>) : ArrayList<Card> {
         cards.forEach { card ->
             val battleTag = card.player?.tag?.split("#")
             card.player?.tag = "${battleTag?.get(0)} "
