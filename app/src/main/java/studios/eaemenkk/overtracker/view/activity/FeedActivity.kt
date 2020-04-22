@@ -83,7 +83,7 @@ class FeedActivity: AppCompatActivity() {
         viewModel.cardList.observe(this, Observer { cards ->
             srlFeed.isRefreshing = false
             feedLoadingContainer.visibility = View.GONE
-            isLoading = cards.isEmpty()
+            isLoading = cards.isNullOrEmpty()
             if(refresh) adapter.setCards(cards)
             else adapter.addCards(cards)
         })

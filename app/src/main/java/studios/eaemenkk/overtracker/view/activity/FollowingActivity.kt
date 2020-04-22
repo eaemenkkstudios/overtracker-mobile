@@ -98,7 +98,7 @@ class FollowingActivity : AppCompatActivity() {
             followingLoadingContainer.visibility = View.GONE
             srlFeedFollowing.isRefreshing = false
             rvFollowing.adapter = adapter
-            isLoading = players.isEmpty()
+            isLoading = players.isNullOrEmpty()
             if(refresh) adapter.setPlayers(players)
             else adapter.addPlayers(players)
         })

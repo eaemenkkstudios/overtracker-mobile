@@ -91,7 +91,7 @@ class LocalFeedActivity: AppCompatActivity() {
         viewModel.localCardList.observe(this, Observer { cards ->
             feedLocalLoadingContainer.visibility = View.GONE
             srlFeedLocal.isRefreshing = false
-            isLoading = cards.isEmpty()
+            isLoading = cards.isNullOrEmpty()
             if(refresh) adapter.setCards(cards)
             else adapter.addCards(cards)
         })
