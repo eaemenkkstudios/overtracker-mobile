@@ -3,12 +3,15 @@ package studios.eaemenkk.overtracker.view.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.overtracker.R
@@ -19,6 +22,7 @@ class FeedActivity: AppCompatActivity() {
     private var page = 1
     private var refresh = true
     private var isLoading = false
+    private var showLoadingIcon = true
     private val layoutManager = LinearLayoutManager(this)
     private val adapter = CardAdapter(this)
     private val viewModel: CardViewModel by lazy {
@@ -33,21 +37,33 @@ class FeedActivity: AppCompatActivity() {
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btLocal -> {
-                    startActivity(Intent(this, LocalFeedActivity::class.java))
+                    val intent = Intent(this, LocalFeedActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 R.id.btFollowing -> {
-                    startActivity(Intent(this, FollowingActivity::class.java))
+                    val intent = Intent(this, FollowingActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 else -> {
-                    layoutManager.smoothScrollToPosition(rvFeed, object: RecyclerView.State() {}, 0)
+                    val smoothScroller: RecyclerView.SmoothScroller = object: LinearSmoothScroller(this) {
+                        override fun getVerticalSnapPreference(): Int {
+                            return SNAP_TO_START
+                        }
+                    }
+                    smoothScroller.targetPosition = 0
+                    layoutManager.startSmoothScroll(smoothScroller)
                 }
             }
             return@setOnNavigationItemSelectedListener false
         }
 
         srlFeed.setOnRefreshListener { onRefresh() }
+        srlFeed.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
+        srlFeed.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         rvFeed.adapter = adapter
 
         ivLoading.setBackgroundResource(R.drawable.animation)
@@ -58,7 +74,8 @@ class FeedActivity: AppCompatActivity() {
     }
 
     private fun getFeed() {
-        feedLoadingContainer.visibility = View.VISIBLE
+        if(showLoadingIcon) feedLoadingContainer.visibility = View.VISIBLE
+        isLoading = true
         viewModel.getFeed(page)
     }
 
@@ -89,7 +106,6 @@ class FeedActivity: AppCompatActivity() {
                     val total = adapter.itemCount
 
                     if(!isLoading && visibleItemCount + pastVisibleItem >= total) {
-                        isLoading = true
                         rvFeed.post { getNextPage() }
                     }
                 }
@@ -102,16 +118,22 @@ class FeedActivity: AppCompatActivity() {
         overridePendingTransition(0, 0)
     }
 
+    override fun onResume() {
+        super.onResume()
+        overridePendingTransition(0, 0)
+    }
+
     private fun onRefresh() {
         page = 1
         refresh = true
-        isLoading = false
+        showLoadingIcon = false
         getFeed()
     }
 
     fun getNextPage() {
         page++
         refresh = false
+        showLoadingIcon = true
         getFeed()
     }
 }
