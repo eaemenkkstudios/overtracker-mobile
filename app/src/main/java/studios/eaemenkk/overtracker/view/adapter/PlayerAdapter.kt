@@ -54,19 +54,25 @@ class PlayerAdapter( private val context: Context) : RecyclerView.Adapter<Player
             })
     }
 
-    fun addPlayer(player: Player) {
-        dataSet.add(player)
-        notifyDataSetChanged()
+    fun addPlayer(player: Player?) {
+        if(player != null) {
+            dataSet.add(player)
+            notifyDataSetChanged()
+        }
     }
 
-    fun addPlayers(players: ArrayList<Player>) {
-        dataSet.addAll(players)
-        notifyDataSetChanged()
+    fun addPlayers(players: ArrayList<Player>?) {
+        if(players != null) {
+            dataSet.addAll(players)
+            notifyDataSetChanged()
+        }
     }
 
-    fun setPlayers(players: ArrayList<Player>) {
-        dataSet = players
-        notifyDataSetChanged()
+    fun setPlayers(players: ArrayList<Player>?) {
+        if(players != null) {
+            dataSet = players
+            notifyDataSetChanged()
+        }
     }
 
     class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

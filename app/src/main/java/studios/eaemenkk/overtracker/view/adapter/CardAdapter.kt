@@ -152,20 +152,25 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         }
     }
 
-    fun addCard(card: Card) {
-        dataSet.add(card)
-        notifyDataSetChanged()
+    fun addCard(card: Card?) {
+        if(card != null) {
+            dataSet.add(card)
+            notifyDataSetChanged()
+        }
     }
 
-    fun addCards(cards: ArrayList<Card>) {
-        dataSet.addAll(dataSet.size, cards)
-        notifyDataSetChanged()
-
+    fun addCards(cards: ArrayList<Card>?) {
+        if(cards != null) {
+            dataSet.addAll(dataSet.size, cards)
+            notifyDataSetChanged()
+        }
     }
 
-    fun setCards(cards: ArrayList<Card>) {
-        dataSet = cards
-        notifyDataSetChanged()
+    fun setCards(cards: ArrayList<Card>?) {
+        if(cards != null) {
+            dataSet = cards
+            notifyDataSetChanged()
+        }
     }
 
     abstract class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)

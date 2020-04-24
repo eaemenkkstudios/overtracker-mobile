@@ -15,7 +15,6 @@ class CardViewModel(app: Application) : AndroidViewModel(app) {
     val error = MutableLiveData<RequestResult>()
 
     fun getFeed(page: Int = 1) {
-        error.value = RequestResult(true, "")
         interactor.getFeed(page) { cards ->
             if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")
@@ -25,7 +24,6 @@ class CardViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun getLocalFeed(authToken: String, page: Int = 1) {
-        error.value = RequestResult(true, "")
         interactor.getLocalFeed(authToken, page) {cards ->
             if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")

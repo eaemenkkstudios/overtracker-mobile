@@ -67,9 +67,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.3.0'
 
     /** Firebase Dependencies */
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
-    implementation 'com.google.firebase:firebase-auth:19.3.0'
-    implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.4.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
 
     /** Test Dependencies */
     testImplementation 'junit:junit:4.13'
