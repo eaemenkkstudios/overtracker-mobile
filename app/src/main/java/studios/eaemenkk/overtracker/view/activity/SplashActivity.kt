@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import studios.eaemenkk.overtracker.R
 
@@ -15,6 +16,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MobileAds.initialize(this)
         if (!isTaskRoot) {
             finish()
             return

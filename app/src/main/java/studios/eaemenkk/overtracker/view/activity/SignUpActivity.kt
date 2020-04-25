@@ -2,11 +2,15 @@ package studios.eaemenkk.overtracker.view.activity
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.AdRequest
+import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import kotlinx.android.synthetic.main.activity_sign_up.adView
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 
@@ -26,6 +30,8 @@ class SignUpActivity : AppCompatActivity() {
             }
         })
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        adView.loadAd(AdRequest.Builder().build())
         btSignup.setOnClickListener { signUp() }
     }
 

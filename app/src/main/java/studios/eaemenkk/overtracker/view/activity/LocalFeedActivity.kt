@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_feed_local.*
 import studios.eaemenkk.overtracker.R

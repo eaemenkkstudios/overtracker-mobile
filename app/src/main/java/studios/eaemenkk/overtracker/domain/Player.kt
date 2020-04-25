@@ -1,6 +1,6 @@
 package studios.eaemenkk.overtracker.domain
 
-class Player {
+open class Player {
     val id: String? = null
     val lastUpdate: String? = null
     var platform: String? = null
@@ -41,3 +41,5 @@ class Ranking {
 }
 
 class NewPlayer (val tag: String, val platform: String)
+
+class AdPlayer: Player()
