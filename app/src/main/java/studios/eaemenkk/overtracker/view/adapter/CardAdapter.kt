@@ -5,43 +5,54 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.formats.MediaView
+import com.google.android.gms.ads.formats.NativeAdOptions
+import com.google.android.gms.ads.formats.UnifiedNativeAd
+import com.google.android.gms.ads.formats.UnifiedNativeAdView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.sr_feed_list_item.view.*
-import kotlinx.android.synthetic.main.wr_feed_list_item.view.*
+import kotlinx.android.synthetic.main.native_ad_list_item.view.*
 import kotlinx.android.synthetic.main.endorsement_feed_list_item.view.*
 import kotlinx.android.synthetic.main.highlight_feed_list_item.view.*
 import kotlinx.android.synthetic.main.main_feed_list_item.view.*
+import kotlinx.android.synthetic.main.sr_feed_list_item.view.*
+import kotlinx.android.synthetic.main.wr_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
+import studios.eaemenkk.overtracker.domain.AdCard
 import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
+
 
 class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
     private var dataSet = ArrayList<Card>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
-        when(viewType){
+        return when(viewType){
             0 -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.sr_feed_list_item, parent, false)
-                return SrCardViewHolder(view)
+                SrCardViewHolder(view)
             }
             1 -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.wr_feed_list_item, parent, false)
-                return WrCardViewHolder(view)
+                WrCardViewHolder(view)
             }
             2 -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.endorsement_feed_list_item, parent, false)
-                return EndorsementCardViewHolder(view)
+                EndorsementCardViewHolder(view)
             }
             3 -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.main_feed_list_item, parent, false)
-                return MainCardViewHolder(view)
+                MainCardViewHolder(view)
+            }
+            4 -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.highlight_feed_list_item, parent, false)
+                HighlightCardViewHolder(view)
             }
             else -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.highlight_feed_list_item, parent, false)
-                return HighlightCardViewHolder(view)
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.native_ad_list_item, parent, false)
+                AdCardViewHolder(view)
             }
         }
     }
@@ -52,11 +63,14 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         val card = dataSet[position]
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, InfoActivity::class.java)
-            intent.putExtra("playerId", card.player?.id)
-            context.startActivity(intent)
+        if(holder !is AdCardViewHolder) {
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, InfoActivity::class.java)
+                intent.putExtra("playerId", card.player?.id)
+                context.startActivity(intent)
+            }
         }
+
         when (holder) {
             is SrCardViewHolder -> {
                 holder.tag.text = card.player?.tag
@@ -137,6 +151,29 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
                 Picasso.get().load(card.main?.portrait).into(holder.mainImg)
                 holder.main.text = card.main?.current
             }
+            is AdCardViewHolder -> {
+                val adLoader = AdLoader.Builder(context, context.getString(R.string.ad_native_id))
+                    .forUnifiedNativeAd { unifiedNativeAd ->
+                        holder.adView.headlineView = holder.headlineView
+                        holder.adView.bodyView = holder.bodyView
+                        holder.adView.callToActionView = holder.callToActionView
+                        holder.adView.iconView = holder.iconView
+                        holder.adView.priceView = holder.priceView
+                        holder.adView.starRatingView = holder.starRatingView
+                        holder.adView.storeView = holder.storeView
+                        holder.adView.advertiserView = holder.advertiserView
+                        holder.adView.mediaView = holder.mediaView
+                        populateNativeAdView(unifiedNativeAd, holder.adView)
+                    }
+                    .withAdListener(object: AdListener() {
+                        override fun onAdFailedToLoad(errorCode: Int) {
+                            removeCard(position)
+                        }
+                    })
+                    .withNativeAdOptions(NativeAdOptions.Builder().build())
+                    .build()
+                adLoader.loadAd(AdRequest.Builder().build())
+            }
         }
 
     }
@@ -152,28 +189,93 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         }
     }
 
-    fun addCard(card: Card?) {
+    private fun removeCard(index: Int) {
+        dataSet.removeAt(index)
+        notifyDataSetChanged()
+    }
+
+    private fun addCard(index: Int, card: Card?) {
         if(card != null) {
             dataSet.add(card)
+            if(index % 4 == 0 && index != 0) {
+                dataSet.add(AdCard())
+            }
             notifyDataSetChanged()
         }
     }
 
     fun addCards(cards: ArrayList<Card>?) {
-        if(cards != null) {
-            dataSet.addAll(dataSet.size, cards)
-            notifyDataSetChanged()
-        }
+        cards?.forEachIndexed { index, card -> addCard(index, card) }
     }
 
     fun setCards(cards: ArrayList<Card>?) {
         if(cards != null) {
-            dataSet = cards
-            notifyDataSetChanged()
+            dataSet = ArrayList()
+            cards.forEachIndexed { index, card -> addCard(index, card)
+            }
         }
     }
 
+    private fun populateNativeAdView(nativeAd: UnifiedNativeAd, adView: UnifiedNativeAdView) {
+        (adView.headlineView as TextView).text = nativeAd.headline
+        (adView.bodyView as TextView).text = nativeAd.body
+        (adView.callToActionView as Button).text = "${nativeAd.callToAction} "
+
+        val icon = nativeAd.icon
+        if (icon == null) {
+            adView.iconView.visibility = View.INVISIBLE
+        } else {
+            (adView.iconView as ImageView).setImageDrawable(icon.drawable)
+            adView.iconView.visibility = View.VISIBLE
+        }
+        if (nativeAd.price == null) {
+            adView.priceView.visibility = View.INVISIBLE
+        } else {
+            adView.priceView.visibility = View.VISIBLE
+            (adView.priceView as TextView).text = nativeAd.price
+        }
+        if (nativeAd.store == null) {
+            adView.storeView.visibility = View.INVISIBLE
+        } else {
+            adView.storeView.visibility = View.VISIBLE
+            (adView.storeView as TextView).text = nativeAd.store
+        }
+        if (nativeAd.starRating == null) {
+            adView.starRatingView.visibility = View.INVISIBLE
+        } else {
+            (adView.starRatingView as RatingBar).rating = nativeAd.starRating.toFloat()
+            adView.starRatingView.visibility = View.VISIBLE
+        }
+        if (nativeAd.advertiser == null) {
+            adView.advertiserView.visibility = View.INVISIBLE
+        } else {
+            (adView.advertiserView as TextView).text = nativeAd.advertiser
+            adView.advertiserView.visibility = View.VISIBLE
+        }
+        if (nativeAd.mediaContent == null) {
+            adView.mediaView.visibility = View.GONE
+        } else {
+            (adView.mediaView as MediaView).setMediaContent(nativeAd.mediaContent)
+            adView.mediaView.visibility = View.VISIBLE
+        }
+
+        adView.setNativeAd(nativeAd)
+    }
+
     abstract class CardViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+
+    class AdCardViewHolder(itemView: View): CardViewHolder(itemView) {
+        val adView: UnifiedNativeAdView = itemView.ad_view
+        val headlineView: TextView = itemView.ad_headline
+        val bodyView: TextView = itemView.ad_body
+        val callToActionView: Button = itemView.ad_call_to_action
+        val iconView: ImageView = itemView.ad_icon
+        val priceView: TextView = itemView.ad_price
+        val starRatingView: RatingBar = itemView.ad_stars
+        val storeView: TextView = itemView.ad_store
+        val advertiserView: TextView = itemView.ad_advertiser
+        val mediaView: MediaView = itemView.ad_media
+    }
 
     class SrCardViewHolder(itemView: View): CardViewHolder(itemView) {
         val tag: TextView = itemView.tvSrTag

@@ -2,10 +2,14 @@ package studios.eaemenkk.overtracker.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.AdRequest
+import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_forgot_password.*
+import kotlinx.android.synthetic.main.activity_forgot_password.adView
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 import java.lang.Exception
@@ -26,10 +30,12 @@ class ForgotPasswordActivity : AppCompatActivity() {
             }
         })
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        adView.loadAd(AdRequest.Builder().build())
         btSendEmail.setOnClickListener { sendEmail() }
     }
 
-    fun sendEmail() {
+    private fun sendEmail() {
         val email = etEmail.text.toString()
         try {
             viewModel.forgotPassword(email)

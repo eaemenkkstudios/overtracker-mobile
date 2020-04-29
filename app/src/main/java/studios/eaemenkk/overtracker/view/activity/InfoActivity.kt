@@ -11,9 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_info.*
+import kotlinx.android.synthetic.main.activity_info.adView
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.R.*
 import studios.eaemenkk.overtracker.view.adapter.PlayerScoreAdapter
@@ -38,6 +41,8 @@ class InfoActivity: AppCompatActivity() {
         loadingImage.setBackgroundResource(drawable.animation)
         loadingAnimation = loadingImage.background as AnimationDrawable
         loadingAnimation.start()
+
+        adView.loadAd(AdRequest.Builder().build())
         configureRecyclerView()
         getPlayerDetails()
     }

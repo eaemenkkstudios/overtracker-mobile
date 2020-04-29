@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.PopupWindow
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
@@ -88,6 +90,7 @@ class FollowingActivity : AppCompatActivity() {
         ivLoading.setBackgroundResource(R.drawable.animation)
         (ivLoading.background as AnimationDrawable).start()
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         configureRecyclerView()
         showPlayers()
     }

@@ -34,6 +34,9 @@
         <activity  android:name=".view.activity.FeedActivity"/>
         <activity android:name=".view.activity.LocalFeedActivity"/>
         <activity android:name=".view.activity.FollowingActivity"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ad_app_id"/>
 
     </application>
 

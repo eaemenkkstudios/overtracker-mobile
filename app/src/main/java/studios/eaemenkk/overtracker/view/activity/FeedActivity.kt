@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
