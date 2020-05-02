@@ -22,6 +22,8 @@ import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.AdPlayer
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
+private const val AD_INTERVAL = 5
+
 class PlayerAdapter( private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
     private var dataSet = ArrayList<Player>()
 
@@ -100,7 +102,7 @@ class PlayerAdapter( private val context: Context) : RecyclerView.Adapter<Player
     private fun addPlayer(index: Int, player: Player?) {
         if(player != null) {
             dataSet.add(player)
-            if(index % 4 == 0 && index != 0) {
+            if(index % AD_INTERVAL == AD_INTERVAL - 1) {
                 dataSet.add(AdPlayer())
             }
             notifyDataSetChanged()

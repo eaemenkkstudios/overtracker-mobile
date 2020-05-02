@@ -24,9 +24,11 @@ import studios.eaemenkk.overtracker.domain.AdCard
 import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
+private const val AD_INTERVAL = 8
 
 class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
     private var dataSet = ArrayList<Card>()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         return when(viewType){
@@ -197,7 +199,7 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
     private fun addCard(index: Int, card: Card?) {
         if(card != null) {
             dataSet.add(card)
-            if(index % 4 == 0 && index != 0) {
+            if(index % AD_INTERVAL == AD_INTERVAL - 1) {
                 dataSet.add(AdCard())
             }
             notifyDataSetChanged()
