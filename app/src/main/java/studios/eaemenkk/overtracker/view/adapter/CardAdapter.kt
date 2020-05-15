@@ -29,7 +29,6 @@ private const val AD_INTERVAL = 8
 class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
     private var dataSet = ArrayList<Card>()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         return when(viewType){
             0 -> {
