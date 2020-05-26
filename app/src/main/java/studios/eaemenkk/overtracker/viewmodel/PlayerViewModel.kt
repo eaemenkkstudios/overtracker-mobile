@@ -95,22 +95,22 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
             word = "day"
             divider = 86400
         }
-        else if (timestampDiff < 18144000) {
+        else if (timestampDiff < 2419200) {
             word = "week"
             divider = 604800
         }
-        else if (timestampDiff < 31536000) {
+        else if (timestampDiff < 29030400) {
             word = "month"
-            divider = 18144000
+            divider = 2419200
         }
-        else if (timestampDiff < 217728000){
+        else {
             word = "year"
-            divider = 31536000
+            divider = 29030400
         }
 
         val unit = floor(timestampDiff.toDouble()/divider).toInt()
 
-         return if(unit == 1){
+         return if(unit <= 1){
              "$unit $word ago"
          } else {
              "$unit ${word}s ago"
