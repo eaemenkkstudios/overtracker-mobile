@@ -180,7 +180,7 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(dataSet[position].type) {
+        return when(dataSet[position].cardType) {
             "sr_update" -> 0
             "winrate_update" -> 1
             "endorsement_update" -> 2

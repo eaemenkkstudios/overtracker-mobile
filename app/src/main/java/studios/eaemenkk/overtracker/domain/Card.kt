@@ -1,7 +1,7 @@
 package studios.eaemenkk.overtracker.domain
 
 open class Card {
- open val type: String? = null
+ open val cardType: String? = null
  val role: String? = null
  val date: String? = null
  val player: Player? = null
@@ -24,5 +24,5 @@ class Update {
 }
 
 class AdCard: Card() {
- override val type: String = "ad"
+ override val cardType: String = "ad"
 }

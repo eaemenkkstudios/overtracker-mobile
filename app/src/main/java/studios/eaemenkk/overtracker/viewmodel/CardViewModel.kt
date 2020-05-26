@@ -38,7 +38,7 @@ class CardViewModel(app: Application) : AndroidViewModel(app) {
             card.player?.tag = "${battleTag?.get(0)} "
             card.player?.tagNum = "#${battleTag?.get(1)} "
             card.player?.platform = card.player?.platform?.toUpperCase()
-            when(card.type) {
+            when(card.cardType) {
                 "main_update" -> {
                     card.current?.portrait = when(card.current?.hero) {
                         "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
