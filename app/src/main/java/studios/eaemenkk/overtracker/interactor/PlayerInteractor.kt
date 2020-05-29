@@ -26,4 +26,16 @@ class PlayerInteractor(context: Context) {
         }
         playerRepository.createPlayer(tag, platform, callback)
     }
+
+    fun followPlayer(tagId: String, callback: (status: Boolean) -> Unit) {
+        playerRepository.followPlayer(tagId, callback)
+    }
+
+    fun unfollowPlayer(tagId: String, callback: (status: Boolean) -> Unit) {
+        playerRepository.unfollowPlayer(tagId, callback)
+    }
+
+    fun isFollowing(tagId: String, callback: (status: Boolean) -> Unit) {
+        playerRepository.isFollowing(tagId, callback)
+    }
 }

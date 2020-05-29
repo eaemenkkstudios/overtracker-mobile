@@ -20,8 +20,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdRequest
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
@@ -29,7 +27,6 @@ import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class FollowingActivity : AppCompatActivity() {
-    private val mAuth = FirebaseAuth.getInstance()
     private val adapter = PlayerAdapter(this)
     private lateinit var loadingContainer: ConstraintLayout
     private lateinit var popupWindow: PopupWindow

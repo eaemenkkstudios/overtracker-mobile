@@ -19,6 +19,8 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     val playerDetails = MutableLiveData<Player>()
     val playerList = MutableLiveData<ArrayList<Player>>()
     val created = MutableLiveData<RequestResult>()
+    val followed = MutableLiveData<Boolean>()
+    val unfollowed = MutableLiveData<Boolean>()
 
     fun playerInfo(tagId: String) {
         interactor.playerInfo(tagId) { player ->
@@ -79,6 +81,21 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 created.value = RequestResult(status, "Failed to add player")
             }
 
+        }
+    }
+
+    fun followPlayer(tagId: String) {
+        interactor.followPlayer(tagId) { result -> followed.value = result }
+    }
+
+    fun unfollowPlayer(tagId: String) {
+        interactor.unfollowPlayer(tagId) { result -> unfollowed.value = result }
+    }
+
+    fun isFollowing(tagId: String) {
+        interactor.isFollowing(tagId) { result ->
+            if(result) followed.value = true
+            else unfollowed.value = true
         }
     }
 

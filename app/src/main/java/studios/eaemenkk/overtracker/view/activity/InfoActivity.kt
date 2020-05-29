@@ -12,23 +12,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.ads.AdRequest
-import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_info.*
 import kotlinx.android.synthetic.main.activity_info.adView
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.R.*
 import studios.eaemenkk.overtracker.view.adapter.PlayerScoreAdapter
-import studios.eaemenkk.overtracker.viewmodel.DatabaseViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 import java.lang.Exception
 
 class InfoActivity: AppCompatActivity() {
-    private val mAuth = FirebaseAuth.getInstance()
-    private val dbViewModel: DatabaseViewModel by lazy {
-        ViewModelProvider(this).get(DatabaseViewModel::class.java)
-    }
     private val viewModel: PlayerViewModel by lazy {
         ViewModelProvider(this).get(PlayerViewModel::class.java)
     }
@@ -87,31 +80,29 @@ class InfoActivity: AppCompatActivity() {
                 infoLoadingContainer.visibility = View.GONE
             })
 
-            val playerId = intent.getStringExtra("playerId")
+            val playerId = intent.getStringExtra("playerId") ?: return
 
-            dbViewModel.followStatus.observe(this, Observer { result ->
-                if(result.status) {
+            viewModel.followed.observe(this, Observer { result ->
+                if(result) {
                     btFollow.text = "Unfollow"
                     btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorDetail))
-                    btFollow.setOnClickListener { dbViewModel.unfollowPlayer(playerId) }
+                    btFollow.setOnClickListener { viewModel.unfollowPlayer(playerId) }
                 }
             })
 
-            dbViewModel.unfollowStatus.observe(this, Observer { result ->
-                if(result.status) {
+            viewModel.unfollowed.observe(this, Observer { result ->
+                if(result) {
                     btFollow.text = "Follow"
                     btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary))
-                    btFollow.setOnClickListener { dbViewModel.followPlayer(playerId) }
+                    btFollow.setOnClickListener { viewModel.followPlayer(playerId) }
                 }
             })
-            dbViewModel.isFollowing(playerId)
-            if(playerId != null) {
-                try {
-                    viewModel.playerInfo(playerId)
-                } catch (e: Exception) {
-                    infoLoadingContainer.visibility = View.GONE
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                }
+            viewModel.isFollowing(playerId)
+            try {
+                viewModel.playerInfo(playerId)
+            } catch (e: Exception) {
+                infoLoadingContainer.visibility = View.GONE
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -18,10 +18,25 @@ interface PlayerService {
     @GET("/following")
     fun followedPlayers() : Call<ArrayList<Player>>
 
-    @POST("/follow")
+    @POST("/followtag")
     fun createPlayer(
         @Body player: NewPlayer
     ) : Call<Void>
+
+    @POST("/followid/{tagId}")
+    fun followPlayer(
+        @Path("tagId") tagId: String
+    ): Call<Void>
+
+    @POST("/unfollowid/{tagId}")
+    fun unfollowPlayer(
+        @Path("tagId") tagId: String
+    ): Call<Void>
+
+    @GET("/isfollowing/{tagId}")
+    fun isFollowing(
+        @Path("tagId") tagId: String
+    ): Call<Void>
 }
 
 class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context, baseUrl) {
@@ -39,7 +54,7 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
             }
 
             override fun onFailure(call: Call<Player>, t: Throwable) {
-                throw Exception("Failed to load player info, please try again...")
+                callback(null)
             }
         })
     }
@@ -52,7 +67,7 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
             }
 
             override fun onFailure(call: Call<ArrayList<Player>?>, t: Throwable) {
-                throw Exception("Failed to load players, please try again...")
+                callback(null)
             }
         })
     }
@@ -62,6 +77,54 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
         service.createPlayer(player).enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.code() <= 201) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback(false)
+            }
+        })
+    }
+
+    fun followPlayer(tagId: String, callback: (status: Boolean) -> Unit) {
+        service.followPlayer(tagId).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.code() == 200) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback(false)
+            }
+        })
+    }
+
+    fun unfollowPlayer(tagId: String, callback: (status: Boolean) -> Unit) {
+        service.unfollowPlayer(tagId).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.code() == 200) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback(false)
+            }
+        })
+    }
+
+    fun isFollowing(tagId: String, callback: (status: Boolean) -> Unit) {
+        service.isFollowing(tagId).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.code() == 200) {
                     callback(true)
                 } else {
                     callback(false)

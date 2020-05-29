@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdRequest
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_feed_local.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
@@ -26,7 +24,6 @@ class LocalFeedActivity: AppCompatActivity() {
     private var showLoadingIcon = true
     private val layoutManager = LinearLayoutManager(this)
     private val adapter = CardAdapter(this)
-    private val mAuth = FirebaseAuth.getInstance()
     private val viewModel: CardViewModel by lazy {
         ViewModelProvider(this).get(CardViewModel::class.java)
     }
