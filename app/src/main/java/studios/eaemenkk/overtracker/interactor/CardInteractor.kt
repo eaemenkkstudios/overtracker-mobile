@@ -12,7 +12,7 @@ class CardInteractor(context: Context) {
         cardRepository.getFeed(page, callback)
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
-        cardRepository.getLocalFeed(authToken, page, callback)
+    fun getLocalFeed(page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
+        cardRepository.getLocalFeed(page, callback)
     }
 }

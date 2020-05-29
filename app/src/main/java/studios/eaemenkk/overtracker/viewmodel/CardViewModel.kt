@@ -23,8 +23,8 @@ class CardViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1) {
-        interactor.getLocalFeed(authToken, page) {cards ->
+    fun getLocalFeed(page: Int = 1) {
+        interactor.getLocalFeed(page) {cards ->
             if(cards == null) {
                 error.value = RequestResult(false, "Could not load feed, please try again...")
                 localCardList.value = null

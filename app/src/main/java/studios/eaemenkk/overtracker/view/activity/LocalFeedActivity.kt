@@ -75,7 +75,7 @@ class LocalFeedActivity: AppCompatActivity() {
     private fun getLocalFeed() {
         if(showLoadingIcon) feedLocalLoadingContainer.visibility = View.VISIBLE
         isLoading = true
-        viewModel.getLocalFeed("123", page)
+        viewModel.getLocalFeed(page)
     }
 
     private fun configureRecyclerView() {

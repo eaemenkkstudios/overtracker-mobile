@@ -17,7 +17,6 @@ interface CardService {
 
     @GET("/feed/local")
     fun getLocalFeed(
-        @Header("Authorization") authToken: String,
         @Query("page") page: Int = 1
     ): Call<ArrayList<Card>>
 }
@@ -38,8 +37,8 @@ class CardRepository (context: Context, baseUrl: String) : BaseRetrofit(context,
         })
     }
 
-    fun getLocalFeed(authToken: String, page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
-        service.getLocalFeed(authToken, page).enqueue(object: Callback<ArrayList<Card>> {
+    fun getLocalFeed(page: Int = 1, callback: (cards: ArrayList<Card>?) -> Unit) {
+        service.getLocalFeed(page).enqueue(object: Callback<ArrayList<Card>> {
             override fun onResponse(call: Call<ArrayList<Card>>, response: Response<ArrayList<Card>>) {
                 val cards = response.body()
                 callback(cards)
