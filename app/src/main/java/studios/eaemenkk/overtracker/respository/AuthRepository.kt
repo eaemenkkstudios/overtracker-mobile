@@ -1,29 +1,24 @@
 package studios.eaemenkk.overtracker.respository
 
+import android.content.Context
 import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
+import studios.eaemenkk.overtracker.domain.RequestResult
 
-class AuthRepository {
 
-    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+class AuthRepository(val context: Context, baseUrl: String) : BaseRetrofit(context, baseUrl) {
 
-    fun login(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            callback(task)
-        }
+    fun login(session: String, callback: (authResult: RequestResult) -> Unit) {
+        val sharedPreferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE).edit()
+        sharedPreferences.putString("session", session)
+        sharedPreferences.apply()
+        callback(RequestResult(true, "Login Succeeded!"))
     }
 
-    fun register(email: String, password: String, callback: (authResult: Task<AuthResult>) -> Unit) {
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            callback(task)
-        }
-    }
-
-    fun forgotPassword(email: String, callback: (authResult: Task<Void>) -> Unit) {
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener{ task ->
-            callback(task)
-        }
+    fun logout(callback: (authResult: RequestResult) -> Unit) {
+        val sharedPreferences = context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE).edit()
+        sharedPreferences.remove("session")
+        sharedPreferences.apply()
+        callback(RequestResult(true, "Logged Out."))
     }
 
 }

@@ -68,9 +68,9 @@ class InfoActivity: AppCompatActivity() {
                     "tank" -> drawable.tank
                     else -> drawable.unknown
                 })
-                tvInfoCurrentDamage.text = player.now?.rank?.damage?.sr
-                tvInfoCurrentSupport.text = player.now?.rank?.support?.sr
-                tvInfoCurrentTank.text = player.now?.rank?.tank?.sr
+                tvInfoCurrentDamage.text = player.now?.rank?.damage?.sr.toString()
+                tvInfoCurrentSupport.text = player.now?.rank?.support?.sr.toString()
+                tvInfoCurrentTank.text = player.now?.rank?.tank?.sr.toString()
                 tvInfoMain.text = player.now?.main?.hero
                 tvInfoPlatform.text = player.platform
                 Picasso.get().load(player.now?.portrait).into(ivInfoMain)
@@ -106,16 +106,11 @@ class InfoActivity: AppCompatActivity() {
             })
             dbViewModel.isFollowing(playerId)
             if(playerId != null) {
-                val operation = mAuth.currentUser?.getIdToken(true)
-                operation?.addOnCompleteListener {task ->
-                    if(task.isSuccessful) {
-                        try {
-                            viewModel.playerInfo(task.result?.token.toString(), playerId)
-                        } catch (e: Exception) {
-                            infoLoadingContainer.visibility = View.GONE
-                            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                try {
+                    viewModel.playerInfo(playerId)
+                } catch (e: Exception) {
+                    infoLoadingContainer.visibility = View.GONE
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }

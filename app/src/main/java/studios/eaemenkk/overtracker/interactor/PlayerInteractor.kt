@@ -9,21 +9,21 @@ import java.lang.Exception
 class PlayerInteractor(context: Context) {
     private val playerRepository = PlayerRepository(context, context.getString(R.string.api_base_url))
 
-    fun playerInfo(authToken: String, tagId: String, callback: (player: Player) -> Unit) {
-        playerRepository.playerInfo(authToken, tagId, callback)
+    fun playerInfo(tagId: String, callback: (player: Player?) -> Unit) {
+        playerRepository.playerInfo(tagId, callback)
     }
 
-    fun followedPlayers(authToken: String, callback: (players: ArrayList<Player>?) -> Unit) {
-        playerRepository.followedPlayers(authToken, callback)
+    fun followedPlayers(callback: (players: ArrayList<Player>?) -> Unit) {
+        playerRepository.followedPlayers(callback)
     }
 
-    fun createPlayer(authToken: String, tag: String, platform: String, callback: (status: Boolean) -> Unit) {
+    fun createPlayer(tag: String, platform: String, callback: (status: Boolean) -> Unit) {
         if(tag.isEmpty()) throw Exception("Please inform the battletag.")
         if(platform.isEmpty()) throw Exception("Please inform the platform.")
         val tagFormat = Regex("""^\D\w{2,12}#\d{4,5}$""")
         if(!tagFormat.matches(tag)) {
             throw Exception("Invalid BattleTag.")
         }
-        playerRepository.createPlayer(authToken, tag, platform, callback)
+        playerRepository.createPlayer(tag, platform, callback)
     }
 }

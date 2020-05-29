@@ -3,10 +3,14 @@ package studios.eaemenkk.overtracker.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import studios.eaemenkk.overtracker.domain.Game
 import studios.eaemenkk.overtracker.domain.Player
 import studios.eaemenkk.overtracker.domain.RequestResult
+import studios.eaemenkk.overtracker.domain.Score
 import studios.eaemenkk.overtracker.interactor.PlayerInteractor
 import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.floor
 
 class PlayerViewModel(app: Application) : AndroidViewModel(app) {
@@ -16,55 +20,59 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     val playerList = MutableLiveData<ArrayList<Player>>()
     val created = MutableLiveData<RequestResult>()
 
-    fun playerInfo(authToken: String, tagId: String) {
-        interactor.playerInfo(authToken, tagId) { player ->
-            val battleTag = player.tag?.split("#")
-            player.tag = "${battleTag?.get(0)} "
-            player.tagNum = "#${battleTag?.get(1)} "
-            player.now?.rank?.damage?.sr = "${player.now?.rank?.damage?.sr} "
-            player.now?.rank?.support?.sr = "${player.now?.rank?.support?.sr} "
-            player.now?.rank?.tank?.sr = "${player.now?.rank?.tank?.sr} "
-             "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
-            player.now?.portrait = when (player.now?.main?.hero) {
-                    "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
-                    "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
-                    else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
-            }
-            player.now?.main?.hero = when(player.now?.main?.hero) {
-                "dva" -> "d.va"
-                "lucio" -> "lúcio"
-                "torbjorn" -> "torbjörn"
-                "wreckingball" -> "wrecking ball"
-                "soldier76" -> "soldier: 76"
-                else -> player.now?.main?.hero
-            }
-            player.now?.main?.time = "${player.now?.main?.time?.split(":")?.get(0)}h"
-            player.now?.main?.hero = "${player.now?.main?.hero} "
-            player.platform = player.platform?.toUpperCase()
-            player.scores?.forEach { score ->
-                score.rank?.damage?.sr = "${score.rank?.damage?.sr} "
-                score.rank?.support?.sr = "${score.rank?.support?.sr} "
-                score.rank?.tank?.sr = "${score.rank?.tank?.sr} "
-                score.date = timestampToTimeInterval(score.date.toString())
-            }
-            playerDetails.value = player
-        }
-    }
-
-    fun followedPlayers(authToken: String) {
-        interactor.followedPlayers(authToken) { players ->
-            players?.forEach { player ->
+    fun playerInfo(tagId: String) {
+        interactor.playerInfo(tagId) { player ->
+            if(player != null) {
                 val battleTag = player.tag?.split("#")
                 player.tag = "${battleTag?.get(0)} "
                 player.tagNum = "#${battleTag?.get(1)} "
-                player.platform = player.platform?.toUpperCase()
+                player.platform = player.platform?.toUpperCase(Locale.ROOT)
+                player.now?.rank?.damage?.sr = "${player.now?.rank?.damage?.sr} "
+                player.now?.rank?.support?.sr = "${player.now?.rank?.support?.sr} "
+                player.now?.rank?.tank?.sr = "${player.now?.rank?.tank?.sr} "
+                "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
+                player.now?.portrait = when (player.now?.main?.hero) {
+                    "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
+                    "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
+                    else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
+                }
+                player.now?.main?.hero = when (player.now?.main?.hero) {
+                    "dva" -> "d.va"
+                    "lucio" -> "lúcio"
+                    "torbjorn" -> "torbjörn"
+                    "wreckingball" -> "wrecking ball"
+                    "soldier76" -> "soldier: 76"
+                    else -> player.now?.main?.hero
+                }
+                player.now?.main?.time = "${player.now?.main?.time?.split(":")?.get(0)}h"
+                player.now?.main?.hero = "${player.now?.main?.hero} "
+                player.scores?.forEach { score ->
+                    score.rank?.damage?.sr = "${score.rank?.damage?.sr} "
+                    score.rank?.support?.sr = "${score.rank?.support?.sr} "
+                    score.rank?.tank?.sr = "${score.rank?.tank?.sr} "
+                    score.date = timestampToTimeInterval(score.date.toString())
+                }
+                playerDetails.value = player
             }
-            playerList.value = players
         }
     }
 
-    fun createPlayer(authToken: String, tag: String, platform: String = "pc") {
-        interactor.createPlayer(authToken, tag, platform) { status ->
+    fun followedPlayers() {
+        interactor.followedPlayers { players ->
+            if(players != null) {
+                players.forEach { player ->
+                    val battleTag = player.tag?.split("#")
+                    player.tag = "${battleTag?.get(0)} "
+                    player.tagNum = "#${battleTag?.get(1)} "
+                    player.platform = player.platform?.toUpperCase(Locale.ROOT)
+                }
+                playerList.value = players
+            }
+        }
+    }
+
+    fun createPlayer(tag: String, platform: String = "pc") {
+        interactor.createPlayer(tag, platform) { status ->
             if(status) {
                 created.value = RequestResult(status, "Player added")
             } else {
@@ -78,7 +86,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         val currentTimestamp = System.currentTimeMillis() / 1000
         val timestampDiff = currentTimestamp - (timestamp.toLong() / 1000)
 
-        var word = "time unit"
+        var word: String
         var divider = 1
 
         if(timestampDiff < 60){

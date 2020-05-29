@@ -22,9 +22,9 @@ class PlayerScoreAdapter(private val dataSet: Array<Score>): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: PlayerInfoViewHolder, position: Int) {
         val score = dataSet[position]
-        holder.damage.text = score.rank?.damage?.sr.toString()
-        holder.support.text = score.rank?.support?.sr.toString()
-        holder.tank.text = score.rank?.tank?.sr.toString()
+        holder.damage.text = score.rank?.damage?.sr
+        holder.support.text = score.rank?.support?.sr
+        holder.tank.text = score.rank?.tank?.sr
         holder.date.text = score.date
     }
 

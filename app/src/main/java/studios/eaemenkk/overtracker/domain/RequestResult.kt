@@ -1,6 +1,3 @@
 package studios.eaemenkk.overtracker.domain
 
-class RequestResult (status: Boolean, msg: String) {
-    val status: Boolean = status
-    val msg: String = msg
-}
+data class RequestResult (val status: Boolean, val msg: String)

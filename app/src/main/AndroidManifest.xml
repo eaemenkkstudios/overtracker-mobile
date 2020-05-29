@@ -18,17 +18,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.ForgotPasswordActivity"
-            android:screenOrientation="sensorPortrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".view.activity.SignUpActivity"
-            android:screenOrientation="sensorPortrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".view.activity.LoginActivity"
             android:screenOrientation="sensorPortrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter android:label="Login">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="overtracker" android:host="login" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.activity.InfoActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity  android:name=".view.activity.FeedActivity"/>

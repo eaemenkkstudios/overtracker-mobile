@@ -40,6 +40,6 @@ class Ranking {
     val img: String? = null
 }
 
-class NewPlayer (val tag: String, val platform: String)
+data class NewPlayer (val tag: String, val platform: String)
 
 class AdPlayer: Player()

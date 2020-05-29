@@ -78,14 +78,7 @@ class LocalFeedActivity: AppCompatActivity() {
     private fun getLocalFeed() {
         if(showLoadingIcon) feedLocalLoadingContainer.visibility = View.VISIBLE
         isLoading = true
-        mAuth.currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
-            if(task.isSuccessful) {
-                viewModel.getLocalFeed(task.result?.token.toString(), page)
-            } else {
-                feedLocalLoadingContainer.visibility = View.GONE
-                Toast.makeText(this, "Could not load feed, please try again...", Toast.LENGTH_SHORT).show()
-            }
-        }
+        viewModel.getLocalFeed("123", page)
     }
 
     private fun configureRecyclerView() {

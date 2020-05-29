@@ -12,8 +12,6 @@ import studios.eaemenkk.overtracker.R
 
 class SplashActivity : AppCompatActivity() {
 
-    private val mAuth = FirebaseAuth.getInstance()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MobileAds.initialize(this)
@@ -29,12 +27,12 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         },2000)
-        mAuth.currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
-            if(task.isSuccessful) {
-                startActivity(Intent(this, FeedActivity::class.java))
-                finish()
-                handler.removeCallbacksAndMessages(null)
-            }
+        val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
+        val session = sharedPreferences.getString("session", null)
+        if(session != null) {
+            startActivity(Intent(this, FeedActivity::class.java))
+            finish()
+            handler.removeCallbacksAndMessages(null)
         }
     }
 }

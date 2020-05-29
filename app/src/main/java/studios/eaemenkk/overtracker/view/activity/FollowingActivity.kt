@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
+import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class FollowingActivity : AppCompatActivity() {
@@ -41,6 +42,9 @@ class FollowingActivity : AppCompatActivity() {
     private val layoutManager = LinearLayoutManager(this)
     private val viewModel: PlayerViewModel by lazy {
         ViewModelProvider(this).get(PlayerViewModel::class.java)
+    }
+    private val authViewModel: AuthViewModel by lazy {
+        ViewModelProvider(this).get(AuthViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +82,10 @@ class FollowingActivity : AppCompatActivity() {
             loadingContainer.visibility = View.GONE
             popupWindow.dismiss()
             onRefresh()
+            Toast.makeText(this, result.msg, Toast.LENGTH_SHORT).show()
+        })
+
+        authViewModel.logoutMsg.observe(this, Observer { result ->
             Toast.makeText(this, result.msg, Toast.LENGTH_SHORT).show()
         })
 
@@ -126,32 +134,21 @@ class FollowingActivity : AppCompatActivity() {
         if(showLoadingIcon) followingLoadingContainer.visibility = View.VISIBLE
         isLoading = true
 
-        mAuth.currentUser?.getIdToken(true)?.addOnCompleteListener {task ->
-            if(task.isSuccessful) {
-                try {
-                    viewModel.followedPlayers(task.result?.token.toString())
-                } catch (e: Exception) {
-                    followingLoadingContainer.visibility = View.GONE
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                followingLoadingContainer.visibility = View.GONE
-                Toast.makeText(this, "Could not load players, please try again...", Toast.LENGTH_SHORT).show()
-            }
+        try {
+            viewModel.followedPlayers()
+        } catch (e: Exception) {
+            followingLoadingContainer.visibility = View.GONE
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun createPlayer() {
         loadingContainer.visibility = View.VISIBLE
-        mAuth.currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
-            if(task.isSuccessful) {
-                try {
-                    viewModel.createPlayer(task.result?.token.toString(), tag, platform)
-                } catch (e: Exception) {
-                    loadingContainer.visibility = View.GONE
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
-                }
-            }
+        try {
+            viewModel.createPlayer(tag, platform)
+        } catch (e: Exception) {
+            loadingContainer.visibility = View.GONE
+            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -201,7 +198,7 @@ class FollowingActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        mAuth.signOut()
+        authViewModel.logout()
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

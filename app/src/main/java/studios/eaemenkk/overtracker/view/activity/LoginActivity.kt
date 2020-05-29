@@ -1,6 +1,8 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -9,21 +11,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
-import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.adView
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
-import java.lang.Exception
+
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: AuthViewModel
+    private val viewModel: AuthViewModel by lazy {
+        ViewModelProvider(this).get(AuthViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
 
         viewModel.loginMsg.observe(this, Observer { result ->
             if(result.msg != "") {
@@ -35,31 +36,23 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        adView.loadAd(AdRequest.Builder().build())
-        btSignIn.setOnClickListener { signIn() }
-        btSignUp.setOnClickListener { signUp() }
-        tvForgotPassword.setOnClickListener { forgotPassword() }
-    }
-
-    private fun signIn() {
-        loginLoadingContainer.visibility = View.VISIBLE
-        val email = etEmail.text.toString()
-        val password = etPassword.text.toString()
-        try {
-            viewModel.login(email, password)
-        } catch (e: Exception) {
-            loginLoadingContainer.visibility = View.GONE
-            Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+        val action = intent.action
+        if(action == Intent.ACTION_VIEW) {
+            val data = intent.data
+            val session = data?.getQueryParameter("session")
+            if(!session.isNullOrEmpty()) {
+                viewModel.login(session)
+            }
         }
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        adView.loadAd(AdRequest.Builder().build())
+        btSignIn.setOnClickListener { bnetSignIn() }
     }
 
-    private fun signUp() {
-        startActivity(Intent(this, SignUpActivity::class.java))
-    }
-
-    private fun forgotPassword() {
-        startActivity(Intent(this, ForgotPasswordActivity::class.java))
+    private fun bnetSignIn() {
+        val openURL = Intent(Intent.ACTION_VIEW)
+        openURL.data = Uri.parse("${getString(R.string.api_base_url)}/auth/bnet")
+        startActivity(openURL)
     }
 }
