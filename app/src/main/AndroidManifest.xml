@@ -17,26 +17,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".view.activity.HeroActivity"
-            android:label="@string/title_activity_hero"/>
+            android:label="@string/title_activity_hero">
+            <intent-filter>
+                <action android:name="HERO_INFO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="HERO_INFO" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -44,12 +40,12 @@
             android:name=".view.activity.LoginActivity"
             android:screenOrientation="sensorPortrait"
             tools:ignore="LockedOrientationActivity">
-            <intent-filter android:label="Login">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
+                <action android:name="LOGIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
+                <category android:name="LOGIN" />
                 <data
                     android:host="login"
                     android:scheme="overtracker" />
@@ -57,11 +53,41 @@
         </activity>
         <activity
             android:name=".view.activity.InfoActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".view.activity.HeroListActivity"/>
-        <activity android:name=".view.activity.FeedActivity" />
-        <activity android:name=".view.activity.LocalFeedActivity" />
-        <activity android:name=".view.activity.FollowingActivity" />
+            android:theme="@style/AppTheme.CustomTheme">
+            <intent-filter>
+                <action android:name="PLAYER_INFO" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="PLAYER_INFO" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.HeroListActivity">
+            <intent-filter>
+                <action android:name="HERO_LIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="HERO_LIST" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.FeedActivity">
+            <intent-filter>
+                <action android:name="GLOBAL_FEED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="GLOBAL_FEED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.LocalFeedActivity">
+            <intent-filter>
+                <action android:name="LOCAL_FEED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="LOCAL_FEED" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activity.FollowingActivity">
+            <intent-filter>
+                <action android:name="FOLLOWED_PLAYERS" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="FOLLOWED_PLAYERS" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

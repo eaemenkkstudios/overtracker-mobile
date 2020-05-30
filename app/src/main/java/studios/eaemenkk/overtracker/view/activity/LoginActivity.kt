@@ -29,16 +29,16 @@ class LoginActivity : AppCompatActivity() {
             if(result.msg != "") {
                 Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
                 if(result.status) {
-                    startActivity(Intent(this, FeedActivity::class.java))
+                    val intent = Intent("GLOBAL_FEED")
+                        .addCategory("GLOBAL_FEED")
+                    startActivity(intent)
                     finish()
                 } else loginLoadingContainer.visibility = View.GONE
             }
         })
 
-        val action = intent.action
-        if(action == Intent.ACTION_VIEW) {
-            val data = intent.data
-            val session = data?.getQueryParameter("session")
+        if(intent.action == Intent.ACTION_VIEW) {
+            val session = intent.data?.getQueryParameter("session")
             if(!session.isNullOrEmpty()) {
                 viewModel.login(session)
             }
@@ -57,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        startActivity(Intent(this, HeroListActivity::class.java))
+        val intent = Intent("HERO_LIST")
+            .addCategory("HERO_LIST")
+        startActivity(intent)
     }
 }

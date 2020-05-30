@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -51,13 +52,15 @@ class FollowingActivity : AppCompatActivity() {
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {
-                    val intent = Intent(this, FeedActivity::class.java)
+                    val intent = Intent("GLOBAL_FEED")
+                        .addCategory("GLOBAL_FEED")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 R.id.btLocal -> {
-                    val intent = Intent(this, LocalFeedActivity::class.java)
+                    val intent = Intent("LOCAL_FEED")
+                        .addCategory("LOCAL_FEED")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
@@ -196,7 +199,10 @@ class FollowingActivity : AppCompatActivity() {
 
     private fun logout() {
         authViewModel.logout()
-        val intent = Intent(this, LoginActivity::class.java)
+        val uri = Uri.parse("overtracker://login")
+        val intent = Intent("LOGIN")
+            .addCategory("LOGIN")
+        intent.data = uri
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

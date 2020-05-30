@@ -1,6 +1,7 @@
 package studios.eaemenkk.overtracker.view.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -23,13 +24,18 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         val handler = Handler()
         handler.postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+            val uri = Uri.parse("overtracker://login")
+            val intent = Intent("LOGIN").addCategory("LOGIN")
+            intent.data = uri
+            startActivity(intent)
             finish()
         },2000)
         val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
         val session = sharedPreferences.getString("session", null)
         if(session != null) {
-            startActivity(Intent(this, FeedActivity::class.java))
+            val intent = Intent("GLOBAL_FEED")
+                .addCategory("GLOBAL_FEED")
+            startActivity(intent)
             finish()
             handler.removeCallbacksAndMessages(null)
         }

@@ -3,7 +3,6 @@ package studios.eaemenkk.overtracker.view.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -21,13 +20,14 @@ class HeroListActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_list)
+
         viewModel.heroList.observe(this, Observer { heroes ->
             val density = resources.displayMetrics.density
             val dpWidth = resources.displayMetrics.widthPixels / density
             glHeroList.columnCount = (dpWidth / 96).toInt()
             glHeroList.removeAllViews()
             heroes.forEach { hero ->
-                val view = LayoutInflater.from(this).inflate(R.layout.hero_list_item, glHeroList, false)
+                val view = layoutInflater.inflate(R.layout.hero_list_item, glHeroList, false)
                 Picasso.get().load(hero.img).into(view.ivHeroPortrait)
                 view.tvHeroName.text = hero.friendlyName
                 view.ivHeroRole.setImageResource(
@@ -43,6 +43,7 @@ class HeroListActivity: AppCompatActivity() {
             }
             heroListLoadingContainer.visibility = View.GONE
         })
+
         ivLoading.setBackgroundResource(R.drawable.animation)
         (ivLoading.background as AnimationDrawable).start()
         heroListLoadingContainer.visibility = View.VISIBLE
@@ -54,7 +55,8 @@ class HeroListActivity: AppCompatActivity() {
     }
 
     private fun showHeroDetails(heroName: String) {
-        val intent = Intent(this, HeroActivity::class.java)
+        val intent = Intent("HERO_INFO")
+            .addCategory("HERO_INFO")
         intent.putExtra("heroName", heroName)
         startActivity(intent)
     }

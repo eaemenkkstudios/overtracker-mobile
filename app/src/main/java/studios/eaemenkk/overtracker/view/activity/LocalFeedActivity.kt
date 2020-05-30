@@ -36,13 +36,15 @@ class LocalFeedActivity: AppCompatActivity() {
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {
-                    val intent = Intent(this, FeedActivity::class.java)
+                    val intent = Intent("GLOBAL_FEED")
+                        .addCategory("GLOBAL_FEED")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 R.id.btFollowing -> {
-                    val intent = Intent(this, FollowingActivity::class.java)
+                    val intent = Intent("FOLLOWED_PLAYERS")
+                        .addCategory("FOLLOWED_PLAYERS")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
