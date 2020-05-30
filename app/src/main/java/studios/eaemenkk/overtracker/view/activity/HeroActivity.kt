@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ScrollView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -12,35 +14,36 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_hero.*
 import kotlinx.android.synthetic.main.activity_info.*
 import studios.eaemenkk.overtracker.R
+import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
 
 class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private val viewModel: HeroViewModel by lazy {
+        ViewModelProvider(this).get(HeroViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         transparent_image.setOnTouchListener { _, event ->
-            var action = event.action;
-            when (action) {
+            when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    // Disallow ScrollView to intercept touch events.
-                    svHero.requestDisallowInterceptTouchEvent(true);
-                    // Disable touch on transparent view
+                    svHero.requestDisallowInterceptTouchEvent(true)
                     false
                 }
 
                 MotionEvent.ACTION_UP -> {
                     // Allow ScrollView to intercept touch events.
-                    svHero.requestDisallowInterceptTouchEvent(false);
+                    svHero.requestDisallowInterceptTouchEvent(false)
                     true;
                 }
 
@@ -51,21 +54,52 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
                 else -> true
             }
         }
+        viewModel.heroInfo.observe(this, Observer { hero ->
+            tvHeroName.text = hero.friendlyName
+            // Picasso.get().load(hero.img).into(ivHeroImg)
+            ivHeroRole.setImageResource(
+                when(hero.role) {
+                    "support" -> R.drawable.support
+                    "damage" -> R.drawable.damage
+                    "tank" -> R.drawable.tank
+                    else -> R.drawable.unknown
+                }
+            )
+            tvHeroRole.text = "${hero.role} "
+            tvHeroLore.text = hero.lore
+            ivStar1.setColorFilter(getColor(R.color.colorDetail))
+            ivStar2.setColorFilter(getColor(R.color.colorDetail))
+            ivStar3.setColorFilter(getColor(R.color.colorDetail))
+            if(hero.difficulty != null) {
+                when (hero.difficulty) {
+                    1 -> {
+                        ivStar1.setColorFilter(getColor(R.color.colorPrimary))
+                    }
+                    2 -> {
+                        ivStar1.setColorFilter(getColor(R.color.colorPrimary))
+                        ivStar2.setColorFilter(getColor(R.color.colorPrimary))
+                    }
+                    3 -> {
+                        ivStar1.setColorFilter(getColor(R.color.colorPrimary))
+                        ivStar2.setColorFilter(getColor(R.color.colorPrimary))
+                        ivStar3.setColorFilter(getColor(R.color.colorPrimary))
+                    }
+                }
+            }
+        })
+        getHeroInfo()
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    private fun getHeroInfo() {
+        if(intent.hasExtra("heroName")) {
+            val heroName = intent.getStringExtra("heroName") ?: return
+            viewModel.getHero(heroName)
+        }
+    }
+
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))

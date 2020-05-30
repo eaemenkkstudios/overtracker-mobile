@@ -77,8 +77,8 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
                 holder.tag.text = card.player?.tag
                 holder.tagNum.text = card.player?.tagNum
                 holder.platform.text = card.player?.platform
-                holder.previous.text = card.sr?.previous;
-                holder.current.text = card.sr?.current;
+                holder.previous.text = card.sr?.previous
+                holder.current.text = card.sr?.current
                 holder.role.setImageResource(when (card.role) {
                     "support" -> R.drawable.support
                     "damage" -> R.drawable.damage
@@ -90,8 +90,8 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
                 holder.tag.text = card.player?.tag
                 holder.tagNum.text = card.player?.tagNum
                 holder.platform.text = card.player?.platform
-                holder.previous.text = card.winrate?.previous;
-                holder.current.text = card.winrate?.current;
+                holder.previous.text = card.winrate?.previous
+                holder.current.text = card.winrate?.current
             }
             is MainCardViewHolder -> {
                 holder.tag.text = card.player?.tag
@@ -108,13 +108,13 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
                 holder.platform.text = card.player?.platform
                 holder.previous.setImageResource(
                     when(card.endorsement?.previous){
-                    "1" -> R.drawable.endorsement_1
-                    "2" -> R.drawable.endorsement_2
-                    "3" -> R.drawable.endorsement_3
-                    "4" -> R.drawable.endorsement_4
-                    "5" -> R.drawable.endorsement_5
+                        "1" -> R.drawable.endorsement_1
+                        "2" -> R.drawable.endorsement_2
+                        "3" -> R.drawable.endorsement_3
+                        "4" -> R.drawable.endorsement_4
+                        "5" -> R.drawable.endorsement_5
                         else -> R.drawable.unknown
-                });
+                })
                 holder.current.setImageResource(
                     when(card.endorsement?.current){
                         "1" -> R.drawable.endorsement_1
@@ -123,7 +123,7 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
                         "4" -> R.drawable.endorsement_4
                         "5" -> R.drawable.endorsement_5
                         else -> R.drawable.unknown
-                    });
+                    })
             }
             is HighlightCardViewHolder -> {
                 holder.tag.text = card.player?.tag

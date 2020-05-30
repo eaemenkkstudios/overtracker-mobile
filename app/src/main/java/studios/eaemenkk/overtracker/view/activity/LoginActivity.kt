@@ -1,6 +1,5 @@
 package studios.eaemenkk.overtracker.view.activity
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -58,6 +57,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun foo() {
-        startActivity(Intent(this, HeroActivity::class.java))
+        startActivity(Intent(this, HeroListActivity::class.java))
     }
 }

@@ -58,6 +58,7 @@
         <activity
             android:name=".view.activity.InfoActivity"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".view.activity.HeroListActivity"/>
         <activity android:name=".view.activity.FeedActivity" />
         <activity android:name=".view.activity.LocalFeedActivity" />
         <activity android:name=".view.activity.FollowingActivity" />
