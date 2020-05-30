@@ -32,4 +32,11 @@
     <string name="tank">Tank</string>
     <string name="in_game_time">In-Game Time</string>
     <string name="login_bnet">Login With Battle.net</string>
+    <string name="players">Players</string>
+    <string name="following">Following</string>
+    <string name="trending">Trending</string>
+    <string name="heroes">Heroes</string>
+    <string name="difficulty">DIFFICULTY</string>
+    <string name="example_lore">Toting twin pulse pistols, energy-based time bombs, and rapid-fire banter, Tracer is able to blinkthrough space and rewind her personal timeline as she battles to right wrongs the world over.</string>
+    <string name="story">Story</string>
 </resources>

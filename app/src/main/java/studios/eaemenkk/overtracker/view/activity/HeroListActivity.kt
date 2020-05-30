@@ -8,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_feed.*
 import kotlinx.android.synthetic.main.activity_hero_list.*
+import kotlinx.android.synthetic.main.activity_hero_list.bnvFeed
+import kotlinx.android.synthetic.main.activity_hero_list.ivLoading
 import kotlinx.android.synthetic.main.hero_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
@@ -20,6 +23,34 @@ class HeroListActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_list)
+
+        bnvFeed.selectedItemId = R.id.btHeroes
+        bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
+            when(menuItem.itemId) {
+                R.id.btGlobal -> {
+                    val intent = Intent("GLOBAL_FEED")
+                        .addCategory("GLOBAL_FEED")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
+                R.id.btLocal -> {
+                    val intent = Intent("LOCAL_FEED")
+                        .addCategory("LOCAL_FEED")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
+                R.id.btFollowing -> {
+                    val intent = Intent("FOLLOWED_PLAYERS")
+                        .addCategory("FOLLOWED_PLAYERS")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
+            }
+            return@setOnNavigationItemSelectedListener false
+        }
 
         viewModel.heroList.observe(this, Observer { heroes ->
             val density = resources.displayMetrics.density
@@ -48,6 +79,16 @@ class HeroListActivity: AppCompatActivity() {
         (ivLoading.background as AnimationDrawable).start()
         heroListLoadingContainer.visibility = View.VISIBLE
         getHeroes()
+    }
+
+    override fun onBackPressed() {
+        finish()
+        overridePendingTransition(0, 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        overridePendingTransition(0, 0)
     }
 
     private fun getHeroes() {

@@ -1,13 +1,12 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.widget.ScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,7 +15,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_hero.*
-import kotlinx.android.synthetic.main.activity_info.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
 
@@ -86,7 +84,13 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
                 }
             }
+            heroLoadingContainer.visibility = View.GONE
         })
+
+        ivLoading.setBackgroundResource(R.drawable.animation)
+        (ivLoading.background as AnimationDrawable).start()
+
+        heroLoadingContainer.visibility = View.VISIBLE
         getHeroInfo()
     }
 

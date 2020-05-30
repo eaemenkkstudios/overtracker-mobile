@@ -38,7 +38,8 @@
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/tracer_big" />
+                        app:srcCompat="@drawable/tracer_big"
+                        android:contentDescription="@string/main_hero" />
 
                     <ImageView
                         android:id="@+id/imageView5"
@@ -75,7 +76,7 @@
                     <View
                         android:id="@+id/view"
                         android:layout_width="match_parent"
-                        android:layout_height="1100px" />
+                        android:layout_height="440dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -92,10 +93,10 @@
 
                             <ImageView
                                 android:id="@+id/ivHeroRole"
-                                android:layout_width="120px"
+                                android:layout_width="48dp"
                                 android:layout_height="match_parent"
-                                android:layout_marginTop="20px"
-                                android:layout_marginBottom="20px"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
                                 android:layout_weight="0"
                                 android:tint="@color/colorAccent"
                                 app:srcCompat="@drawable/damage" />
@@ -104,8 +105,8 @@
                                 android:id="@+id/tvHeroRole"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20px"
-                                android:layout_marginBottom="20px"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
                                 android:layout_weight="0"
                                 android:fontFamily="@font/bignoodletoo"
                                 android:text="Damage "
@@ -125,7 +126,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
-                                android:text="Story"
+                                android:text="@string/story"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="20sp"
@@ -137,7 +138,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
-                                android:text='Toting twin pulse pistols, energy-based time bombs, and rapid-fire banter, Tracer is able to "blink" through space and rewind her personal timeline as she battles to right wrongs the world over.'
+                                android:text="@string/example_lore"
                                 android:textAlignment="viewStart"
                                 android:textAllCaps="false"
                                 android:textColor="@color/colorAccent" />
@@ -151,11 +152,11 @@
 
                             <TextView
                                 android:id="@+id/textView8"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
-                                android:text="DIFFICULTY"
+                                android:text="@string/difficulty"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
                                 android:textSize="20sp"
@@ -164,15 +165,15 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="60px"
+                                android:layout_marginEnd="24dp"
                                 android:gravity="center_horizontal"
                                 android:orientation="horizontal">
 
                                 <ImageView
                                     android:id="@+id/ivStar1"
-                                    android:layout_width="120px"
-                                    android:layout_height="120px"
-                                    android:layout_margin="10px"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_margin="4dp"
                                     android:layout_weight="1"
                                     android:scaleType="centerInside"
                                     android:tint="@color/colorPrimary"
@@ -180,9 +181,9 @@
 
                                 <ImageView
                                     android:id="@+id/ivStar2"
-                                    android:layout_width="120px"
-                                    android:layout_height="120px"
-                                    android:layout_margin="10px"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_margin="4dp"
                                     android:layout_weight="1"
                                     android:scaleType="centerInside"
                                     android:tint="@color/colorPrimary"
@@ -190,9 +191,9 @@
 
                                 <ImageView
                                     android:id="@+id/ivStar3"
-                                    android:layout_width="120px"
-                                    android:layout_height="120px"
-                                    android:layout_margin="10px"
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:layout_margin="4dp"
                                     android:layout_weight="1"
                                     android:scaleType="centerInside"
                                     android:tint="@color/colorDetail"
@@ -224,7 +225,31 @@
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
-
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/heroLoadingContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:clickable="false"
+        android:translationZ="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivLoading"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@drawable/animation"
+            android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

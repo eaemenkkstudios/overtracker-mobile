@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         adView.loadAd(AdRequest.Builder().build())
         btSignIn.setOnClickListener { bnetSignIn() }
-        btSignUp.setOnClickListener { foo() }
     }
 
     private fun bnetSignIn() {

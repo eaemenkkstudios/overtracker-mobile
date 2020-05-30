@@ -4,17 +4,21 @@
     <item
         android:id = "@+id/btGlobal"
         android:icon = "@drawable/trending"
-        android:title = "Trending"
+        android:title = "@string/trending"
         />
     <item
         android:id = "@+id/btLocal"
         android:icon = "@drawable/following"
-        android:title = "Following"
+        android:title = "@string/following"
         />
     <item
         android:id = "@+id/btFollowing"
         android:icon = "@drawable/players"
-        android:title = "Players"
+        android:title = "@string/players"
         />
-
+    <item
+        android:id = "@+id/btHeroes"
+        android:icon = "@drawable/heroes"
+        android:title = "@string/heroes"
+        />
 </menu>

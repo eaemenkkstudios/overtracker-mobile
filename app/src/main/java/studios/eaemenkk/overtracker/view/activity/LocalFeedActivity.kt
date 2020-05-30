@@ -49,6 +49,13 @@ class LocalFeedActivity: AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
+                R.id.btHeroes -> {
+                    val intent = Intent("HERO_LIST")
+                        .addCategory("HERO_LIST")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
                 else -> {
                     val smoothScroller: RecyclerView.SmoothScroller = object: LinearSmoothScroller(this) {
                         override fun getVerticalSnapPreference(): Int {
