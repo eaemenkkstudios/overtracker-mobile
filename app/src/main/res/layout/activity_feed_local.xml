@@ -53,6 +53,7 @@
             android:layout_height="128dp"
             android:background="@drawable/animation"
             android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/loading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

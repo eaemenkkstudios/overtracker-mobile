@@ -3,17 +3,15 @@ package studios.eaemenkk.overtracker.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import studios.eaemenkk.overtracker.domain.Game
+import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Player
 import studios.eaemenkk.overtracker.domain.RequestResult
-import studios.eaemenkk.overtracker.domain.Score
 import studios.eaemenkk.overtracker.interactor.PlayerInteractor
-import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.floor
 
-class PlayerViewModel(app: Application) : AndroidViewModel(app) {
+class PlayerViewModel(val app: Application) : AndroidViewModel(app) {
     private val interactor = PlayerInteractor(app.applicationContext)
 
     val playerDetails = MutableLiveData<Player>()
@@ -32,7 +30,6 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
                 player.now?.rank?.damage?.sr = "${player.now?.rank?.damage?.sr} "
                 player.now?.rank?.support?.sr = "${player.now?.rank?.support?.sr} "
                 player.now?.rank?.tank?.sr = "${player.now?.rank?.tank?.sr} "
-                "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
                 player.now?.portrait = when (player.now?.main?.hero) {
                     "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/hero-select-portrait.png"
                     "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
@@ -76,9 +73,9 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
     fun createPlayer(tag: String, platform: String = "pc") {
         interactor.createPlayer(tag, platform) { status ->
             if(status) {
-                created.value = RequestResult(status, "Player added")
+                created.value = RequestResult(status, app.applicationContext.getString(R.string.player_added))
             } else {
-                created.value = RequestResult(status, "Failed to add player")
+                created.value = RequestResult(status, app.applicationContext.getString(R.string.add_player_failed))
             }
 
         }
@@ -103,42 +100,43 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         val currentTimestamp = System.currentTimeMillis() / 1000
         val timestampDiff = currentTimestamp - (timestamp.toLong() / 1000)
 
-        var word: String
+        val ago = app.applicationContext.getString(R.string.ago)
+        val word: String
         var divider = 1
 
         if(timestampDiff < 60){
-            word = "second"
+            word = app.applicationContext.getString(R.string.second)
         } else if(timestampDiff < 3600) {
-            word = "minute"
+            word = app.applicationContext.getString(R.string.minute)
             divider = 60
         }
         else if (timestampDiff < 86400) {
-            word = "hour"
+            word = app.applicationContext.getString(R.string.hour)
             divider = 3600
         }
         else if (timestampDiff < 604800) {
-            word = "day"
+            word = app.applicationContext.getString(R.string.day)
             divider = 86400
         }
         else if (timestampDiff < 2419200) {
-            word = "week"
+            word = app.applicationContext.getString(R.string.week)
             divider = 604800
         }
         else if (timestampDiff < 29030400) {
-            word = "month"
+            word = app.applicationContext.getString(R.string.month)
             divider = 2419200
         }
         else {
-            word = "year"
+            word = app.applicationContext.getString(R.string.year)
             divider = 29030400
         }
 
         val unit = floor(timestampDiff.toDouble()/divider).toInt()
 
          return if(unit <= 1){
-             "$unit $word ago"
+             "$unit $word $ago"
          } else {
-             "$unit ${word}s ago"
+             "$unit ${word}s $ago"
          }
 
     }

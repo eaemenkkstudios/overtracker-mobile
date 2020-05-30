@@ -81,7 +81,7 @@
                 android:layout_weight="0"
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/bignoodletoo"
-                android:text="Win Rate"
+                android:text="@string/win_rate"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18dp" />

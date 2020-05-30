@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imageView7"
+                        android:id="@+id/ivHeroImg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
@@ -91,7 +91,7 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:id="@+id/imageView8"
+                                android:id="@+id/ivHeroRole"
                                 android:layout_width="120px"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="20px"
@@ -101,7 +101,7 @@
                                 app:srcCompat="@drawable/damage" />
 
                             <TextView
-                                android:id="@+id/textView6"
+                                android:id="@+id/tvHeroRole"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="20px"
@@ -132,7 +132,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/textView12"
+                                android:id="@+id/tvHeroLore"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="10dp"
@@ -169,7 +169,7 @@
                                 android:orientation="horizontal">
 
                                 <ImageView
-                                    android:id="@+id/imageView11"
+                                    android:id="@+id/ivStar1"
                                     android:layout_width="120px"
                                     android:layout_height="120px"
                                     android:layout_margin="10px"
@@ -179,7 +179,7 @@
                                     app:srcCompat="@drawable/star" />
 
                                 <ImageView
-                                    android:id="@+id/imageView10"
+                                    android:id="@+id/ivStar2"
                                     android:layout_width="120px"
                                     android:layout_height="120px"
                                     android:layout_margin="10px"
@@ -189,7 +189,7 @@
                                     app:srcCompat="@drawable/star" />
 
                                 <ImageView
-                                    android:id="@+id/imageView9"
+                                    android:id="@+id/ivStar3"
                                     android:layout_width="120px"
                                     android:layout_height="120px"
                                     android:layout_margin="10px"
@@ -206,7 +206,7 @@
                 <RelativeLayout
                     android:id="@+id/map_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="400dp">
 
                     <fragment
                         android:id="@+id/map"

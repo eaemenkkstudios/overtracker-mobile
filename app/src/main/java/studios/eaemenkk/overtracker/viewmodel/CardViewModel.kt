@@ -3,11 +3,12 @@ package studios.eaemenkk.overtracker.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.CardInteractor
 
-class CardViewModel(app: Application) : AndroidViewModel(app) {
+class CardViewModel(val app: Application) : AndroidViewModel(app) {
     private val interactor = CardInteractor(app.applicationContext)
 
     val cardList = MutableLiveData<ArrayList<Card>>()
@@ -17,7 +18,7 @@ class CardViewModel(app: Application) : AndroidViewModel(app) {
     fun getFeed(page: Int = 1) {
         interactor.getFeed(page) { cards ->
             if(cards == null) {
-                error.value = RequestResult(false, "Could not load feed, please try again...")
+                error.value = RequestResult(false, app.applicationContext.getString(R.string.could_not_load_feed))
                 cardList.value = null
             } else cardList.value = formatCards(cards)
         }
@@ -26,7 +27,7 @@ class CardViewModel(app: Application) : AndroidViewModel(app) {
     fun getLocalFeed(page: Int = 1) {
         interactor.getLocalFeed(page) {cards ->
             if(cards == null) {
-                error.value = RequestResult(false, "Could not load feed, please try again...")
+                error.value = RequestResult(false, app.applicationContext.getString(R.string.could_not_load_feed))
                 localCardList.value = null
             } else  localCardList.value = formatCards(cards)
         }

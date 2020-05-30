@@ -84,7 +84,7 @@ class InfoActivity: AppCompatActivity() {
 
             viewModel.followed.observe(this, Observer { result ->
                 if(result) {
-                    btFollow.text = "Unfollow"
+                    btFollow.text = getString(string.unfollow)
                     btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorDetail))
                     btFollow.setOnClickListener { viewModel.unfollowPlayer(playerId) }
                 }
@@ -92,7 +92,7 @@ class InfoActivity: AppCompatActivity() {
 
             viewModel.unfollowed.observe(this, Observer { result ->
                 if(result) {
-                    btFollow.text = "Follow"
+                    btFollow.text = getString(string.follow)
                     btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary))
                     btFollow.setOnClickListener { viewModel.followPlayer(playerId) }
                 }

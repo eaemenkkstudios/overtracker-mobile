@@ -159,6 +159,7 @@
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:contentDescription="@string/tank"
                             android:tint="@color/colorDetail"
                             app:srcCompat="@drawable/tank" />
                     </LinearLayout>
@@ -185,6 +186,7 @@
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:contentDescription="@string/support"
                             android:tint="@color/colorDetail"
                             app:srcCompat="@drawable/support" />
                     </LinearLayout>
@@ -211,6 +213,7 @@
                             android:layout_width="40dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:contentDescription="@string/damage"
                             android:tint="@color/colorDetail"
                             app:srcCompat="@drawable/damage" />
                     </LinearLayout>
@@ -237,7 +240,7 @@
                             android:layout_marginBottom="-10dp"
                             android:layout_weight="1"
                             android:fontFamily="@font/bignoodletoo"
-                            android:text="Main hero"
+                            android:text="@string/main_hero"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorDetail"
                             android:textSize="20sp" />
@@ -263,7 +266,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0"
                                 android:fontFamily="@font/bignoodletoo"
-                                android:text="Wrecking ball "
+                                android:text="@string/example_hero"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="45sp" />
@@ -289,7 +292,7 @@
                                     android:layout_marginBottom="-5dp"
                                     android:layout_weight="0"
                                     android:fontFamily="@font/bignoodletoo"
-                                    android:text="in-game time"
+                                    android:text="@string/in_game_time"
                                     android:textAlignment="viewStart"
                                     android:textColor="@color/colorDetail"
                                     android:textSize="20sp" />
@@ -300,7 +303,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:fontFamily="@font/bignoodletoo"
-                                    android:text="305.78h"
+                                    android:text="@string/example_time"
                                     android:textAlignment="viewStart"
                                     android:textColor="@color/colorPrimary"
                                     android:textSize="30dp" />
@@ -318,7 +321,7 @@
                                     android:layout_marginBottom="-5dp"
                                     android:layout_weight="0"
                                     android:fontFamily="@font/bignoodletoo"
-                                    android:text="endorsement"
+                                    android:text="@string/endorsement"
                                     android:textAlignment="viewStart"
                                     android:textColor="@color/colorDetail"
                                     android:textSize="20sp" />
@@ -328,6 +331,7 @@
                                     android:layout_width="40dp"
                                     android:layout_height="10dp"
                                     android:layout_weight="1"
+                                    android:contentDescription="@string/endorsement"
                                     android:tint="@color/colorPrimary"
                                     app:srcCompat="@drawable/endorsement_4" />
                             </LinearLayout>
@@ -349,6 +353,7 @@
                             android:layout_height="130dp"
                             android:layout_weight="0"
                             android:background="@color/colorDetail"
+                            android:contentDescription="@string/main_hero"
                             android:scaleType="centerCrop"
                             app:srcCompat="@drawable/ana_portrait" />
                     </androidx.cardview.widget.CardView>
@@ -371,7 +376,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimary"
                 android:fontFamily="@font/bignoodletoo"
-                android:text="Follow"
+                android:text="@string/follow"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="30sp" />
 
@@ -404,7 +409,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/ivLoading"
@@ -412,6 +418,7 @@
             android:layout_height="128dp"
             android:background="@drawable/animation"
             android:backgroundTint="@color/colorPrimary"
+            android:contentDescription="@string/loading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
