@@ -48,11 +48,16 @@ class LoginActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         adView.loadAd(AdRequest.Builder().build())
         btSignIn.setOnClickListener { bnetSignIn() }
+        btSignUp.setOnClickListener { foo() }
     }
 
     private fun bnetSignIn() {
         val openURL = Intent(Intent.ACTION_VIEW)
         openURL.data = Uri.parse("${getString(R.string.api_base_url)}/auth/bnet")
         startActivity(openURL)
+    }
+
+    private fun foo() {
+        startActivity(Intent(this, HeroActivity::class.java))
     }
 }
