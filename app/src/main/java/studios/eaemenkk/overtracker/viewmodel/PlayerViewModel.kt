@@ -35,7 +35,11 @@ class PlayerViewModel(val app: Application) : AndroidViewModel(app) {
                     "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/hero-select-portrait.png"
                     else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${player.now?.main?.hero}/hero-select-portrait.png"
                 }
-                player.now?.main?.friendlyHero = player.now?.main?.hero
+                player.now?.main?.friendlyHero = when(player.now?.main?.hero) {
+                    "wreckingball" -> "wrecking-ball"
+                    "soldier76" -> "soldier-76"
+                    else -> player.now?.main?.hero
+                }
                 player.now?.main?.hero = when (player.now?.main?.hero) {
                     "dva" -> "d.va"
                     "lucio" -> "lúcio"

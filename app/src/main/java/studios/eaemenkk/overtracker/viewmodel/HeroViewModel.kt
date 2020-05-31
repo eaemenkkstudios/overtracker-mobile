@@ -17,6 +17,9 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
             if(hero != null) {
                 // hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/full-portrait.png"
                 hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/background-story.jpg"
+                hero.video = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/idle-video.mp4"
+                hero.friendlyName = "${hero.friendlyName} "
+                hero.role = "${hero.role} "
                 heroInfo.value = hero
             }
         }

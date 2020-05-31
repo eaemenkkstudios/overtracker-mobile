@@ -1,12 +1,16 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.MediaController
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -52,27 +56,57 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
                 else -> true
             }
         }
+
+        ivLoading.setBackgroundResource(R.drawable.animation)
+        (ivLoading.background as AnimationDrawable).start()
+        adView.loadAd(AdRequest.Builder().build())
+
+        heroLoadingContainer.visibility = View.VISIBLE
+        getHeroInfo()
+        showInfo()
+    }
+
+    private fun getHeroInfo() {
+        if(intent.hasExtra("heroName")) {
+            val heroName = intent.getStringExtra("heroName") ?: return
+            viewModel.getHero(heroName)
+        }
+    }
+
+    private fun showInfo() {
         viewModel.heroInfo.observe(this, Observer { hero ->
-            tvHeroName.text = "${hero.friendlyName} "
-            Picasso.get().load(hero.img).into(ivHeroImg)
+            tvHeroName.visibility = View.INVISIBLE
+            tvHeroName.text = hero.friendlyName
             ivHeroImg.visibility = View.GONE
-            vvIdle.setVideoPath("https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/idle-video.mp4")
-            vvIdle.setOnErrorListener { mp, what, extra ->
+
+            vvIdle.setVideoURI(Uri.parse(hero.video))
+            vvIdle.setOnPreparedListener { m ->
+                tvHeroName.visibility = View.VISIBLE
+                pbLoading.visibility = View.GONE
+                m.start()
+                m.setVolume(0f, 0f)
+                m.isLooping = true
+            }
+
+            vvIdle.setOnErrorListener { _, _, _ ->
+                Picasso.get().load(hero.img).into(ivHeroImg)
+                tvHeroName.visibility = View.VISIBLE
+                pbLoading.visibility = View.GONE
                 vvIdle.visibility = View.INVISIBLE
                 ivHeroImg.visibility = View.VISIBLE
+                tvHeroName.setTextColor(Color.WHITE)
                 true
             }
-            vvIdle.setOnCompletionListener { vvIdle.start() }
-            vvIdle.start()
+
             ivHeroRole.setImageResource(
                 when(hero.role) {
-                    "support" -> R.drawable.support
-                    "damage" -> R.drawable.damage
-                    "tank" -> R.drawable.tank
+                    "support " -> R.drawable.support
+                    "damage " -> R.drawable.damage
+                    "tank " -> R.drawable.tank
                     else -> R.drawable.unknown
                 }
             )
-            tvHeroRole.text = "${hero.role} "
+            tvHeroRole.text = hero.role
             tvHeroLore.text = hero.lore
             ivStar1.setColorFilter(getColor(R.color.colorDetail))
             ivStar2.setColorFilter(getColor(R.color.colorDetail))
@@ -95,19 +129,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             heroLoadingContainer.visibility = View.GONE
         })
-
-        ivLoading.setBackgroundResource(R.drawable.animation)
-        (ivLoading.background as AnimationDrawable).start()
-
-        heroLoadingContainer.visibility = View.VISIBLE
-        getHeroInfo()
-    }
-
-    private fun getHeroInfo() {
-        if(intent.hasExtra("heroName")) {
-            val heroName = intent.getStringExtra("heroName") ?: return
-            viewModel.getHero(heroName)
-        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

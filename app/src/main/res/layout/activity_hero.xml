@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,7 +30,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/ivHeroImg"
@@ -56,16 +56,25 @@
                         android:visibility="invisible"
                         app:srcCompat="@drawable/gradient" />
 
+                    <ProgressBar
+                        android:id="@+id/pbLoading"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/colorPrimary"
+                        android:visibility="visible" />
+
                     <TextView
                         android:id="@+id/tvHeroName"
-                        android:layout_width="250dp"
+                        android:layout_width="220dp"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/bignoodletoo"
                         android:gravity="center"
                         android:text="Tracer "
                         android:textAlignment="center"
                         android:textColor="@color/colorDetail"
-                        android:textSize="80sp" />
+                        android:textSize="55sp" />
 
                 </FrameLayout>
 
@@ -233,6 +242,18 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:adSize="FULL_BANNER"
+        app:adUnitId="@string/ad_banner_id"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/heroLoadingContainer"

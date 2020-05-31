@@ -22,22 +22,20 @@ class SplashActivity : AppCompatActivity() {
         window.requestFeature(Window.FEATURE_NO_TITLE)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
-        val handler = Handler()
-        handler.postDelayed({
-            val uri = Uri.parse("overtracker://login")
-            val intent = Intent("LOGIN").addCategory("LOGIN")
-            intent.data = uri
-            startActivity(intent)
+        Handler().postDelayed({
+            val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
+            val session = sharedPreferences.getString("session", null)
+            if(session.isNullOrEmpty()) {
+                val intent = Intent("LOGIN").addCategory("LOGIN")
+                intent.data = Uri.parse("overtracker://login")
+                startActivity(intent)
+            } else {
+                val intent = Intent("GLOBAL_FEED").addCategory("GLOBAL_FEED")
+                startActivity(intent)
+            }
+
             finish()
         },2000)
-        val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
-        val session = sharedPreferences.getString("session", null)
-        if(session != null) {
-            val intent = Intent("GLOBAL_FEED")
-                .addCategory("GLOBAL_FEED")
-            startActivity(intent)
-            finish()
-            handler.removeCallbacksAndMessages(null)
-        }
+
     }
 }
