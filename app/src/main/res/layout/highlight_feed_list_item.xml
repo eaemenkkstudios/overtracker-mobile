@@ -18,20 +18,20 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/ivHighlightMain"
                 android:layout_width="match_parent"
-                android:layout_height="245dp"
+                android:layout_height="230dp"
                 android:adjustViewBounds="false"
-                android:scaleType="centerCrop"
+                android:scaleType="fitStart"
                 app:srcCompat="@drawable/tracer" />
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="230dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/gradient" />
 

@@ -20,6 +20,7 @@ class Score {
     val rank: Rank? = null
     val role: String? = null
     var hero: String? = null
+    var friendlyHero: String? = null
     var portrait: String? = null
     var time: String? = null
 }

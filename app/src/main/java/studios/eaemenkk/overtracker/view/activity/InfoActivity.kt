@@ -1,5 +1,6 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
@@ -68,6 +69,14 @@ class InfoActivity: AppCompatActivity() {
                 tvInfoPlatform.text = player.platform
                 Picasso.get().load(player.now?.portrait).into(ivInfoMain)
                 Picasso.get().load(player.portrait).into(ivInfoPortrait)
+                val clickListener = View.OnClickListener {
+                    val intent = Intent("HERO_INFO")
+                        .addCategory("HERO_INFO")
+                    intent.putExtra("heroName", player.now?.main?.friendlyHero)
+                    startActivity(intent)
+                }
+                ivInfoMain.setOnClickListener(clickListener)
+                tvInfoMain.setOnClickListener(clickListener)
                 ivInfoEndorsement.setImageResource(
                     when(player.now?.endorsement){
                         "1" -> drawable.endorsement_1

@@ -30,30 +30,38 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <ImageView
                         android:id="@+id/ivHeroImg"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/tracer_big"
-                        android:contentDescription="@string/main_hero" />
+                        android:contentDescription="@string/main_hero"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/tracer" />
+
+                    <VideoView
+                        android:id="@+id/vvIdle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
 
                     <ImageView
                         android:id="@+id/imageView5"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:rotation="180"
                         android:scaleType="centerCrop"
+                        android:visibility="invisible"
                         app:srcCompat="@drawable/gradient" />
 
                     <TextView
                         android:id="@+id/tvHeroName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="250dp"
+                        android:layout_height="match_parent"
                         android:fontFamily="@font/bignoodletoo"
+                        android:gravity="center"
                         android:text="Tracer "
                         android:textAlignment="center"
                         android:textColor="@color/colorDetail"
@@ -200,7 +208,6 @@
                                     app:srcCompat="@drawable/star" />
                             </LinearLayout>
                         </LinearLayout>
-
                     </LinearLayout>
                 </FrameLayout>
 

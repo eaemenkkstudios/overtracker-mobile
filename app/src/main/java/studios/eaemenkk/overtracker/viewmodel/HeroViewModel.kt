@@ -15,32 +15,14 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
     fun getHero(heroName: String) {
         interactor.getHero(heroName) {hero ->
             if(hero != null) {
-                hero.friendlyName = when(hero.name) {
-                    "dva" -> "d.va"
-                    "lucio" -> "lúcio"
-                    "torbjorn" -> "torbjörn"
-                    "wrecking-ball" -> "wrecking ball"
-                    "soldier-76" -> "soldier: 76"
-                    else -> hero.name
-                }
+                // hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/full-portrait.png"
+                hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/background-story.jpg"
                 heroInfo.value = hero
             }
         }
     }
 
     fun getHeroes() {
-        interactor.getHeroes { heroes ->
-            heroes.forEach { hero ->
-                hero.friendlyName = when(hero.name) {
-                    "dva" -> "d.va"
-                    "lucio" -> "lúcio"
-                    "torbjorn" -> "torbjörn"
-                    "wrecking-ball" -> "wrecking ball"
-                    "soldier-76" -> "soldier: 76"
-                    else -> hero.name
-                }
-            }
-            heroList.value = heroes
-        }
+        interactor.getHeroes { heroes -> heroList.value = heroes }
     }
 }

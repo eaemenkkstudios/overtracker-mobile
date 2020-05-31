@@ -53,8 +53,17 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
         viewModel.heroInfo.observe(this, Observer { hero ->
-            tvHeroName.text = hero.friendlyName
-            // Picasso.get().load(hero.img).into(ivHeroImg)
+            tvHeroName.text = "${hero.friendlyName} "
+            Picasso.get().load(hero.img).into(ivHeroImg)
+            ivHeroImg.visibility = View.GONE
+            vvIdle.setVideoPath("https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/idle-video.mp4")
+            vvIdle.setOnErrorListener { mp, what, extra ->
+                vvIdle.visibility = View.INVISIBLE
+                ivHeroImg.visibility = View.VISIBLE
+                true
+            }
+            vvIdle.setOnCompletionListener { vvIdle.start() }
+            vvIdle.start()
             ivHeroRole.setImageResource(
                 when(hero.role) {
                     "support" -> R.drawable.support

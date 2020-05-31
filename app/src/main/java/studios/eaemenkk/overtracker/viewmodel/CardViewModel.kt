@@ -7,6 +7,8 @@ import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Card
 import studios.eaemenkk.overtracker.domain.RequestResult
 import studios.eaemenkk.overtracker.interactor.CardInteractor
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CardViewModel(val app: Application) : AndroidViewModel(app) {
     private val interactor = CardInteractor(app.applicationContext)
@@ -38,7 +40,7 @@ class CardViewModel(val app: Application) : AndroidViewModel(app) {
             val battleTag = card.player?.tag?.split("#")
             card.player?.tag = "${battleTag?.get(0)} "
             card.player?.tagNum = "#${battleTag?.get(1)} "
-            card.player?.platform = card.player?.platform?.toUpperCase()
+            card.player?.platform = card.player?.platform?.toUpperCase(Locale.ROOT)
             when(card.cardType) {
                 "main_update" -> {
                     card.current?.portrait = when(card.current?.hero) {
@@ -53,7 +55,11 @@ class CardViewModel(val app: Application) : AndroidViewModel(app) {
                     }
                 }
                 "highlight" -> {
-                    card.main?.portrait = "https://overtracker-api.herokuapp.com/images/${card.main?.current}.png"
+                    card.main?.portrait = when(card.main?.current) {
+                        "wreckingball" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/wrecking-ball/background-story.jpg"
+                        "soldier76" -> "https://d1u1mce87gyfbn.cloudfront.net/hero/soldier-76/background-story.jpg"
+                        else -> "https://d1u1mce87gyfbn.cloudfront.net/hero/${card.main?.current}/background-story.jpg"
+                    }
                     card.main?.current = when(card.main?.current) {
                         "dva" -> "d.va"
                         "lucio" -> "lúcio"
