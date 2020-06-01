@@ -72,6 +72,13 @@ class FollowingActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
+                R.id.btChat -> {
+                    val intent = Intent("CHAT")
+                        .addCategory("CHAT")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
                 else -> {
                     val smoothScroller: RecyclerView.SmoothScroller = object: LinearSmoothScroller(this) {
                         override fun getVerticalSnapPreference(): Int {

@@ -21,4 +21,9 @@
         android:icon = "@drawable/heroes"
         android:title = "@string/heroes"
         />
+    <item
+        android:id = "@+id/btChat"
+        android:icon = "@drawable/heroes"
+        android:title = "@string/chat"
+        />
 </menu>

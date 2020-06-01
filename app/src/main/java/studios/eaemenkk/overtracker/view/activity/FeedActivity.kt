@@ -58,6 +58,13 @@ class FeedActivity: AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
+                R.id.btChat -> {
+                    val intent = Intent("CHAT")
+                        .addCategory("CHAT")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
                 else -> {
                     val smoothScroller: RecyclerView.SmoothScroller = object: LinearSmoothScroller(this) {
                         override fun getVerticalSnapPreference(): Int {
@@ -74,7 +81,6 @@ class FeedActivity: AppCompatActivity() {
         srlFeed.setOnRefreshListener { onRefresh() }
         srlFeed.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         srlFeed.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-        rvFeed.adapter = adapter
 
         ivLoading.setBackgroundResource(R.drawable.animation)
         (ivLoading.background as AnimationDrawable).start()
@@ -90,6 +96,7 @@ class FeedActivity: AppCompatActivity() {
     }
 
     private fun configureRecyclerView() {
+        rvFeed.adapter = adapter
         viewModel.cardList.observe(this, Observer { cards ->
             srlFeed.isRefreshing = false
             feedLoadingContainer.visibility = View.GONE

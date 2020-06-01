@@ -48,6 +48,13 @@ class HeroListActivity: AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
+                R.id.btChat -> {
+                    val intent = Intent("CHAT")
+                        .addCategory("CHAT")
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
             }
             return@setOnNavigationItemSelectedListener false
         }

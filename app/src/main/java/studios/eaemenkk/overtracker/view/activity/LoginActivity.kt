@@ -47,21 +47,11 @@ class LoginActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         adView.loadAd(AdRequest.Builder().build())
         btSignIn.setOnClickListener { bnetSignIn() }
-        ivLogo.setOnClickListener {
-            val intent = Intent("CHAT").addCategory("CHAT")
-            startActivity(intent)
-        }
     }
 
     private fun bnetSignIn() {
         val openURL = Intent(Intent.ACTION_VIEW)
         openURL.data = Uri.parse("${getString(R.string.api_base_url)}/auth/bnet")
         startActivity(openURL)
-    }
-
-    private fun foo() {
-        val intent = Intent("HERO_LIST")
-            .addCategory("HERO_LIST")
-        startActivity(intent)
     }
 }

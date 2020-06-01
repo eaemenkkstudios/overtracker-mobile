@@ -24,7 +24,7 @@ import studios.eaemenkk.overtracker.view.activity.InfoActivity
 
 private const val AD_INTERVAL = 5
 
-class PlayerAdapter( private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
     private var dataSet = ArrayList<Player>()
 
     override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): PlayerViewHolder {

@@ -11,7 +11,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.floor
 
-class PlayerViewModel(val app: Application) : AndroidViewModel(app) {
+class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
     private val interactor = PlayerInteractor(app.applicationContext)
 
     val playerDetails = MutableLiveData<Player>()
