@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.widget.MediaController
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
@@ -59,7 +58,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
         ivLoading.setBackgroundResource(R.drawable.animation)
         (ivLoading.background as AnimationDrawable).start()
-        adView.loadAd(AdRequest.Builder().build())
 
         heroLoadingContainer.visibility = View.VISIBLE
         getHeroInfo()
@@ -75,23 +73,20 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showInfo() {
         viewModel.heroInfo.observe(this, Observer { hero ->
-            tvHeroName.visibility = View.INVISIBLE
             tvHeroName.text = hero.friendlyName
-            ivHeroImg.visibility = View.GONE
+            Picasso.get().load(hero.img).into(ivHeroImg)
 
             vvIdle.setVideoURI(Uri.parse(hero.video))
             vvIdle.setOnPreparedListener { m ->
-                tvHeroName.visibility = View.VISIBLE
-                pbLoading.visibility = View.GONE
-                m.start()
                 m.setVolume(0f, 0f)
                 m.isLooping = true
+                m.start()
+                vvIdle.postDelayed({
+                    ivHeroImg.visibility = View.INVISIBLE
+                }, 150)
             }
 
             vvIdle.setOnErrorListener { _, _, _ ->
-                Picasso.get().load(hero.img).into(ivHeroImg)
-                tvHeroName.visibility = View.VISIBLE
-                pbLoading.visibility = View.GONE
                 vvIdle.visibility = View.INVISIBLE
                 ivHeroImg.visibility = View.VISIBLE
                 tvHeroName.setTextColor(Color.WHITE)
@@ -128,6 +123,7 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
             heroLoadingContainer.visibility = View.GONE
+            adView.loadAd(AdRequest.Builder().build())
         })
     }
 

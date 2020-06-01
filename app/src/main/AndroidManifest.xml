@@ -88,6 +88,13 @@
                 <category android:name="FOLLOWED_PLAYERS" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.activity.ChatActivity">
+            <intent-filter>
+                <action android:name="CHAT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="CHAT" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

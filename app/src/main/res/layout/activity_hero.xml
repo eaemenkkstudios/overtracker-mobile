@@ -32,6 +32,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <VideoView
+                        android:id="@+id/vvIdle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
+
                     <ImageView
                         android:id="@+id/ivHeroImg"
                         android:layout_width="match_parent"
@@ -40,12 +46,6 @@
                         android:contentDescription="@string/main_hero"
                         android:scaleType="centerCrop"
                         app:srcCompat="@drawable/tracer" />
-
-                    <VideoView
-                        android:id="@+id/vvIdle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="visible" />
 
                     <ImageView
                         android:id="@+id/imageView5"
@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:indeterminateTint="@color/colorPrimary"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tvHeroName"

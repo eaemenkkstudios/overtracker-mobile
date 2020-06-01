@@ -47,6 +47,10 @@ class LoginActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         adView.loadAd(AdRequest.Builder().build())
         btSignIn.setOnClickListener { bnetSignIn() }
+        ivLogo.setOnClickListener {
+            val intent = Intent("CHAT").addCategory("CHAT")
+            startActivity(intent)
+        }
     }
 
     private fun bnetSignIn() {
