@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:layout_editor_absoluteX="1dp"
+    tools:layout_editor_absoluteY="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp">
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="asd af s  reeer gerf er fgrege sdfsdfs cv dfrgre dsfsfsd gerge er dsfsfsdf erwerwf wegwefew sdfsdfsdfrgrg erere werwgwef wedwdsf "
+                android:textColor="#FFFFFF" />
+
+        </androidx.cardview.widget.CardView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10.5dp">
+
+            <ImageView
+                android:id="@+id/ivCornerLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="10dp"
+                android:tint="@color/colorPrimary"
+                app:srcCompat="@drawable/chat_border_left" />
+
+            <ImageView
+                android:id="@+id/ivCornerRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0"
+                android:elevation="10dp"
+                android:tint="@color/colorDetail"
+                android:visibility="visible"
+                app:srcCompat="@drawable/chat_border_right" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

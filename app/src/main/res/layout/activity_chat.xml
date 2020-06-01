@@ -17,6 +17,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
+            android:id="@+id/llChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -82,8 +83,8 @@
 
             <ImageView
                 android:id="@+id/imageView8"
-                android:layout_width="38dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/send" />
         </FrameLayout>
