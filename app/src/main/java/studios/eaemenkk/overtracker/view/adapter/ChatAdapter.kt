@@ -39,13 +39,21 @@ class ChatAdapter(private val context: Context): RecyclerView.Adapter<ChatAdapte
             params.gravity = Gravity.END
             params.weight = 1.0f
             params.marginEnd = 35
-            params.marginStart = 10
+            params.marginStart = 35
             params.topMargin = 10
             params.bottomMargin = 10
             holder.chatBubble.layoutParams = params
         }  else {
             holder.cornerRight.visibility = View.INVISIBLE
             holder.cornerLeft.visibility = View.VISIBLE
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            params.gravity = Gravity.START
+            params.weight = 1.0f
+            params.marginEnd = 35
+            params.marginStart = 35
+            params.topMargin = 10
+            params.bottomMargin = 10
+            holder.chatBubble.layoutParams = params
             holder.chatBubble.setCardBackgroundColor(context.getColor(R.color.colorPrimary))
         }
     }
