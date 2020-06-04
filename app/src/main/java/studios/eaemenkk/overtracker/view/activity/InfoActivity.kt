@@ -70,8 +70,8 @@ class InfoActivity: AppCompatActivity() {
                 Picasso.get().load(player.now?.portrait).into(ivInfoMain)
                 Picasso.get().load(player.portrait).into(ivInfoPortrait)
                 val clickListener = View.OnClickListener {
-                    val intent = Intent("HERO_INFO")
-                        .addCategory("HERO_INFO")
+                    val intent = Intent("OVERTRACKER_HERO_INFO")
+                        .addCategory("OVERTRACKER_HERO_INFO")
                     intent.putExtra("heroName", player.now?.main?.friendlyHero)
                     startActivity(intent)
                 }

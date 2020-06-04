@@ -25,9 +25,9 @@
             android:name=".view.activity.HeroActivity"
             android:label="@string/title_activity_hero">
             <intent-filter>
-                <action android:name="HERO_INFO" />
+                <action android:name="OVERTRACKER_HERO_INFO" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="HERO_INFO" />
+                <category android:name="OVERTRACKER_HERO_INFO" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.SplashActivity">
@@ -42,10 +42,10 @@
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <action android:name="LOGIN" />
+                <action android:name="OVERTRACKER_LOGIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="LOGIN" />
+                <category android:name="OVERTRACKER_LOGIN" />
                 <data
                     android:host="login"
                     android:scheme="overtracker" />
@@ -55,44 +55,44 @@
             android:name=".view.activity.InfoActivity"
             android:theme="@style/AppTheme.CustomTheme">
             <intent-filter>
-                <action android:name="PLAYER_INFO" />
+                <action android:name="OVERTRACKER_PLAYER_INFO" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="PLAYER_INFO" />
+                <category android:name="OVERTRACKER_PLAYER_INFO" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.HeroListActivity">
             <intent-filter>
-                <action android:name="HERO_LIST" />
+                <action android:name="OVERTRACKER_HERO_LIST" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="HERO_LIST" />
+                <category android:name="OVERTRACKER_HERO_LIST" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.FeedActivity">
             <intent-filter>
-                <action android:name="GLOBAL_FEED" />
+                <action android:name="OVERTRACKER_GLOBAL_FEED" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="GLOBAL_FEED" />
+                <category android:name="OVERTRACKER_GLOBAL_FEED" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.LocalFeedActivity">
             <intent-filter>
-                <action android:name="LOCAL_FEED" />
+                <action android:name="OVERTRACKER_LOCAL_FEED" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="LOCAL_FEED" />
+                <category android:name="OVERTRACKER_LOCAL_FEED" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.FollowingActivity">
             <intent-filter>
-                <action android:name="FOLLOWED_PLAYERS" />
+                <action android:name="OVERTRACKER_FOLLOWED_PLAYERS" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="FOLLOWED_PLAYERS" />
+                <category android:name="OVERTRACKER_FOLLOWED_PLAYERS" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.ChatActivity">
             <intent-filter>
-                <action android:name="CHAT" />
+                <action android:name="OVERTRACKER_CHAT" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="CHAT" />
+                <category android:name="OVERTRACKER_CHAT" />
             </intent-filter>
         </activity>
 

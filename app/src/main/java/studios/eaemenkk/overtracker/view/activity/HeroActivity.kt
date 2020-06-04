@@ -1,5 +1,6 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
 import android.net.Uri
@@ -28,6 +29,7 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
         ViewModelProvider(this).get(HeroViewModel::class.java)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero)

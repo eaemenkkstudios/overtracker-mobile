@@ -29,8 +29,8 @@ class LoginActivity : AppCompatActivity() {
             if(result.msg != "") {
                 Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
                 if(result.status) {
-                    val intent = Intent("GLOBAL_FEED")
-                        .addCategory("GLOBAL_FEED")
+                    val intent = Intent("OVERTRACKER_GLOBAL_FEED")
+                        .addCategory("OVERTRACKER_GLOBAL_FEED")
                     startActivity(intent)
                     finish()
                 } else loginLoadingContainer.visibility = View.GONE

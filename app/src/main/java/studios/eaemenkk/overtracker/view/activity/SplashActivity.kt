@@ -26,11 +26,11 @@ class SplashActivity : AppCompatActivity() {
             val sharedPreferences = getSharedPreferences(packageName, MODE_PRIVATE)
             val session = sharedPreferences.getString("session", null)
             if(session.isNullOrEmpty()) {
-                val intent = Intent("LOGIN").addCategory("LOGIN")
+                val intent = Intent("OVERTRACKER_LOGIN").addCategory("OVERTRACKER_LOGIN")
                 intent.data = Uri.parse("overtracker://login")
                 startActivity(intent)
             } else {
-                val intent = Intent("GLOBAL_FEED").addCategory("GLOBAL_FEED")
+                val intent = Intent("OVERTRACKER_GLOBAL_FEED").addCategory("OVERTRACKER_GLOBAL_FEED")
                 startActivity(intent)
             }
 

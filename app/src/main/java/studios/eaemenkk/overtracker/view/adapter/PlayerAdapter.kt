@@ -67,7 +67,7 @@ class PlayerAdapter(private val context: Context) : RecyclerView.Adapter<PlayerA
             }
             is PlayerItemViewHolder -> {
                 holder.itemView.setOnClickListener {
-                    val intent = Intent(context, InfoActivity::class.java)
+                    val intent = Intent("OVERTRACKER_PLAYER_INFO").addCategory("OVERTRACKER_PLAYER_INFO")
                     intent.putExtra("playerId", player.id)
                     context.startActivity(intent)
                 }

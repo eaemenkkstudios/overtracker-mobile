@@ -28,29 +28,29 @@ class HeroListActivity: AppCompatActivity() {
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {
-                    val intent = Intent("GLOBAL_FEED")
-                        .addCategory("GLOBAL_FEED")
+                    val intent = Intent("OVERTRACKER_GLOBAL_FEED")
+                        .addCategory("OVERTRACKER_GLOBAL_FEED")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 R.id.btLocal -> {
-                    val intent = Intent("LOCAL_FEED")
-                        .addCategory("LOCAL_FEED")
+                    val intent = Intent("OVERTRACKER_LOCAL_FEED")
+                        .addCategory("OVERTRACKER_LOCAL_FEED")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 R.id.btFollowing -> {
-                    val intent = Intent("FOLLOWED_PLAYERS")
-                        .addCategory("FOLLOWED_PLAYERS")
+                    val intent = Intent("OVERTRACKER_FOLLOWED_PLAYERS")
+                        .addCategory("OVERTRACKER_FOLLOWED_PLAYERS")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
                 }
                 R.id.btChat -> {
-                    val intent = Intent("CHAT")
-                        .addCategory("CHAT")
+                    val intent = Intent("OVERTRACKER_CHAT")
+                        .addCategory("OVERTRACKER_CHAT")
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
@@ -103,8 +103,8 @@ class HeroListActivity: AppCompatActivity() {
     }
 
     private fun showHeroDetails(heroName: String) {
-        val intent = Intent("HERO_INFO")
-            .addCategory("HERO_INFO")
+        val intent = Intent("OVERTRACKER_HERO_INFO")
+            .addCategory("OVERTRACKER_HERO_INFO")
         intent.putExtra("heroName", heroName)
         startActivity(intent)
     }

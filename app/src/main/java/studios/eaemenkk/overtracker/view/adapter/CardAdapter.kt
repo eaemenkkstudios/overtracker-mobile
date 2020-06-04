@@ -66,8 +66,8 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         val card = dataSet[position]
         if(holder !is AdCardViewHolder) {
             holder.itemView.setOnClickListener {
-                val intent = Intent("PLAYER_INFO")
-                    .addCategory("PLAYER_INFO")
+                val intent = Intent("OVERTRACKER_PLAYER_INFO")
+                    .addCategory("OVERTRACKER_PLAYER_INFO")
                 intent.putExtra("playerId", card.player?.id)
                 context.startActivity(intent)
             }
