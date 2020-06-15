@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.formats.MediaView
 import com.google.android.gms.ads.formats.NativeAdOptions
@@ -136,17 +137,17 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
                     else -> R.drawable.unknown
                 })
                 holder.sr.text = card.sr?.current
-                holder.srSlope.setImageResource(when (card.sr?.slope) {
-                    "increasing" -> R.drawable.arrow_up
-                    "tied" -> R.drawable.arrow_middle
-                    "decreasing" -> R.drawable.arrow_down
+                holder.srSlope.setAnimation(when (card.sr?.slope) {
+                    "increasing" -> R.raw.slope_up
+                    "tied" -> R.raw.slope_equal
+                    "decreasing" -> R.raw.slope_down
                     else -> R.drawable.unknown
                 })
                 holder.wr.text = card.winrate?.current
-                holder.wrSlope.setImageResource(when (card.winrate?.slope) {
-                    "increasing" -> R.drawable.arrow_up
-                    "tied" -> R.drawable.arrow_middle
-                    "decreasing" -> R.drawable.arrow_down
+                holder.wrSlope.setAnimation(when (card.winrate?.slope) {
+                    "increasing" -> R.raw.slope_up
+                    "tied" -> R.raw.slope_equal
+                    "decreasing" -> R.raw.slope_down
                     else -> R.drawable.unknown
                 })
                 holder.time.text = card.main?.time
@@ -322,8 +323,8 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         val main: TextView = itemView.tvHighlightMain
         val mainImg: ImageView = itemView.ivHighlightMain
         val sr: TextView = itemView.tvHighlightSr
-        val srSlope: ImageView = itemView.ivHighlightSrSlope
+        val srSlope: LottieAnimationView = itemView.ivHighlightSrSlope
         val wr: TextView = itemView.tvHighlightWr
-        val wrSlope: ImageView = itemView.ivHighlightWrSlope
+        val wrSlope: LottieAnimationView = itemView.ivHighlightWrSlope
     }
 }

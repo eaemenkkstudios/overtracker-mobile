@@ -130,12 +130,14 @@
                             android:textColor="@color/colorDetail"
                             android:textSize="40dp" />
 
-                        <ImageView
+                        <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/ivHighlightSrSlope"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/arrow_up" />
+                            app:lottie_autoPlay="true"
+                            app:lottie_rawRes="@raw/slope_down"
+                            app:lottie_loop="true" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -168,12 +170,14 @@
                             android:textColor="@color/colorDetail"
                             android:textSize="40dp" />
 
-                        <ImageView
+                        <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/ivHighlightWrSlope"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             android:layout_weight="1"
-                            app:srcCompat="@drawable/arrow_down" />
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/slope_up" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
