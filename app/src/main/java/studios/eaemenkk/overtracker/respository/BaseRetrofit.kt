@@ -1,7 +1,6 @@
 package studios.eaemenkk.overtracker.respository
 
 import android.content.Context
-import android.webkit.HttpAuthHandler
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor

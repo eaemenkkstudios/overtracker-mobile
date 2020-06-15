@@ -45,7 +45,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 MotionEvent.ACTION_UP -> {
-                    // Allow ScrollView to intercept touch events.
                     svHero.requestDisallowInterceptTouchEvent(false)
                     true;
                 }
