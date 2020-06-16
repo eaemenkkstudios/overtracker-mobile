@@ -105,11 +105,13 @@
             android:id="@+id/tvScoreDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/bignoodletoo"
+            android:layout_marginTop="5dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="1 week ago"
             android:textAlignment="textStart"
+            android:textAllCaps="true"
             android:textColor="#2B2B2B"
-            android:textSize="30dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

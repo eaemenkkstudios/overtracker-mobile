@@ -80,9 +80,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:background="@color/colorPrimary"
-                android:fontFamily="@font/bignoodletoo"
+                android:fontFamily="sans-serif-condensed"
                 android:text="@string/win_rate"
                 android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18dp" />
 

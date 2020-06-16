@@ -25,14 +25,18 @@
 
             <TextView
                 android:id="@+id/ad_attribution"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
                 android:layout_gravity="start"
                 android:width="15dp"
                 android:height="15dp"
                 android:background="#FFCC66"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
                 android:text="Ad"
-                android:textColor="#FFFFFF"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp" />
 
             <LinearLayout

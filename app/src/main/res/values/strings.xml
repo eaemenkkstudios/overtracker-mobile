@@ -25,12 +25,12 @@
     <string name="main_hero">Main Hero</string>
     <string name="endorsement">Endorsement</string>
     <string name="example_time">305.78H</string>
-    <string name="example_hero">Wrecking Ball </string>
+    <string name="example_hero">Wrecking Ball  </string>
     <string name="win_rate">Win Rate</string>
     <string name="damage">Damage</string>
     <string name="support">Support</string>
     <string name="tank">Tank</string>
-    <string name="in_game_time">In-Game Time</string>
+    <string name="game_time">Game Time</string>
     <string name="login_bnet">Login With Battle.net</string>
     <string name="players">Players</string>
     <string name="following">Following</string>

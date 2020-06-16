@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="studios.eaemenkk.overtracker">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -17,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.activity.toolbarTest"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -26,6 +27,7 @@
             android:label="@string/title_activity_hero">
             <intent-filter>
                 <action android:name="OVERTRACKER_HERO_INFO" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_HERO_INFO" />
             </intent-filter>
@@ -33,6 +35,7 @@
         <activity android:name=".view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,9 +46,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="OVERTRACKER_LOGIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="OVERTRACKER_LOGIN" />
+
                 <data
                     android:host="login"
                     android:scheme="overtracker" />
@@ -56,6 +61,7 @@
             android:theme="@style/AppTheme.CustomTheme">
             <intent-filter>
                 <action android:name="OVERTRACKER_PLAYER_INFO" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_PLAYER_INFO" />
             </intent-filter>
@@ -63,6 +69,7 @@
         <activity android:name=".view.activity.HeroListActivity">
             <intent-filter>
                 <action android:name="OVERTRACKER_HERO_LIST" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_HERO_LIST" />
             </intent-filter>
@@ -70,6 +77,7 @@
         <activity android:name=".view.activity.FeedActivity">
             <intent-filter>
                 <action android:name="OVERTRACKER_GLOBAL_FEED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_GLOBAL_FEED" />
             </intent-filter>
@@ -77,6 +85,7 @@
         <activity android:name=".view.activity.LocalFeedActivity">
             <intent-filter>
                 <action android:name="OVERTRACKER_LOCAL_FEED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_LOCAL_FEED" />
             </intent-filter>
@@ -84,6 +93,7 @@
         <activity android:name=".view.activity.FollowingActivity">
             <intent-filter>
                 <action android:name="OVERTRACKER_FOLLOWED_PLAYERS" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_FOLLOWED_PLAYERS" />
             </intent-filter>
@@ -91,6 +101,7 @@
         <activity android:name=".view.activity.ChatActivity">
             <intent-filter>
                 <action android:name="OVERTRACKER_CHAT" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="OVERTRACKER_CHAT" />
             </intent-filter>

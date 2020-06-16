@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:theme="@style/AppTheme.CustomTheme"
+    app:cardBackgroundColor="#D3CFCF"
+    app:cardCornerRadius="25dp"
+    app:cardElevation="4dp">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</androidx.cardview.widget.CardView>

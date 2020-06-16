@@ -32,6 +32,10 @@ class InfoActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_info)
 
+        ivBack.setOnClickListener{
+            finish()
+        }
+
         adView.loadAd(AdRequest.Builder().build())
         configureRecyclerView()
         getPlayerDetails()

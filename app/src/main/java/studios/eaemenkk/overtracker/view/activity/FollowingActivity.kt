@@ -2,7 +2,6 @@ package studios.eaemenkk.overtracker.view.activity
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -192,7 +191,7 @@ class FollowingActivity : AppCompatActivity() {
 
     private fun popup() {
         popupWindow = PopupWindow(this)
-        val view = layoutInflater.inflate(R.layout.activity_follow, null)
+        val view = layoutInflater.inflate(R.layout.follow_popup, null)
         popupWindow.contentView = view
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val btnAdd = view.findViewById<Button>(R.id.btAddBattletag)

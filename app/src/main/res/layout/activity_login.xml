@@ -2,10 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     tools:context=".view.activity.LoginActivity">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="276dp"
+        android:layout_height="77dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btSignIn" />
 
     <Button
         android:id="@+id/btSignIn"
@@ -15,7 +26,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/colorPrimary"
-        android:fontFamily="@font/bignoodletoo"
+        android:fontFamily="sans-serif-condensed"
         android:text="@string/login_bnet"
         android:textColor="@color/colorPrimaryDark"
         android:textColorLink="@color/colorPrimaryDark"

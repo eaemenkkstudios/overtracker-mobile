@@ -43,13 +43,14 @@
                 android:layout_weight="1"
                 android:background="#006D6D6D"
                 android:ems="10"
+                android:fontFamily="sans-serif-condensed"
                 android:gravity="start|center_vertical"
                 android:hint="Type a message here"
                 android:inputType="textMultiLine"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:textColor="#FFFFFF"
-                android:textColorHint="#A8A8A8" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#CCCCCC" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -78,6 +79,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
+                android:tint="#FFFFFF"
                 app:srcCompat="@drawable/send" />
         </FrameLayout>
 

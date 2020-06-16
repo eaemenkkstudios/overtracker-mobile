@@ -7,6 +7,39 @@
     android:background="#00000000"
     android:theme="@style/AppTheme.CustomTheme">
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvHeroName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/bignoodletoo"
+            android:gravity="center"
+            android:text="widowmaker"
+            android:textAlignment="center"
+            android:textColor="@color/colorDetail"
+            android:textSize="55sp" />
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/back" />
+
+    </FrameLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -14,7 +47,7 @@
         app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
         <ScrollView
             android:id="@+id/svHero"
@@ -65,17 +98,6 @@
                         android:layout_gravity="center"
                         android:indeterminateTint="@color/colorPrimary"
                         android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvHeroName"
-                        android:layout_width="220dp"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/bignoodletoo"
-                        android:gravity="center"
-                        android:text="Tracer "
-                        android:textAlignment="center"
-                        android:textColor="@color/colorDetail"
-                        android:textSize="55sp" />
 
                 </FrameLayout>
 
@@ -144,6 +166,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="@string/story"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
@@ -174,6 +197,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:layout_weight="1"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="@string/difficulty"
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorAccent"
