@@ -16,8 +16,9 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
         interactor.getHero(heroName) {hero ->
             if(hero != null) {
                 // hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/full-portrait.png"
-                hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/idle-video-thumbnail.jpg"
-                hero.video = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/idle-video.webm"
+                // hero.img = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/idle-video-thumbnail.jpg"
+                hero.img = "https://static.playoverwatch.com/img/pages/hero-detail/staticposter-733c75265d.gif"
+                hero.video = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/intro-video.webm"
                 hero.friendlyName = "${hero.friendlyName} "
                 hero.role = "${hero.role} "
                 heroInfo.value = hero

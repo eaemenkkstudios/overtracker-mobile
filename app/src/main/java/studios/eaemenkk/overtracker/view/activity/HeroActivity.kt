@@ -57,10 +57,8 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        ivLoading.setBackgroundResource(R.drawable.animation)
-        (ivLoading.background as AnimationDrawable).start()
-
         heroLoadingContainer.visibility = View.VISIBLE
+        adView.loadAd(AdRequest.Builder().build())
         getHeroInfo()
         showInfo()
     }
@@ -90,7 +88,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
             vvIdle.setOnErrorListener { _, _, _ ->
                 vvIdle.visibility = View.INVISIBLE
                 ivHeroImg.visibility = View.VISIBLE
-                tvHeroName.setTextColor(Color.WHITE)
                 true
             }
 
@@ -124,7 +121,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
             heroLoadingContainer.visibility = View.GONE
-            adView.loadAd(AdRequest.Builder().build())
         })
     }
 
@@ -134,5 +130,10 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

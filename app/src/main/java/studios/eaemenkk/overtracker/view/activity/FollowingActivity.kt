@@ -109,9 +109,6 @@ class FollowingActivity : AppCompatActivity() {
         btSearchPlayer.setOnClickListener { popup() }
         btLogout.setOnClickListener { logout() }
 
-        ivLoading.setBackgroundResource(R.drawable.animation)
-        (ivLoading.background as AnimationDrawable).start()
-
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         configureRecyclerView()
         showPlayers()

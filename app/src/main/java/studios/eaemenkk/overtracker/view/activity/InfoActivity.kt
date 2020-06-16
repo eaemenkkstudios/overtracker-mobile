@@ -31,10 +31,6 @@ class InfoActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_info)
-        val loadingImage = findViewById<ImageView>(id.ivLoading)
-        loadingImage.setBackgroundResource(drawable.animation)
-        loadingAnimation = loadingImage.background as AnimationDrawable
-        loadingAnimation.start()
 
         adView.loadAd(AdRequest.Builder().build())
         configureRecyclerView()

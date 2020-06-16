@@ -82,9 +82,6 @@ class FeedActivity: AppCompatActivity() {
         srlFeed.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         srlFeed.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
 
-        ivLoading.setBackgroundResource(R.drawable.animation)
-        (ivLoading.background as AnimationDrawable).start()
-
         configureRecyclerView()
         getFeed()
     }

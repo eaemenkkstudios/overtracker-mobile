@@ -3,6 +3,7 @@ package studios.eaemenkk.overtracker.view.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -58,7 +59,7 @@ class HeroListActivity: AppCompatActivity() {
             }
             return@setOnNavigationItemSelectedListener false
         }
-
+        val handler = Handler(this.mainLooper)
         viewModel.heroList.observe(this, Observer { heroes ->
             val density = resources.displayMetrics.density
             val dpWidth = resources.displayMetrics.widthPixels / density
@@ -76,14 +77,12 @@ class HeroListActivity: AppCompatActivity() {
                         else -> R.drawable.unknown
                     }
                 )
-                view.setOnClickListener { showHeroDetails(hero.name) }
+                view.setOnClickListener { handler.post { showHeroDetails(hero.name) } }
                 glHeroList.addView(view)
             }
             heroListLoadingContainer.visibility = View.GONE
         })
 
-        ivLoading.setBackgroundResource(R.drawable.animation)
-        (ivLoading.background as AnimationDrawable).start()
         heroListLoadingContainer.visibility = View.VISIBLE
         getHeroes()
     }

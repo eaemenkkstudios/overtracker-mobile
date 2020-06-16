@@ -81,9 +81,6 @@ class LocalFeedActivity: AppCompatActivity() {
         srlFeedLocal.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
         rvFeedLocal.adapter = adapter
 
-        ivLoading.setBackgroundResource(R.drawable.animation)
-        (ivLoading.background as AnimationDrawable).start()
-
         configureRecyclerView()
         getLocalFeed()
     }
