@@ -26,7 +26,7 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
         }
     }
 
-    fun getHeroes() {
-        interactor.getHeroes { heroes -> heroList.value = heroes }
+    suspend fun getHeroes() {
+        interactor.getHeroes { heroes -> heroList.postValue(heroes) }
     }
 }

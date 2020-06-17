@@ -2,6 +2,7 @@
   <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/logo.png?raw=true">
 </p>
 
+[![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23)
 # Welcome!
 Welcome to the Overtracker project! Overtracker is an Android app that helps you to keep track of yours and many other player's competitive scores on Overwatch! Feel free to look around and contribute!
 

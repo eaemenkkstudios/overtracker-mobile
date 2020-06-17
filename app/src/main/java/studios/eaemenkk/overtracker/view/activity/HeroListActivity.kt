@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.activity_hero_list.*
 import kotlinx.android.synthetic.main.activity_hero_list.bnvFeed
 import kotlinx.android.synthetic.main.activity_hero_list.ivLoading
 import kotlinx.android.synthetic.main.hero_list_item.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
 
@@ -94,7 +96,9 @@ class HeroListActivity: AppCompatActivity() {
     }
 
     private fun getHeroes() {
-        viewModel.getHeroes()
+        GlobalScope.launch {
+            viewModel.getHeroes()
+        }
     }
 
     private fun showHeroDetails(heroName: String) {

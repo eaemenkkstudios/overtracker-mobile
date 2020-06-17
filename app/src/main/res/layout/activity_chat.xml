@@ -89,11 +89,11 @@
         android:id="@+id/bnvFeed"
         android:layout_width="409dp"
         android:layout_height="70dp"
+        android:background="@color/colorPrimaryDark"
         android:translationZ="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/feed_menu">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/feed_menu"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,7 +12,7 @@ class HeroInteractor(context: Context) {
         heroRepository.getHero(heroName, callback)
     }
 
-    fun getHeroes(callback: (heroes: ArrayList<Hero>) -> Unit) {
+    suspend fun getHeroes(callback: (heroes: ArrayList<Hero>) -> Unit) {
         heroRepository.getHeroes(callback)
     }
 }
