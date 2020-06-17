@@ -1,17 +1,26 @@
 package studios.eaemenkk.overtracker.view.fragment
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_player_stats.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Player
+import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class PlayerStatsFragment(private val player: Player?) : Fragment() {
+    private val viewModel: PlayerViewModel by lazy {
+        ViewModelProvider(this).get(PlayerViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +52,22 @@ class PlayerStatsFragment(private val player: Player?) : Fragment() {
                 intent.putExtra("heroName", player.now?.main?.friendlyHero)
                 startActivity(intent)
             }
+            viewModel.followed.observe(viewLifecycleOwner, Observer { result ->
+                if(result) {
+                    view.btFollow.text = getString(R.string.unfollow)
+                    view.btFollow.backgroundTintList =context?.let { getColor(it, R.color.colorDetail) }?.let { ColorStateList.valueOf(it) }
+                    view.btFollow.setOnClickListener { viewModel.unfollowPlayer(player.id.toString()) }
+                }
+            })
+
+            viewModel.unfollowed.observe(viewLifecycleOwner, Observer { result ->
+                if(result) {
+                    view.btFollow.text = getString(R.string.follow)
+                    view.btFollow.backgroundTintList = context?.let { getColor(it, R.color.colorPrimary) }?.let { ColorStateList.valueOf(it) }
+                    view.btFollow.setOnClickListener { viewModel.followPlayer(player.id.toString()) }
+                }
+            })
+            viewModel.isFollowing(player.id.toString())
             view.ivInfoMain.setOnClickListener(clickListener)
             view.tvInfoMain.setOnClickListener(clickListener)
             view.ivInfoEndorsement.setImageResource(

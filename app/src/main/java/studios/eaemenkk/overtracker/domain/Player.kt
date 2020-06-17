@@ -1,7 +1,7 @@
 package studios.eaemenkk.overtracker.domain
 
 open class Player {
-    val id: String? = null
+    var id: String? = null
     val lastUpdate: String? = null
     var platform: String? = null
     var tag: String? = null

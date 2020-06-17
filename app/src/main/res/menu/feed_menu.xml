@@ -12,9 +12,9 @@
         android:title = "@string/following"
         />
     <item
-        android:id = "@+id/btFollowing"
-        android:icon = "@drawable/players"
-        android:title = "@string/players"
+        android:id = "@+id/btProfile"
+        android:icon = "@drawable/profile"
+        android:title = "@string/profile"
         />
     <item
         android:id = "@+id/btHeroes"

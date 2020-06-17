@@ -16,6 +16,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.activity.ProfileActivity">
+            <intent-filter>
+                <action android:name="OVERTRACKER_PROFILE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="OVERTRACKER_PROFILE" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

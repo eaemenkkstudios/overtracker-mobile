@@ -32,27 +32,12 @@ class DialogFragmentWindow(private val data: String): DialogFragment() {
         view.loadingContainer.visibility = View.VISIBLE
         viewModel.playerDetails.observe(this, Observer { player ->
             view.loadingContainer.visibility = View.GONE
+            player.id = data
             pagerAdapter = PagerAdapter(player, childFragmentManager,2)
             val viewPager = view.findViewById<ViewPager>(R.id.vpProfile)
             viewPager.adapter = pagerAdapter
         })
 
-        /* viewModel.followed.observe(this, Observer { result ->
-            if(result) {
-                btFollow.text = getString(string.unfollow)
-                btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorDetail))
-                btFollow.setOnClickListener { viewModel.unfollowPlayer(playerId) }
-            }
-        })
-
-        viewModel.unfollowed.observe(this, Observer { result ->
-            if(result) {
-                btFollow.text = getString(string.follow)
-                btFollow.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary))
-                btFollow.setOnClickListener { viewModel.followPlayer(playerId) }
-            }
-        })
-        viewModel.isFollowing(playerId) */
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         viewModel.playerInfo(data)

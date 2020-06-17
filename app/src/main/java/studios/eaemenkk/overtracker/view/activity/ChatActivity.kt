@@ -26,31 +26,27 @@ class ChatActivity: AppCompatActivity() {
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {
-                    val intent = Intent("OVERTRACKER_GLOBAL_FEED")
+                    startActivity(Intent("OVERTRACKER_GLOBAL_FEED")
                         .addCategory("OVERTRACKER_GLOBAL_FEED")
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                    startActivity(intent)
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                     overridePendingTransition(0, 0)
                 }
                 R.id.btLocal -> {
-                    val intent = Intent("OVERTRACKER_LOCAL_FEED")
+                    startActivity(Intent("OVERTRACKER_LOCAL_FEED")
                         .addCategory("OVERTRACKER_LOCAL_FEED")
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                    startActivity(intent)
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                     overridePendingTransition(0, 0)
                 }
-                R.id.btFollowing -> {
-                    val intent = Intent("OVERTRACKER_FOLLOWED_PLAYERS")
-                        .addCategory("OVERTRACKER_FOLLOWED_PLAYERS")
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                    startActivity(intent)
+                R.id.btProfile -> {
+                    startActivity(Intent("OVERTRACKER_PROFILE")
+                        .addCategory("OVERTRACKER_PROFILE")
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                     overridePendingTransition(0, 0)
                 }
                 R.id.btHeroes -> {
-                    val intent = Intent("OVERTRACKER_HERO_LIST")
+                    startActivity(Intent("OVERTRACKER_HERO_LIST")
                         .addCategory("OVERTRACKER_HERO_LIST")
-                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                    startActivity(intent)
+                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                     overridePendingTransition(0, 0)
                 }
             }
