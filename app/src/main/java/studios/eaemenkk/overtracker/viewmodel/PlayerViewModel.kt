@@ -19,6 +19,7 @@ class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
     val created = MutableLiveData<RequestResult>()
     val followed = MutableLiveData<Boolean>()
     val unfollowed = MutableLiveData<Boolean>()
+    val locationUpdated = MutableLiveData<Boolean>()
 
     fun playerInfo(tagId: String) {
         interactor.playerInfo(tagId) { player ->
@@ -99,6 +100,10 @@ class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
             if(result) followed.value = true
             else unfollowed.value = true
         }
+    }
+
+    fun updateLocation(lat: Double, lng: Double) {
+        interactor.updateLocation(lat, lng) { result -> locationUpdated.value = result }
     }
 
     private fun timestampToTimeInterval(timestamp: String): String {

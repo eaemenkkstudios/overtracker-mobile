@@ -28,9 +28,13 @@
             android:fontFamily="sans-serif-condensed"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="asd af s  reeer gerf er fgrege sdfsdfs cv dfrgre dsfsfsd gerge er dsfsfsdf erwerwf wegwefew sdfsdfsdfrgrg erere werwgwef wedwdsf "
+            android:text="asd af s  reeer gerf er fgrege sdfsdfs cv dfrgre dsfsfsd gerge er dsfsfsdf erwerwf wegwefew sdfsdfsdfrgrg erere werwgwef wedwdsf"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp" />
+            android:textColorHighlight="#FFFFFF"
+            android:textColorLink="#FFFFFF"
+            android:textSize="18sp">
+
+        </TextView>
 
     </androidx.cardview.widget.CardView>
 

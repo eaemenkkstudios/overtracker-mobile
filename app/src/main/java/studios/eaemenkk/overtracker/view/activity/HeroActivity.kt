@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_hero.*
 import kotlinx.android.synthetic.main.activity_hero.adView
 import kotlinx.android.synthetic.main.activity_hero.ivBack
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
 
@@ -71,7 +73,9 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun getHeroInfo() {
         if(intent.hasExtra("heroName")) {
             val heroName = intent.getStringExtra("heroName") ?: return
-            viewModel.getHero(heroName)
+            GlobalScope.launch {
+                viewModel.getHero(heroName)
+            }
         }
     }
 

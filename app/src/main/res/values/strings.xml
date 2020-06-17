@@ -42,4 +42,5 @@
     <string name="story">Story</string>
     <string name="chat">Chat</string>
     <string name="profile">Profile</string>
+    <string name="location_denied">Unable to update user\'s location</string>
 </resources>

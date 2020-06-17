@@ -5,9 +5,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.*
+import studios.eaemenkk.overtracker.domain.LocationObject
 import studios.eaemenkk.overtracker.domain.NewPlayer
 import studios.eaemenkk.overtracker.domain.Player
-import java.lang.Exception
+import studios.eaemenkk.overtracker.domain.UserLocation
 
 interface PlayerService {
     @GET("/info/{tagId}")
@@ -36,6 +37,11 @@ interface PlayerService {
     @GET("/isfollowing/{tagId}")
     fun isFollowing(
         @Path("tagId") tagId: String
+    ): Call<Void>
+
+    @POST("/location")
+    fun updateLocation(
+        @Body location: UserLocation
     ): Call<Void>
 }
 
@@ -123,6 +129,22 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
 
     fun isFollowing(tagId: String, callback: (status: Boolean) -> Unit) {
         service.isFollowing(tagId).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.code() == 200) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                callback(false)
+            }
+        })
+    }
+
+    fun updateLocation(lat: Double, lng: Double, callback: (status: Boolean) -> Unit) {
+        service.updateLocation(UserLocation(LocationObject(lat, lng))).enqueue(object: Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.code() == 200) {
                     callback(true)

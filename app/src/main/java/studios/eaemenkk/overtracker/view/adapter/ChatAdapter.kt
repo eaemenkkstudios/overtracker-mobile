@@ -10,6 +10,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.RequestCreator
+import io.noties.markwon.Markwon
+import io.noties.markwon.image.AsyncDrawable
+import io.noties.markwon.image.picasso.PicassoImagesPlugin
 import kotlinx.android.synthetic.main.chat_message.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Message
@@ -29,7 +34,23 @@ class ChatAdapter(private val context: Context): RecyclerView.Adapter<ChatAdapte
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val message = dataSet[position]
-        holder.msg.text = message.message
+        val markdown = Markwon.builder(context)
+            .usePlugin(PicassoImagesPlugin.create(context))
+            .usePlugin(PicassoImagesPlugin.create(Picasso.get()))
+            .usePlugin(PicassoImagesPlugin.create(object: PicassoImagesPlugin.PicassoStore {
+                override fun cancel(drawable: AsyncDrawable) {
+                    Picasso.get()
+                        .cancelTag(drawable)
+                }
+
+                override fun load(drawable: AsyncDrawable): RequestCreator {
+                    return Picasso.get()
+                        .load(drawable.destination)
+                        .tag(drawable)
+                }
+            }))
+            .build()
+        markdown.setMarkdown(holder.msg, message.message)
 
         if(message.sender) {
             holder.cornerRight.visibility = View.VISIBLE

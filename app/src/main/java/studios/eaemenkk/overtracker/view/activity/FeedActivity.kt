@@ -1,12 +1,20 @@
 package studios.eaemenkk.overtracker.view.activity
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.AnimationDrawable
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,10 +22,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.maps.LocationSource
 import kotlinx.android.synthetic.main.activity_feed.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel
+import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class FeedActivity: AppCompatActivity() {
     private var page = 1
@@ -28,6 +38,27 @@ class FeedActivity: AppCompatActivity() {
     private val adapter = CardAdapter(this, supportFragmentManager)
     private val viewModel: CardViewModel by lazy {
         ViewModelProvider(this).get(CardViewModel::class.java)
+    }
+    private val playerViewModel: PlayerViewModel by lazy {
+        ViewModelProvider(this).get(PlayerViewModel::class.java)
+    }
+    private val LOCATION_PERMISSION = 999
+    private var lat: Double = 0.0
+    private var lng: Double = 0.0
+    private val locationListener: LocationListener = object: LocationListener {
+        override fun onLocationChanged(location: Location?) {
+            if (location != null) {
+                lat = location.latitude
+                lng = location.longitude
+                playerViewModel.updateLocation(lat, lng)
+            }
+        }
+
+        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
+
+        override fun onProviderEnabled(provider: String?) {}
+
+        override fun onProviderDisabled(provider: String?) {}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +109,43 @@ class FeedActivity: AppCompatActivity() {
         srlFeed.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         srlFeed.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                    LOCATION_PERMISSION)
+        } else {
+            getUserLocation()
+        }
+
+        playerViewModel.locationUpdated.observe(this, Observer { result ->
+            println("Location updated: $result")
+        })
+
         configureRecyclerView()
         getFeed()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            LOCATION_PERMISSION -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getUserLocation()
+                } else {
+                    Toast.makeText(this, getString(R.string.location_denied), Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getUserLocation() {
+       val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0.1f, locationListener)
     }
 
     private fun getFeed() {

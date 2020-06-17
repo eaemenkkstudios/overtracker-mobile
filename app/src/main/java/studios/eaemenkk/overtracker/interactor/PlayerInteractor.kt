@@ -38,4 +38,8 @@ class PlayerInteractor(context: Context) {
     fun isFollowing(tagId: String, callback: (status: Boolean) -> Unit) {
         playerRepository.isFollowing(tagId, callback)
     }
+
+    fun updateLocation(lat: Double, lng: Double, callback: (status: Boolean) -> Unit) {
+        playerRepository.updateLocation(lat, lng, callback)
+    }
 }

@@ -12,13 +12,14 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import studios.eaemenkk.overtracker.domain.Hero
+import studios.eaemenkk.overtracker.domain.HeroDetails
 import kotlin.coroutines.coroutineContext
 
 interface HeroService {
     @GET("/heroes/{heroName}")
     fun getHero(
         @Path("heroName") heroName: String
-    ): Call<Hero>
+    ): Call<HeroDetails>
 
     @GET("/heroes")
     fun getHeroes(): Call<ArrayList<Hero>>
@@ -27,22 +28,40 @@ interface HeroService {
 class HeroRepository(context: Context, baseUrl: String): BaseRetrofit(context, baseUrl) {
     private val service = retrofit.create(HeroService::class.java)
     private val room = HeroRoomRepository(context)
-    fun getHero(heroName: String, callback: (hero: Hero?) -> Unit) {
-        service.getHero(heroName).enqueue(object: Callback<Hero?> {
-            override fun onResponse(call: Call<Hero?>, response: Response<Hero?>) {
-                val hero = response.body()
-                callback(hero)
+    suspend fun getHero(heroName: String, callback: (hero: HeroDetails?) -> Unit) {
+        coroutineScope {
+            val heroDetail = room.getHeroDetail(heroName)
+            var sent = false
+            if (heroDetail.isNotEmpty()) {
+                callback(heroDetail[0])
+                sent = true
             }
+            service.getHero(heroName).enqueue(object: Callback<HeroDetails?> {
+                override fun onResponse(call: Call<HeroDetails?>, response: Response<HeroDetails?>) {
+                    GlobalScope.launch {
+                        room.deleteHeroDetail(heroName)
+                        val hero = response.body()
+                        if (hero != null) {
+                            room.insertHeroDetail(hero)
+                        }
+                        if (!sent) {
+                            callback(hero)
+                        }
+                    }
+                }
 
-            override fun onFailure(call: Call<Hero?>, t: Throwable) {
-                callback(null)
-            }
-        })
+                override fun onFailure(call: Call<HeroDetails?>, t: Throwable) {
+                    if (!sent) {
+                        callback(null)
+                    }
+                }
+            })
+        }
     }
 
     suspend fun getHeroes(callback: (hero: ArrayList<Hero>) -> Unit) {
         coroutineScope {
-            val heroList = room.getHeroes()
+            val heroList = room.getAllHeroes()
             var sent = false
             if (heroList.isNotEmpty()) {
                 callback(heroList as ArrayList<Hero>)
@@ -55,7 +74,7 @@ class HeroRepository(context: Context, baseUrl: String): BaseRetrofit(context, b
                     if(heroes != null) {
                         GlobalScope.launch {
                             room.deleteAllHeroes()
-                            room.insertHeroes(heroes)
+                            room.insertAllHeroes(heroes)
                             if (!sent) {
                                 callback(heroes)
                             }

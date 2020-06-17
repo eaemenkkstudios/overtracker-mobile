@@ -3,12 +3,13 @@ package studios.eaemenkk.overtracker.interactor
 import android.content.Context
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Hero
+import studios.eaemenkk.overtracker.domain.HeroDetails
 import studios.eaemenkk.overtracker.respository.HeroRepository
 
 class HeroInteractor(context: Context) {
     private val heroRepository = HeroRepository(context, context.getString(R.string.api_base_url))
 
-    fun getHero(heroName: String, callback: (hero: Hero?) -> Unit) {
+    suspend fun getHero(heroName: String, callback: (hero: HeroDetails?) -> Unit) {
         heroRepository.getHero(heroName, callback)
     }
 
