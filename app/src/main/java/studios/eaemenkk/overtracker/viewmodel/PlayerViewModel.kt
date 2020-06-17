@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Player
 import studios.eaemenkk.overtracker.domain.RequestResult
+import studios.eaemenkk.overtracker.domain.UserLocation
 import studios.eaemenkk.overtracker.interactor.PlayerInteractor
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.math.floor
 
 class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
@@ -20,6 +22,7 @@ class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
     val followed = MutableLiveData<Boolean>()
     val unfollowed = MutableLiveData<Boolean>()
     val locationUpdated = MutableLiveData<Boolean>()
+    val heroLocation = MutableLiveData<UserLocation>()
 
     fun playerInfo(tagId: String) {
         interactor.playerInfo(tagId) { player ->
@@ -104,6 +107,10 @@ class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun updateLocation(lat: Double, lng: Double) {
         interactor.updateLocation(lat, lng) { result -> locationUpdated.value = result }
+    }
+
+    fun getMainsPerRegion(hero: String) {
+        interactor.getMainsPerRegion(hero) { location -> heroLocation.value = location }
     }
 
     private fun timestampToTimeInterval(timestamp: String): String {

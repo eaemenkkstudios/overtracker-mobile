@@ -3,6 +3,7 @@ package studios.eaemenkk.overtracker.interactor
 import android.content.Context
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Player
+import studios.eaemenkk.overtracker.domain.UserLocation
 import studios.eaemenkk.overtracker.respository.PlayerRepository
 import java.lang.Exception
 
@@ -41,5 +42,9 @@ class PlayerInteractor(context: Context) {
 
     fun updateLocation(lat: Double, lng: Double, callback: (status: Boolean) -> Unit) {
         playerRepository.updateLocation(lat, lng, callback)
+    }
+
+    fun getMainsPerRegion(hero: String, callback: (location: UserLocation) -> Unit) {
+        playerRepository.getMainsPerRegion(hero, callback)
     }
 }

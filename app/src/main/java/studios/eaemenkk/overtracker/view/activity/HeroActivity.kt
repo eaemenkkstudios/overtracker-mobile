@@ -25,12 +25,17 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
+import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var heroName: String
     private val viewModel: HeroViewModel by lazy {
         ViewModelProvider(this).get(HeroViewModel::class.java)
+    }
+    private val playerViewModel: PlayerViewModel by lazy {
+        ViewModelProvider(this).get(PlayerViewModel::class.java)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -72,7 +77,7 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun getHeroInfo() {
         if(intent.hasExtra("heroName")) {
-            val heroName = intent.getStringExtra("heroName") ?: return
+            heroName = intent.getStringExtra("heroName") ?: return
             GlobalScope.launch {
                 viewModel.getHero(heroName)
             }
@@ -135,10 +140,12 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        playerViewModel.getMainsPerRegion(heroName)
+        playerViewModel.heroLocation.observe(this, Observer { hero ->
+            val marker = LatLng(hero.location.lat, hero.location.lng)
+            mMap.addMarker(MarkerOptions().position(marker).title("Region the hero $heroName is most played in."))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
+        })
     }
 
     override fun onBackPressed() {

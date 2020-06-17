@@ -43,6 +43,11 @@ interface PlayerService {
     fun updateLocation(
         @Body location: UserLocation
     ): Call<Void>
+
+    @GET("/heroes/{hero}/region")
+    fun getMainsPerRegion(
+        @Path("hero") hero: String
+    ): Call<UserLocation>
 }
 
 class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context, baseUrl) {
@@ -155,6 +160,23 @@ class PlayerRepository(context: Context, baseUrl: String) : BaseRetrofit(context
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 callback(false)
+            }
+        })
+    }
+
+    fun getMainsPerRegion(hero: String, callback: (location: UserLocation) -> Unit) {
+        service.getMainsPerRegion(hero).enqueue(object: Callback<UserLocation> {
+            override fun onResponse(call: Call<UserLocation>, response: Response<UserLocation>) {
+                val location = response.body()
+                if (location != null) {
+                    callback(location)
+                } else {
+                    callback(UserLocation(LocationObject(0.0, 0.0)))
+                }
+            }
+
+            override fun onFailure(call: Call<UserLocation>, t: Throwable) {
+                callback(UserLocation(LocationObject(0.0, 0.0)))
             }
         })
     }
