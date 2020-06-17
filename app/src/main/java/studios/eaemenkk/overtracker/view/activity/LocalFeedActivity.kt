@@ -23,7 +23,7 @@ class LocalFeedActivity: AppCompatActivity() {
     private var isLoading = false
     private var showLoadingIcon = true
     private val layoutManager = LinearLayoutManager(this)
-    private val adapter = CardAdapter(this)
+    private val adapter = CardAdapter(this, supportFragmentManager)
     private val viewModel: CardViewModel by lazy {
         ViewModelProvider(this).get(CardViewModel::class.java)
     }

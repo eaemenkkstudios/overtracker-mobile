@@ -14,6 +14,7 @@
     <string name="ago">ago</string>
     <string name="could_not_load_feed">Could not load feed, please try again…</string>
     <string name="login_success">Login Succeeded!</string>
+    <string name="login_failed">Login Failed, please try again…</string>
     <string name="logged_out">Logged Out.</string>
     <string name="follow">Follow</string>
     <string name="unfollow">Unfollow</string>

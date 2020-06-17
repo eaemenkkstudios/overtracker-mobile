@@ -11,6 +11,9 @@ import android.view.WindowManager
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.findFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
@@ -18,6 +21,7 @@ import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_login.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.PagerAdapter
+import studios.eaemenkk.overtracker.view.fragment.DialogFragmentWindow
 import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 
 
@@ -32,8 +36,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         viewModel.loginMsg.observe(this, Observer { result ->
+            if (result.status) {
+                loginLoadingContainer.visibility = View.VISIBLE
+                viewModel.isAuth()
+            } else {
+                Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.isAuthMsg.observe(this, Observer { result ->
             if(result.msg != "") {
-                Toast.makeText(this.applicationContext, result.msg, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, result.msg, Toast.LENGTH_SHORT).show()
                 if(result.status) {
                     val intent = Intent("OVERTRACKER_GLOBAL_FEED")
                         .addCategory("OVERTRACKER_GLOBAL_FEED")
@@ -54,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
         adView.loadAd(AdRequest.Builder().build())
         btSignIn.setOnClickListener { bnetSignIn() }
 
-//        button.setOnClickListener { startActivity(Intent(this, toolbarTest::class.java)) }
         button.setOnClickListener { popup() }
     }
 
@@ -64,20 +76,8 @@ class LoginActivity : AppCompatActivity() {
         startActivity(openURL)
     }
 
-    private lateinit var popupWindow: PopupWindow
     private fun popup() {
-        popupWindow = PopupWindow(this)
-        val view = layoutInflater.inflate(R.layout.profile_popup, null)
-        popupWindow.contentView = view
-        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        val pagerAdapter = PagerAdapter(supportFragmentManager,2)
-        val viewPager = view.findViewById<ViewPager>(R.id.vpProfile)
-        viewPager.adapter = pagerAdapter
-
-        clLogin.setOnClickListener { popupWindow.dismiss() }
-        popupWindow.isFocusable = true
-        popupWindow.isTouchable = true
-        popupWindow.showAtLocation(clLogin, Gravity.CENTER, 0, 0)
+        val dialogFragment = DialogFragmentWindow("")
+        dialogFragment.show(supportFragmentManager, "")
     }
 }

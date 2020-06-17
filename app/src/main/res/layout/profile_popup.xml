@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -11,8 +10,41 @@
     app:cardCornerRadius="25dp"
     app:cardElevation="4dp">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loadingContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#00FFFFFF"
+            android:clickable="true"
+            android:focusable="true"
+            android:translationZ="20dp"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/ivLoading"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:contentDescription="@string/loading"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/loading" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </androidx.cardview.widget.CardView>

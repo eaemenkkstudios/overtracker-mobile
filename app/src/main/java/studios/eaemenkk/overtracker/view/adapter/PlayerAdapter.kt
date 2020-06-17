@@ -1,14 +1,12 @@
 package studios.eaemenkk.overtracker.view.adapter
 
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
 import studios.eaemenkk.overtracker.domain.Player
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdListener
@@ -20,11 +18,11 @@ import kotlinx.android.synthetic.main.banner_ad_list_item.view.*
 import kotlinx.android.synthetic.main.player_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.AdPlayer
-import studios.eaemenkk.overtracker.view.activity.InfoActivity
+import studios.eaemenkk.overtracker.view.fragment.DialogFragmentWindow
 
 private const val AD_INTERVAL = 5
 
-class PlayerAdapter(private val context: Context) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(private val context: Context, private val supportFragmentManager: FragmentManager) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
     private var dataSet = ArrayList<Player>()
 
     override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): PlayerViewHolder {
@@ -67,9 +65,8 @@ class PlayerAdapter(private val context: Context) : RecyclerView.Adapter<PlayerA
             }
             is PlayerItemViewHolder -> {
                 holder.itemView.setOnClickListener {
-                    val intent = Intent("OVERTRACKER_PLAYER_INFO").addCategory("OVERTRACKER_PLAYER_INFO")
-                    intent.putExtra("playerId", player.id)
-                    context.startActivity(intent)
+                    val dialogFragment = DialogFragmentWindow(player.id.toString())
+                    dialogFragment.show(supportFragmentManager, "")
                 }
                 holder.tag.text = player.tag
                 holder.tagNum.text = player.tagNum

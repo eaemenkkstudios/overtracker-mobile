@@ -10,6 +10,7 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
     private val interactor = AuthInteractor(app.applicationContext)
 
     val loginMsg = MutableLiveData<RequestResult>()
+    val isAuthMsg = MutableLiveData<RequestResult>()
     val logoutMsg = MutableLiveData<RequestResult>()
 
     fun login(session: String) {
@@ -18,5 +19,9 @@ class AuthViewModel(app: Application) : AndroidViewModel(app) {
 
     fun logout() {
         interactor.logout { result -> logoutMsg.value = result  }
+    }
+
+    fun isAuth() {
+        interactor.isAuth { result -> isAuthMsg.value = result }
     }
 }

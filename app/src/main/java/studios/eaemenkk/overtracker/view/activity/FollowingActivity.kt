@@ -27,7 +27,7 @@ import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class FollowingActivity : AppCompatActivity() {
-    private val adapter = PlayerAdapter(this)
+    private val adapter = PlayerAdapter(this, supportFragmentManager)
     private lateinit var loadingContainer: ConstraintLayout
     private lateinit var popupWindow: PopupWindow
     private var showLoadingIcon = true

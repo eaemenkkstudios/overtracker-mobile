@@ -11,4 +11,4 @@
     android:backgroundTint="#1C1C1C"
     android:gravity="center"
     app:cardBackgroundColor="#1C1C1C"
-    app:cardCornerRadius="40dp" />
+    app:cardCornerRadius="10dp" />

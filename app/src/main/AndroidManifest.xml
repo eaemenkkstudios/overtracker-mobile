@@ -16,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.activity.toolbarTest"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -54,16 +53,6 @@
                 <data
                     android:host="login"
                     android:scheme="overtracker" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".view.activity.InfoActivity"
-            android:theme="@style/AppTheme.CustomTheme">
-            <intent-filter>
-                <action android:name="OVERTRACKER_PLAYER_INFO" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="OVERTRACKER_PLAYER_INFO" />
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.HeroListActivity">

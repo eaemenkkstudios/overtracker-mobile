@@ -21,7 +21,6 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_hero.*
 import kotlinx.android.synthetic.main.activity_hero.adView
 import kotlinx.android.synthetic.main.activity_hero.ivBack
-import kotlinx.android.synthetic.main.activity_info.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
 

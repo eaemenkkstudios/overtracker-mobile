@@ -1,11 +1,11 @@
 package studios.eaemenkk.overtracker.view.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.ads.*
@@ -23,11 +23,11 @@ import kotlinx.android.synthetic.main.wr_feed_list_item.view.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.AdCard
 import studios.eaemenkk.overtracker.domain.Card
-import studios.eaemenkk.overtracker.view.activity.InfoActivity
+import studios.eaemenkk.overtracker.view.fragment.DialogFragmentWindow
 
 private const val AD_INTERVAL = 8
 
-class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
+class CardAdapter(private val context: Context, private val supportFragmentManager: FragmentManager): RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
     private var dataSet = ArrayList<Card>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
@@ -67,10 +67,8 @@ class CardAdapter(private val context: Context): RecyclerView.Adapter<CardAdapte
         val card = dataSet[position]
         if(holder !is AdCardViewHolder) {
             holder.itemView.setOnClickListener {
-                val intent = Intent("OVERTRACKER_PLAYER_INFO")
-                    .addCategory("OVERTRACKER_PLAYER_INFO")
-                intent.putExtra("playerId", card.player?.id)
-                context.startActivity(intent)
+                val dialogFragment = DialogFragmentWindow(card.player?.id.toString())
+                dialogFragment.show(supportFragmentManager, "")
             }
         }
 
