@@ -40,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
                 loginLoadingContainer.visibility = View.VISIBLE
                 viewModel.isAuth()
             } else {
+                viewModel.logout()
                 Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
             }
         })
