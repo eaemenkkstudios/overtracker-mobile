@@ -1,5 +1,10 @@
 # Change Log
 
+# v2.0.1
+### Bug fixes
+- Failed sessions are no longer logged in
+- The app logo now displays correctly
+
 ## v2.0.0
 ### Features
 - Blizzard OAuth-based log-in system;
