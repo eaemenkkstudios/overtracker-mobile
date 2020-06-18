@@ -22,7 +22,6 @@ class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
     val followed = MutableLiveData<Boolean>()
     val unfollowed = MutableLiveData<Boolean>()
     val locationUpdated = MutableLiveData<Boolean>()
-    val heroLocation = MutableLiveData<UserLocation>()
 
     fun playerInfo(tagId: String) {
         interactor.playerInfo(tagId) { player ->
@@ -107,10 +106,6 @@ class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {
 
     fun updateLocation(lat: Double, lng: Double) {
         interactor.updateLocation(lat, lng) { result -> locationUpdated.value = result }
-    }
-
-    fun getMainsPerRegion(hero: String) {
-        interactor.getMainsPerRegion(hero) { location -> heroLocation.value = location }
     }
 
     private fun timestampToTimeInterval(timestamp: String): String {

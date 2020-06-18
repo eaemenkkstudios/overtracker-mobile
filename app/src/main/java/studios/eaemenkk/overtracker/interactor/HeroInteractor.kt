@@ -4,6 +4,7 @@ import android.content.Context
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Hero
 import studios.eaemenkk.overtracker.domain.HeroDetails
+import studios.eaemenkk.overtracker.domain.UserLocation
 import studios.eaemenkk.overtracker.respository.HeroRepository
 
 class HeroInteractor(context: Context) {
@@ -15,5 +16,9 @@ class HeroInteractor(context: Context) {
 
     suspend fun getHeroes(callback: (heroes: ArrayList<Hero>) -> Unit) {
         heroRepository.getHeroes(callback)
+    }
+
+    fun getMainsPerRegion(hero: String, callback: (location: UserLocation) -> Unit) {
+        heroRepository.getMainsPerRegion(hero, callback)
     }
 }

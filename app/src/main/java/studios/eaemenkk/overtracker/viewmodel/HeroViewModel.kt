@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.domain.Hero
 import studios.eaemenkk.overtracker.domain.HeroDetails
+import studios.eaemenkk.overtracker.domain.UserLocation
 import studios.eaemenkk.overtracker.interactor.HeroInteractor
 
 class HeroViewModel(app: Application): AndroidViewModel(app) {
@@ -12,6 +13,7 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
 
     val heroInfo = MutableLiveData<HeroDetails>()
     val heroList = MutableLiveData<ArrayList<Hero>>()
+    val heroLocation = MutableLiveData<UserLocation>()
 
     suspend fun getHero(heroName: String) {
         interactor.getHero(heroName) {hero ->
@@ -27,5 +29,9 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
 
     suspend fun getHeroes() {
         interactor.getHeroes { heroes -> heroList.postValue(heroes) }
+    }
+
+    fun getMainsPerRegion(hero: String) {
+        interactor.getMainsPerRegion(hero) { location -> heroLocation.value = location }
     }
 }

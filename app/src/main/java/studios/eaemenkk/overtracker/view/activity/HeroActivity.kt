@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.ads.AdRequest
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
+import java.lang.Exception
 
 class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -32,9 +34,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var heroName: String
     private val viewModel: HeroViewModel by lazy {
         ViewModelProvider(this).get(HeroViewModel::class.java)
-    }
-    private val playerViewModel: PlayerViewModel by lazy {
-        ViewModelProvider(this).get(PlayerViewModel::class.java)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -138,11 +137,15 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        playerViewModel.getMainsPerRegion(heroName)
-        playerViewModel.heroLocation.observe(this, Observer { hero ->
-            val marker = LatLng(hero.location.lat, hero.location.lng)
-            mMap.addMarker(MarkerOptions().position(marker).title("Region the hero $heroName is most played in."))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
+        viewModel.getMainsPerRegion(heroName)
+        viewModel.heroLocation.observe(this, Observer { hero ->
+            try {
+                val marker = LatLng(hero.location.lat, hero.location.lng)
+                mMap.addMarker(MarkerOptions().position(marker).title("Region the hero $heroName is most played in."))
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
+            } catch (e: Exception) {
+                Toast.makeText(this, getString(R.string.load_map_failed), Toast.LENGTH_LONG).show()
+            }
         })
     }
 
