@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="380dp"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".view.fragment.PlayerStatsFragment">
@@ -11,9 +11,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="6dp"
+        android:layout_margin="8dp"
         android:layout_weight="1"
         app:cardBackgroundColor="#1c1c1c"
         app:cardCornerRadius="10dp"
@@ -27,24 +25,44 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <androidx.cardview.widget.CardView
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="#00FFFFFF">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/ivInfoPortrait"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/thumb" />
-            </androidx.cardview.widget.CardView>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btFollow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom|end"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:fabCustomSize="40dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/srlFeedLocal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:maxImageSize="40dp"
+                    app:srcCompat="@drawable/follow" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="#00FFFFFF">
+
+                    <ImageView
+                        android:id="@+id/ivInfoPortrait"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/thumb" />
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -56,7 +74,7 @@
                     android:text="aaaaaaaaaaaa "
                     android:textAlignment="textStart"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="50sp"
+                    android:textSize="48sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias=".1"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -68,33 +86,31 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvInfoTagNum"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/bignoodletoo"
-                        android:text="#12345"
-                        android:textColor="@color/colorDetail"
-                        android:textSize="30sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias=".1"
-                        app:layout_constraintStart_toEndOf="@+id/imageView3"
-                        tools:layout_editor_absoluteY="20dp" />
-
-                    <TextView
                         android:id="@+id/tvInfoPlatform"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
-                        android:layout_weight="1"
                         android:text="XBL"
-                        android:textAlignment="center"
+                        android:textAlignment="viewStart"
                         android:textColor="@color/colorDetail"
                         android:textSize="35sp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvInfoTagNum"
+                        android:layout_width="75dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/bignoodletoo"
+                        android:text="#55555"
+                        android:textColor="@color/colorDetail"
+                        android:textSize="30sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias=".1"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        tools:layout_editor_absoluteY="20dp" />
 
                 </LinearLayout>
 
@@ -106,7 +122,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -205,7 +220,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:gravity="left|center_vertical"
         android:orientation="horizontal">
 
@@ -220,13 +234,12 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-10dp"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-condensed"
                 android:text="@string/main_hero"
                 android:textAlignment="viewStart"
                 android:textColor="@color/colorDetail"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -247,12 +260,13 @@
                     android:id="@+id/tvInfoMain"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
                     android:layout_weight="0"
                     android:fontFamily="@font/bignoodletoo"
                     android:text="@string/example_hero"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="45sp" />
+                    android:textSize="35sp" />
 
             </LinearLayout>
 
@@ -278,7 +292,7 @@
                         android:text="@string/game_time"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorDetail"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvInfoMainTime"
@@ -290,6 +304,7 @@
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorPrimary"
                         android:textSize="30dp" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -307,7 +322,7 @@
                         android:text="@string/endorsement"
                         android:textAlignment="viewStart"
                         android:textColor="@color/colorDetail"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <ImageView
                         android:id="@+id/ivInfoEndorsement"
@@ -343,23 +358,5 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/colorDetail" />
-
-    <Button
-        android:id="@+id/btFollow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/follow"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp" />
 
 </LinearLayout>

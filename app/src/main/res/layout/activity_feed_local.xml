@@ -37,7 +37,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/srlFeedLocal"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="@drawable/follow" />
+        app:srcCompat="@drawable/follow"
+        android:focusable="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/abFollowed"
@@ -50,7 +51,8 @@
         app:layout_constraintBottom_toTopOf="@+id/abFollow"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="40dp"
-        app:srcCompat="@drawable/followed" />
+        app:srcCompat="@drawable/followed"
+        android:focusable="true" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvFeed"

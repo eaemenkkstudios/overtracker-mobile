@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#00000000"
     android:theme="@style/AppTheme.CustomTheme"
     app:cardBackgroundColor="@color/colorPrimaryDark"
@@ -14,12 +14,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vpProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </androidx.viewpager.widget.ViewPager>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vpProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="380dp">
+
+            </androidx.viewpager.widget.ViewPager>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabDots"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="5dp"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/loadingContainer"

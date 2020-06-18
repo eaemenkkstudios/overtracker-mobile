@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_player_stats.view.*
 import studios.eaemenkk.overtracker.R
@@ -54,19 +56,22 @@ class PlayerStatsFragment(private val player: Player?) : Fragment() {
             }
             viewModel.followed.observe(viewLifecycleOwner, Observer { result ->
                 if(result) {
-                    view.btFollow.text = getString(R.string.unfollow)
-                    view.btFollow.backgroundTintList =context?.let { getColor(it, R.color.colorDetail) }?.let { ColorStateList.valueOf(it) }
+                    view.btFollow.visibility = View.VISIBLE
+                    view.btFollow.setImageDrawable(context?.let { getDrawable(it, R.drawable.unfollow) })
+                    view.btFollow.backgroundTintList =context?.let { getColor(it, R.color.colorSecondary) }?.let { ColorStateList.valueOf(it) }
                     view.btFollow.setOnClickListener { viewModel.unfollowPlayer(player.id.toString()) }
                 }
             })
 
             viewModel.unfollowed.observe(viewLifecycleOwner, Observer { result ->
                 if(result) {
-                    view.btFollow.text = getString(R.string.follow)
+                    view.btFollow.visibility = View.VISIBLE
+                    view.btFollow.setImageDrawable(context?.let { getDrawable(it, R.drawable.follow) })
                     view.btFollow.backgroundTintList = context?.let { getColor(it, R.color.colorPrimary) }?.let { ColorStateList.valueOf(it) }
                     view.btFollow.setOnClickListener { viewModel.followPlayer(player.id.toString()) }
                 }
             })
+            view.btFollow.visibility = View.GONE
             viewModel.isFollowing(player.id.toString())
             view.ivInfoMain.setOnClickListener(clickListener)
             view.tvInfoMain.setOnClickListener(clickListener)

@@ -12,11 +12,6 @@
         android:title = "@string/following"
         />
     <item
-        android:id = "@+id/btProfile"
-        android:icon = "@drawable/profile"
-        android:title = "@string/profile"
-        />
-    <item
         android:id = "@+id/btHeroes"
         android:icon = "@drawable/heroes"
         android:title = "@string/heroes"

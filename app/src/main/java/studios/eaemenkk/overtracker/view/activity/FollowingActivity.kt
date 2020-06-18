@@ -51,7 +51,7 @@ class FollowingActivity : AppCompatActivity() {
         srlFeedFollowing.setOnRefreshListener { onRefresh() }
         srlFeedFollowing.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         srlFeedFollowing.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-        btLogout.setOnClickListener { logout() }
+        ivLogout.setOnClickListener { logout() }
         ivBack.setOnClickListener { finish() }
         configureRecyclerView()
         showPlayers()

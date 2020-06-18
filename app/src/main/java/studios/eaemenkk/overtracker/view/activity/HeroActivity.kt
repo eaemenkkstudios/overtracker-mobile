@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_hero.*
-import kotlinx.android.synthetic.main.activity_hero.adView
 import kotlinx.android.synthetic.main.activity_hero.ivBack
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -70,7 +69,6 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         heroLoadingContainer.visibility = View.VISIBLE
-        adView.loadAd(AdRequest.Builder().build())
         getHeroInfo()
         showInfo()
     }

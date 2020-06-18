@@ -43,4 +43,5 @@
     <string name="chat">Chat</string>
     <string name="profile">Profile</string>
     <string name="location_denied">Unable to update user\'s location</string>
+    <string name="most_played_region">Top regions</string>
 </resources>

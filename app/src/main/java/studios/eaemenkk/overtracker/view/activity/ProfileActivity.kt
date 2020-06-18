@@ -10,7 +10,7 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        bnvFeed.selectedItemId = R.id.btProfile
+        // bnvFeed.selectedItemId = R.id.btProfile
         bnvFeed.setOnNavigationItemSelectedListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.btGlobal -> {

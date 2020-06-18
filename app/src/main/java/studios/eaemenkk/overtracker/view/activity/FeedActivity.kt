@@ -74,12 +74,7 @@ class FeedActivity: AppCompatActivity() {
                         .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                     overridePendingTransition(0, 0)
                 }
-                R.id.btProfile -> {
-                    startActivity(Intent("OVERTRACKER_PROFILE")
-                        .addCategory("OVERTRACKER_PROFILE")
-                        .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
-                    overridePendingTransition(0, 0)
-                }
+
                 R.id.btHeroes -> {
                     startActivity(Intent("OVERTRACKER_HERO_LIST")
                         .addCategory("OVERTRACKER_HERO_LIST")
