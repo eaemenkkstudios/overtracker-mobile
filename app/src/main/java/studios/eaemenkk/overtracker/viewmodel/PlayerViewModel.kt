@@ -6,11 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Player
 import studios.eaemenkk.overtracker.domain.RequestResult
-import studios.eaemenkk.overtracker.domain.UserLocation
 import studios.eaemenkk.overtracker.interactor.PlayerInteractor
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.math.floor
 
 class PlayerViewModel(private val app: Application) : AndroidViewModel(app) {

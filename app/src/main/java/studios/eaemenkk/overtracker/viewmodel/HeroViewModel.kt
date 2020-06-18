@@ -20,7 +20,7 @@ class HeroViewModel(app: Application): AndroidViewModel(app) {
             if(hero != null) {
                 hero.img = "https://static.playoverwatch.com/img/pages/hero-detail/staticposter-733c75265d.gif"
                 hero.video = "https://d1u1mce87gyfbn.cloudfront.net/hero/${hero.name}/intro-video.webm"
-                hero.friendlyName = "${hero.friendlyName} "
+                hero.raw_name = "${hero.raw_name} "
                 hero.role = "${hero.role} "
                 heroInfo.postValue(hero)
             }

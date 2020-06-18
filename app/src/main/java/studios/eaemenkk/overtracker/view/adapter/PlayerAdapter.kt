@@ -1,6 +1,5 @@
 package studios.eaemenkk.overtracker.view.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,9 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import studios.eaemenkk.overtracker.domain.Player
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.banner_ad_list_item.view.*
 import kotlinx.android.synthetic.main.player_list_item.view.*
 import studios.eaemenkk.overtracker.R
-import studios.eaemenkk.overtracker.domain.AdPlayer
 import studios.eaemenkk.overtracker.view.fragment.DialogFragmentWindow
 
 class PlayerAdapter(private val supportFragmentManager: FragmentManager) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {

@@ -2,7 +2,6 @@ package studios.eaemenkk.overtracker.view.activity
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
@@ -22,7 +21,6 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_feed_local.*
 import kotlinx.android.synthetic.main.activity_feed_local.bnvFeed
-import kotlinx.android.synthetic.main.activity_following.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.CardAdapter
 import studios.eaemenkk.overtracker.viewmodel.CardViewModel

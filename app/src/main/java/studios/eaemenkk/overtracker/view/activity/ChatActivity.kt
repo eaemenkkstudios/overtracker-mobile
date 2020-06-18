@@ -11,6 +11,7 @@ import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Message
 import studios.eaemenkk.overtracker.view.adapter.ChatAdapter
 import studios.eaemenkk.overtracker.viewmodel.ChatViewModel
+import java.lang.Exception
 
 class ChatActivity: AppCompatActivity() {
     private val layoutManager = LinearLayoutManager(this)
@@ -60,10 +61,11 @@ class ChatActivity: AppCompatActivity() {
 
     private fun sendMessageToBot() {
         val message = etChatMessage.text.toString()
-        addMessage(Message(message, System.currentTimeMillis(), true))
-        etChatMessage.editableText.clear()
-
-        viewModel.sendMessageToBot(message)
+        try {
+            viewModel.sendMessageToBot(message)
+            addMessage(Message(message, System.currentTimeMillis(), true))
+            etChatMessage.editableText.clear()
+        } catch (e: Exception) {}
     }
 
     private fun addMessage(msg: Message) {

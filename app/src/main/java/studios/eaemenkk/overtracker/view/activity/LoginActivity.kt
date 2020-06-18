@@ -1,27 +1,17 @@
 package studios.eaemenkk.overtracker.view.activity
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_login.*
 import studios.eaemenkk.overtracker.R
-import studios.eaemenkk.overtracker.view.adapter.PagerAdapter
-import studios.eaemenkk.overtracker.view.fragment.DialogFragmentWindow
 import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 
 

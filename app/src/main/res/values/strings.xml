@@ -46,4 +46,5 @@
     <string name="location_denied">Unable to update user\'s location</string>
     <string name="most_played_region">Top regions</string>
     <string name="load_map_failed">Failed to load map locations</string>
+    <string name="region_most_played">Region in which this hero is most played</string>
 </resources>

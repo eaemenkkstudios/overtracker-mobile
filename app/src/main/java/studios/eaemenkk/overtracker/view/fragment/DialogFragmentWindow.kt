@@ -49,7 +49,7 @@ class DialogFragmentWindow(private val data: String): DialogFragment() {
     override fun onResume() {
         super.onResume()
         val window = dialog!!.window
-        window!!.setLayout(1000, 1100)
+        window!!.setLayout(1000, 1150)
         //window.setGravity(Gravity.CENTER)
         //TODO:
     }

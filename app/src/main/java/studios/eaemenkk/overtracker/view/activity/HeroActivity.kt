@@ -1,8 +1,6 @@
 package studios.eaemenkk.overtracker.view.activity
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.drawable.AnimationDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +9,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,7 +22,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.viewmodel.HeroViewModel
-import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 import java.lang.Exception
 
 class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -83,7 +79,7 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun showInfo() {
         viewModel.heroInfo.observe(this, Observer { hero ->
-            tvHeroName.text = hero.friendlyName
+            tvHeroName.text = hero.raw_name
             Picasso.get().load(hero.img).into(ivHeroImg)
 
             vvIdle.setVideoURI(Uri.parse(hero.video))
@@ -141,7 +137,7 @@ class HeroActivity : AppCompatActivity(), OnMapReadyCallback {
         viewModel.heroLocation.observe(this, Observer { hero ->
             try {
                 val marker = LatLng(hero.location.lat, hero.location.lng)
-                mMap.addMarker(MarkerOptions().position(marker).title("Region the hero $heroName is most played in."))
+                mMap.addMarker(MarkerOptions().position(marker).title(getString(R.string.region_most_played)))
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(marker))
             } catch (e: Exception) {
                 Toast.makeText(this, getString(R.string.load_map_failed), Toast.LENGTH_LONG).show()

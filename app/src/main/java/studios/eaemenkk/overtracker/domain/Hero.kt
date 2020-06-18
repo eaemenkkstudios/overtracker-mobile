@@ -9,7 +9,7 @@ data class Hero (
     @PrimaryKey val name: String,
     @ColumnInfo(name = "role") var role: String,
     @ColumnInfo(name = "img") var img: String?,
-    @ColumnInfo(name = "friendly_name") var friendlyName: String?
+    @ColumnInfo(name = "raw_name") var raw_name: String?
 )
 
 @Entity
@@ -20,5 +20,5 @@ data class HeroDetails (
     @ColumnInfo(name = "lore") val lore: String?,
     @ColumnInfo(name = "video") var video: String?,
     @ColumnInfo(name = "difficulty") val difficulty: Int?,
-    @ColumnInfo(name = "friendly_name") var friendlyName: String?
+    @ColumnInfo(name = "raw_name") var raw_name: String?
 )
