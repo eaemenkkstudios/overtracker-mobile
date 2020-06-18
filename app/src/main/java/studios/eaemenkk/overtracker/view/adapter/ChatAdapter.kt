@@ -22,6 +22,22 @@ import studios.eaemenkk.overtracker.domain.Message
 class ChatAdapter(private val context: Context): RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     private var dataSet = ArrayList<Message>()
+    private val markdown = Markwon.builder(context)
+        .usePlugin(PicassoImagesPlugin.create(context))
+        .usePlugin(PicassoImagesPlugin.create(Picasso.get()))
+        .usePlugin(PicassoImagesPlugin.create(object: PicassoImagesPlugin.PicassoStore {
+            override fun cancel(drawable: AsyncDrawable) {
+                Picasso.get()
+                    .cancelTag(drawable)
+            }
+
+            override fun load(drawable: AsyncDrawable): RequestCreator {
+                return Picasso.get()
+                    .load(drawable.destination)
+                    .tag(drawable)
+            }
+        }))
+        .build()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.chat_message, parent, false)
@@ -34,27 +50,10 @@ class ChatAdapter(private val context: Context): RecyclerView.Adapter<ChatAdapte
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val message = dataSet[position]
-        val markdown = Markwon.builder(context)
-            .usePlugin(PicassoImagesPlugin.create(context))
-            .usePlugin(PicassoImagesPlugin.create(Picasso.get()))
-            .usePlugin(PicassoImagesPlugin.create(object: PicassoImagesPlugin.PicassoStore {
-                override fun cancel(drawable: AsyncDrawable) {
-                    Picasso.get()
-                        .cancelTag(drawable)
-                }
-
-                override fun load(drawable: AsyncDrawable): RequestCreator {
-                    return Picasso.get()
-                        .load(drawable.destination)
-                        .tag(drawable)
-                }
-            }))
-            .build()
-        markdown.setMarkdown(holder.msg, message.message)
 
         if(message.sender) {
             holder.cornerRight.visibility = View.VISIBLE
-            holder.cornerLeft.visibility = View.INVISIBLE
+            holder.cornerLeft.visibility = View.GONE
             holder.chatBubble.setCardBackgroundColor(context.getColor(R.color.colorDetail))
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             params.gravity = Gravity.END
@@ -65,7 +64,7 @@ class ChatAdapter(private val context: Context): RecyclerView.Adapter<ChatAdapte
             params.bottomMargin = 10
             holder.chatBubble.layoutParams = params
         }  else {
-            holder.cornerRight.visibility = View.INVISIBLE
+            holder.cornerRight.visibility = View.GONE
             holder.cornerLeft.visibility = View.VISIBLE
             val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             params.gravity = Gravity.START
@@ -77,6 +76,8 @@ class ChatAdapter(private val context: Context): RecyclerView.Adapter<ChatAdapte
             holder.chatBubble.layoutParams = params
             holder.chatBubble.setCardBackgroundColor(context.getColor(R.color.colorPrimary))
         }
+
+        markdown.setMarkdown(holder.msg, message.message)
     }
 
     fun addMessage(message: Message) {

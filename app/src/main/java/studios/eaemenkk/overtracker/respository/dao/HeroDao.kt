@@ -1,4 +1,4 @@
-package studios.eaemenkk.overtracker.respository
+package studios.eaemenkk.overtracker.respository.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

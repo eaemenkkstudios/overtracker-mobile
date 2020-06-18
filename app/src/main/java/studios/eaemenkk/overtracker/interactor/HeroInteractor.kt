@@ -5,10 +5,14 @@ import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Hero
 import studios.eaemenkk.overtracker.domain.HeroDetails
 import studios.eaemenkk.overtracker.domain.UserLocation
-import studios.eaemenkk.overtracker.respository.HeroRepository
+import studios.eaemenkk.overtracker.respository.retrofit.HeroRepository
 
 class HeroInteractor(context: Context) {
-    private val heroRepository = HeroRepository(context, context.getString(R.string.api_base_url))
+    private val heroRepository =
+        HeroRepository(
+            context,
+            context.getString(R.string.api_base_url)
+        )
 
     suspend fun getHero(heroName: String, callback: (hero: HeroDetails?) -> Unit) {
         heroRepository.getHero(heroName, callback)

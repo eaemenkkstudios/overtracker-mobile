@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Overtracker</string>
     <string name="api_base_url">https://overtracker-api.herokuapp.com</string>
+    <string name="database_name">overtracker-db</string>
     <string name="title_activity_hero">Hero Information</string>
     <string name="add_player_failed">Failed to add player.</string>
     <string name="player_added">Player added!</string>

@@ -1,4 +1,4 @@
-package studios.eaemenkk.overtracker.respository
+package studios.eaemenkk.overtracker.respository.retrofit
 
 import android.content.Context
 import retrofit2.Call

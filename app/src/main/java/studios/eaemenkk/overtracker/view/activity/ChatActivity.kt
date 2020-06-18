@@ -17,7 +17,7 @@ class ChatActivity: AppCompatActivity() {
     private val viewModel: ChatViewModel by lazy {
         ViewModelProvider(this).get(ChatViewModel::class.java)
     }
-    private val adapter = ChatAdapter(this)
+    private lateinit var adapter: ChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +51,7 @@ class ChatActivity: AppCompatActivity() {
     }
 
     private fun configureRecyclerView() {
+        adapter = ChatAdapter(this)
         rvChatMessages.adapter = adapter
         rvChatMessages.layoutManager = layoutManager
         layoutManager.stackFromEnd = true

@@ -1,4 +1,4 @@
-package studios.eaemenkk.overtracker.respository
+package studios.eaemenkk.overtracker.respository.retrofit
 
 import android.content.Context
 import com.google.gson.Gson
@@ -20,7 +20,10 @@ open class BaseRetrofit(context: Context, baseUrl: String) {
         val logInterceptor = HttpLoggingInterceptor()
         logInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val cookieInterceptor = CookieInterceptor(context)
+        val cookieInterceptor =
+            CookieInterceptor(
+                context
+            )
 
         val client = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)

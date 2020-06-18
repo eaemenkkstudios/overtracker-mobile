@@ -3,12 +3,15 @@ package studios.eaemenkk.overtracker.interactor
 import android.content.Context
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.Player
-import studios.eaemenkk.overtracker.domain.UserLocation
-import studios.eaemenkk.overtracker.respository.PlayerRepository
+import studios.eaemenkk.overtracker.respository.retrofit.PlayerRepository
 import java.lang.Exception
 
 class PlayerInteractor(context: Context) {
-    private val playerRepository = PlayerRepository(context, context.getString(R.string.api_base_url))
+    private val playerRepository =
+        PlayerRepository(
+            context,
+            context.getString(R.string.api_base_url)
+        )
 
     fun playerInfo(tagId: String, callback: (player: Player?) -> Unit) {
         playerRepository.playerInfo(tagId, callback)

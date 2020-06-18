@@ -20,75 +20,44 @@ import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.domain.AdPlayer
 import studios.eaemenkk.overtracker.view.fragment.DialogFragmentWindow
 
-private const val AD_INTERVAL = 5
-
-class PlayerAdapter(private val context: Context, private val supportFragmentManager: FragmentManager) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
+class PlayerAdapter(private val supportFragmentManager: FragmentManager) : RecyclerView.Adapter<PlayerAdapter.PlayerViewHolder>() {
     private var dataSet = ArrayList<Player>()
 
     override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): PlayerViewHolder {
-        return when(viewType) {
-            0 -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.player_list_item, parent, false)
-                PlayerItemViewHolder(view)
-            }
-            else -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.banner_ad_list_item, parent, false)
-                AdPlayerViewHolder(view)
-            }
-        }
-
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.player_list_item, parent, false)
+        return PlayerViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return dataSet.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if(dataSet[position] is AdPlayer) 1 else 0
-    }
-
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player = dataSet[position]
 
-        when (holder) {
-            is AdPlayerViewHolder -> {
-                val adView = AdView(context)
-                adView.adSize = AdSize.FULL_BANNER
-                adView.adUnitId = context.getString(R.string.ad_banner_id)
-                adView.adListener = object: AdListener() {
-                    override fun onAdFailedToLoad(errorCode: Int) {
-                        removePlayer(position)
-                    }
-                }
-                adView.loadAd(AdRequest.Builder().build())
-                holder.itemView.cardView.addView(adView)
-            }
-            is PlayerItemViewHolder -> {
-                holder.itemView.setOnClickListener {
-                    val dialogFragment = DialogFragmentWindow(player.id.toString())
-                    dialogFragment.show(supportFragmentManager, "")
-                }
-                holder.tag.text = player.tag
-                holder.tagNum.text = player.tagNum
-                holder.platform.text = player.platform
-                Picasso.get().load(player.portrait).into(holder.portrait)
-                holder.role.setImageResource(when (player.current?.role) {
-                    "support" -> R.drawable.support
-                    "damage" -> R.drawable.damage
-                    "tank" -> R.drawable.tank
-                    else -> R.drawable.unknown
-                })
-                holder.endorsement.setImageResource(
-                    when(player.current?.endorsement) {
-                        "1" -> R.drawable.endorsement_1
-                        "2" -> R.drawable.endorsement_2
-                        "3" -> R.drawable.endorsement_3
-                        "4" -> R.drawable.endorsement_4
-                        "5" -> R.drawable.endorsement_5
-                        else -> R.drawable.unknown
-                    })
-            }
+        holder.itemView.setOnClickListener {
+            val dialogFragment = DialogFragmentWindow(player.id.toString())
+            dialogFragment.show(supportFragmentManager, "")
         }
+        holder.tag.text = player.tag
+        holder.tagNum.text = player.tagNum
+        holder.platform.text = player.platform
+        Picasso.get().load(player.portrait).into(holder.portrait)
+        holder.role.setImageResource(when (player.current?.role) {
+            "support" -> R.drawable.support
+            "damage" -> R.drawable.damage
+            "tank" -> R.drawable.tank
+            else -> R.drawable.unknown
+        })
+        holder.endorsement.setImageResource(
+            when(player.current?.endorsement) {
+                "1" -> R.drawable.endorsement_1
+                "2" -> R.drawable.endorsement_2
+                "3" -> R.drawable.endorsement_3
+                "4" -> R.drawable.endorsement_4
+                "5" -> R.drawable.endorsement_5
+                else -> R.drawable.unknown
+            })
     }
 
     private fun removePlayer(index: Int) {
@@ -96,12 +65,9 @@ class PlayerAdapter(private val context: Context, private val supportFragmentMan
         notifyDataSetChanged()
     }
 
-    private fun addPlayer(index: Int, player: Player?) {
+    private fun addPlayer(player: Player?) {
         if(player != null) {
             dataSet.add(player)
-            if(index % AD_INTERVAL == AD_INTERVAL - 1) {
-                dataSet.add(AdPlayer())
-            }
             notifyDataSetChanged()
         }
     }
@@ -109,20 +75,18 @@ class PlayerAdapter(private val context: Context, private val supportFragmentMan
     fun addPlayers(players: ArrayList<Player>?) {
         if(players != null) {
             dataSet.addAll(players)
-            players.forEachIndexed { index, player ->  addPlayer(index, player)}
+            notifyDataSetChanged()
         }
     }
 
     fun setPlayers(players: ArrayList<Player>?) {
         if(players != null) {
-            dataSet = ArrayList()
-            players.forEachIndexed { index, player ->  addPlayer(index, player)}
+            dataSet = players
+            notifyDataSetChanged()
         }
     }
 
-    abstract class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-    class PlayerItemViewHolder(itemView: View) : PlayerViewHolder(itemView) {
+    class PlayerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tag: TextView = itemView.tvPlayerTag
         val tagNum: TextView = itemView.tvPlayerTagNum
         val platform: TextView = itemView.tvPlayerPlatform
@@ -130,6 +94,4 @@ class PlayerAdapter(private val context: Context, private val supportFragmentMan
         val portrait: ImageView = itemView.ivPlayerPortrait
         val role: ImageView = itemView.ivPlayerRole
     }
-
-    class AdPlayerViewHolder(itemView: View) : PlayerViewHolder(itemView)
 }

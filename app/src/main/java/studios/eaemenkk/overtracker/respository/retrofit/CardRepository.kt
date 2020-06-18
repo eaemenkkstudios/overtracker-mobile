@@ -1,11 +1,10 @@
-package studios.eaemenkk.overtracker.respository
+package studios.eaemenkk.overtracker.respository.retrofit
 
 import android.content.Context
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Query
 import studios.eaemenkk.overtracker.domain.Card
 

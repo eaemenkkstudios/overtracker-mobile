@@ -1,8 +1,6 @@
-package studios.eaemenkk.overtracker.respository
+package studios.eaemenkk.overtracker.respository.retrofit
 
 import android.content.Context
-import android.os.AsyncTask
-import android.os.Handler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
@@ -15,7 +13,7 @@ import studios.eaemenkk.overtracker.domain.Hero
 import studios.eaemenkk.overtracker.domain.HeroDetails
 import studios.eaemenkk.overtracker.domain.LocationObject
 import studios.eaemenkk.overtracker.domain.UserLocation
-import kotlin.coroutines.coroutineContext
+import studios.eaemenkk.overtracker.respository.room.HeroRoomRepository
 
 interface HeroService {
     @GET("/heroes/{heroName}")
@@ -34,7 +32,8 @@ interface HeroService {
 
 class HeroRepository(context: Context, baseUrl: String): BaseRetrofit(context, baseUrl) {
     private val service = retrofit.create(HeroService::class.java)
-    private val room = HeroRoomRepository(context)
+    private val room =
+        HeroRoomRepository(context)
     suspend fun getHero(heroName: String, callback: (hero: HeroDetails?) -> Unit) {
         coroutineScope {
             val heroDetail = room.getHeroDetail(heroName)

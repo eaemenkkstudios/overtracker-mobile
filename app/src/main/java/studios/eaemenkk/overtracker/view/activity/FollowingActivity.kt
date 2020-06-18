@@ -20,14 +20,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_following.*
+import kotlinx.android.synthetic.main.activity_following.adView
+import kotlinx.android.synthetic.main.activity_login.*
 import studios.eaemenkk.overtracker.R
 import studios.eaemenkk.overtracker.view.adapter.PlayerAdapter
 import studios.eaemenkk.overtracker.viewmodel.AuthViewModel
 import studios.eaemenkk.overtracker.viewmodel.PlayerViewModel
 
 class FollowingActivity : AppCompatActivity() {
-    private val adapter = PlayerAdapter(this, supportFragmentManager)
+    private val adapter = PlayerAdapter(supportFragmentManager)
     private var showLoadingIcon = true
     private var isLoading = false
     private var refresh = true
@@ -48,6 +51,7 @@ class FollowingActivity : AppCompatActivity() {
             Toast.makeText(this, result.msg, Toast.LENGTH_SHORT).show()
         })
 
+        adView.loadAd(AdRequest.Builder().build())
         srlFeedFollowing.setOnRefreshListener { onRefresh() }
         srlFeedFollowing.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         srlFeedFollowing.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
