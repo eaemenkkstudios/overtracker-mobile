@@ -72,4 +72,4 @@ If you want to properly contribute to the development of this app, check out [CO
 
 # Change Log
 
-To see the full change log, check out [CHANGELOG.MD](CHANGELOG.md)
+To see the full change log, check out [CHANGELOG.md](CHANGELOG.md)
