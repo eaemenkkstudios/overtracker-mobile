@@ -40,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
                 loginLoadingContainer.visibility = View.VISIBLE
                 viewModel.isAuth()
             } else {
-                viewModel.logout()
                 Toast.makeText(this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show()
             }
         })
@@ -53,7 +52,10 @@ class LoginActivity : AppCompatActivity() {
                         .addCategory("OVERTRACKER_GLOBAL_FEED")
                     startActivity(intent)
                     finish()
-                } else loginLoadingContainer.visibility = View.GONE
+                } else {
+                    viewModel.logout()
+                    loginLoadingContainer.visibility = View.GONE
+                }
             }
         })
 
