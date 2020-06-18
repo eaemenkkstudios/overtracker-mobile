@@ -16,25 +16,34 @@ In order to use the features present in the Overtracker app, you'll need to crea
 Clicking in the icons in the bottom menu you can navigate through the main screens of the app.
 
 The first screen after you login is the Global Feed, where the latest SR, Main Hero, Win Rate and Endorsement Level updates of the top registered players are shown in different cards. There you can also click on any card to show more information about the player in a popup window. In this popup window you can also follow the player by clicking on the button in the bottom right corner of his profile icon.
-
-![Global Feed gif](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/global_feed.gif?raw=true)
+<p align="center">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/global_feed.gif?raw=true">
+<p>
 
 The second screen is the Local Feed. This screen is just like the Global Feed, except it only shows updates from the players you're following. There you can also search an especific player by clicking in the floating button in the bottom right corner and typing their battletag.
 
-![Follow Player gif](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/follow_player.gif?raw=true)
+<p align="center">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/follow_player.gif?raw=true">
+</p>
 
 The button above the "Add Player" button takes you to the Following screen, where you can see a list of all the players you've followed.
 
-![Following Players gifs](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/following.gif?raw=true)
+<p align="center">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/following.gif?raw=true">
+</p>
 
 The third screen is the Hero List screen, where you can see a list of all the heroes playable in Overwatch. This list is updated based on the [game's website](https://playoverwatch.com/heroes). Clicking on any hero will take you to the Hero Details screen, where there is more information about the hero and a map showing the region where this hero is played the most. Note that the location is calculated based on the average location of ours users, so as the number of users increases, the accuracy of this location will increase too.
 
-![Hero Details gif](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/hero_details.gif?raw=true)
+<p align="center">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/hero_details.gif?raw=true">
+</p>
 
 The fourth screen is the Chatbot screen. You can ask the bot about overwatch heroes, latest patch notes, ask him to give you a random workshop code, etc. This Chatbot was made using [DialogFlow](https://dialogflow.com/).
 
-![Chatbot conversation](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/chatbot.png?raw=true)
-![Chatbot answer about patch notes gif](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/patch_notes.gif?raw=true)
+<p align="center">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/chatbot.png?raw=true">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/patch_notes.gif?raw=true">
+</p>
 
 # Setting up
 If you want to make your own fork/improvement, you'll need to set up some stuff before. First, you'll need the [latest Android Studio release](https://developer.android.com/studio).
@@ -62,7 +71,9 @@ This file goes into `/app/src/main/res/values`. As you could guess, the first th
 
 You'll also need to setup a basic emulator (or run on your own Android smartphone), which is also explained on [this documentation](https://developer.android.com/studio/run/emulator). You can select the device that you want to run on this menu:
 
-![Emulator view](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/emulator.png?raw=true)
+<p align="center">
+  <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/emulator.png?raw=true">
+</p>
 
 Run the app by pressing on the play button or by pressing `Shift + F10`. Aaaaaand that's it! Happy hacking!
 
