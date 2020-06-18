@@ -2,7 +2,7 @@
   <img src="https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/logo.png?raw=true">
 </p>
 
-[![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
+[![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) [![HitCount](http://hits.dwyl.com/eaemenkkstudios/overtracker-mobile.svg)](http://hits.dwyl.com/eaemenkkstudios/overtracker-mobile)
 
 # Welcome!
 Welcome to the Overtracker project! Overtracker is an Android app that helps you to keep track of yours and many other player's competitive scores on Overwatch! Feel free to look around and contribute!
@@ -34,7 +34,7 @@ The third screen is the Hero List screen, where you can see a list of all the he
 The fourth screen is the Chatbot screen. You can ask the bot about overwatch heroes, latest patch notes, ask him to give you a random workshop code, etc. This Chatbot was made using [DialogFlow](https://dialogflow.com/).
 
 ![Chatbot conversation](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/chatbot.png?raw=true)
-![Chatbot answer about patch notes gif](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/readme/patch_notes.gif?raw=true)
+![Chatbot answer about patch notes gif](https://github.com/eaemenkkstudios/overtracker-mobile/blob/master/readme/patch_notes.gif?raw=true)
 
 # Setting up
 If you want to make your own fork/improvement, you'll need to set up some stuff before. First, you'll need the [latest Android Studio release](https://developer.android.com/studio).
