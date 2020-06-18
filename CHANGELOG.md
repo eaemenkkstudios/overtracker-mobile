@@ -1,5 +1,13 @@
 # Change Log
 
+# v2.1.1
+### Bug fixes
+- Minor layout changes
+
+# v2.1.0
+### Bug fixes
+- Adapts app to the backend changes
+
 # v2.0.1
 ### Bug fixes
 - Failed sessions are no longer logged in
