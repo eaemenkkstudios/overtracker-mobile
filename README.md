@@ -66,25 +66,10 @@ You'll also need to setup a basic emulator (or run on your own Android smartphon
 
 Run the app by pressing on the play button or by pressing `Shift + F10`. Aaaaaand that's it! Happy hacking!
 
+# Contributing
+
 If you want to properly contribute to the development of this app, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
 # Change Log
-## v2.0.0
-### Features
-- Blizzard OAuth-based log-in system;
-- Heroes details;
-- Most played heroes by region;
-- Helping Dialogflow chatbot;
-- Player profile screen refactoring.
-### Bug fixes
-- Minor bugs with log-in sessions.
-## v1.1.1
-### Bug fixes
-- Decreases ads frequency.
-## v1.1.0
-### Features
-- Ads support.
-## v1.0.0
-### Features
-- Firebase Realtime log-in and sign-up system;
-- Global and local feeds.
+
+To see the full change log, check out [CHANGELOG.MD](CHANGELOG.md)

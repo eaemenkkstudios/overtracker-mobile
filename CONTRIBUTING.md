@@ -1,6 +1,8 @@
-# How to contribute
+# Contributing
 
 First of all, thank you for being interested in contributing to this project.
+
+# How to contribute
 
 It's very easy to contribute. First, follow the on the `Setting up` section of the [README](README.md#setting-up), but instead of just cloning the repository, [fork it](https://help.github.com/en/github/getting-started-with-github/fork-a-repo). 
 
