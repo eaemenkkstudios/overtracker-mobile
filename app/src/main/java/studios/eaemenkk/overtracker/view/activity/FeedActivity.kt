@@ -93,21 +93,12 @@ class FeedActivity: AppCompatActivity() {
                     layoutManager.startSmoothScroll(smoothScroller)
                 }
             }
-            return@setOnNavigationItemSelectedListener false
+            false
         }
 
         srlFeed.setOnRefreshListener { onRefresh() }
         srlFeed.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorPrimary))
         srlFeed.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
-                    LOCATION_PERMISSION)
-        } else {
-            getUserLocation()
-        }
 
         playerViewModel.locationUpdated.observe(this, Observer { result ->
             println("Location updated: $result")
@@ -117,11 +108,7 @@ class FeedActivity: AppCompatActivity() {
         getFeed()
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             LOCATION_PERMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
@@ -133,10 +120,16 @@ class FeedActivity: AppCompatActivity() {
         }
     }
 
-    @SuppressLint("MissingPermission")
     private fun getUserLocation() {
-       val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0.1f, locationListener)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                LOCATION_PERMISSION)
+        } else {
+            val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0, 0.1f, locationListener)
+        }
     }
 
     private fun getFeed() {

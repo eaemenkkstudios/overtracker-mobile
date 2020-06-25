@@ -88,9 +88,9 @@
                 android:layout_height="match_parent"
                 android:background="#A3000000"
                 android:clickable="true"
+                android:focusable="true"
                 android:translationZ="100dp"
-                android:visibility="gone"
-                android:focusable="true">
+                android:visibility="gone">
 
                 <ProgressBar
                     android:id="@+id/progressBar2"
